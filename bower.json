@@ -1,0 +1,20 @@
+{
+  "name": "RequireJS Starter",
+  "version": "1.0.0",
+  "description": " run bower install font-awesome --save",
+  "dependencies": {
+    "bootstrap": "~3.2.0",
+    "marionette": "~2.0.1",
+    "requirejs": "~2.1.14",
+    "modernizr": "~2.8.2",
+    "handlebars": "~1.3.0",
+    "text": "~2.0.12",
+    "backbone.syphon": "~0.4.1",
+    "font-awesome": "~4.1.0",
+    "jquery-ui": "~1.11.0",
+    "bootstrap-validator": "~0.5.0",
+    "json": "*",
+    "jquery-validate": "~1.13.0",
+    "backbone.localStorage": "~1.1.9"
+  }
+}

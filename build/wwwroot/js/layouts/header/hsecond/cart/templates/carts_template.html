@@ -1,0 +1,51 @@
+{{#if shown}}
+
+<div class="heading">
+          <a><h4><img alt="" src="assets/image/cart/cart-bg.png" width="32" height="32"></h4>
+          <span id="cart-total">{{items}} item(s) - <i class="{{symbol}}"></i> {{total}}</span>
+          </a> 
+</div>
+<div class="content" id="cart-content">
+            		<div class="mini-cart-info"></div>
+            		<div class="mini-cart-total">
+              			<table>
+                			<tbody>
+                				<tr>
+                  				<td class="right"><b>Sub-Total:</b></td>
+                  				<td class="right"><i class="{{symbol}}"></i> {{subtotal}}</td>
+                				</tr>
+                				<tr>
+                  				<td class="right"><b>Eco Tax (-2.00):</b></td>
+                  				<td class="right"><i class="{{symbol}}"></i> 4.00</td>
+                				</tr>
+                				<tr>
+                  				<td class="right"><b>VAT (17.5%):</b></td>
+                  				<td class="right"><i class="{{symbol}}"></i> {{vat}}</td>
+                				</tr>
+                				<tr>
+                  				<td class="right"><b>Total:</b></td>
+                  				<td class="right"><i class="{{symbol}}"></i> {{total}}</td>
+                				</tr>
+              				</tbody>
+              			</table>
+            		</div>
+            		<div class="checkout">
+            			<a class="button" id='viewcart'>View Cart</a> &nbsp; 
+            			<a class="button" id="checkout">Checkout</a>
+            		</div>
+</div>
+ {{else}}
+ 
+ 
+ <div class="heading">
+ <span >
+ 	<div class="mini-cart-info"></div>
+ <h4>
+<img alt="" src="assets/image/cart/cart-bg.png" width="32" height="32" style="mar">
+</h4> 
+<span id="cart-total" style="margin: 5px;display: inline-block;">{{items}} item(s) </span>
+        
+</span>
+  </div>
+ {{/if}}
+   

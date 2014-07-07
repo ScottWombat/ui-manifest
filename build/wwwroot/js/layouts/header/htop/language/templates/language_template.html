@@ -1,0 +1,49 @@
+ <!-- 
+<a title="{{name}}">
+<img src="assets/image/lang/{{img}}" alt="{{name}}" style="margin-right:0px">
+<span style="display:inline-block;margin-left:0px;width:100px;padding-left:6px;padding-right:15px; ">{{name}}</span>
+<label class="checkbox">
+       {{#if selected}}
+            <input type="checkbox" value="option1" id="inlineCheckbox1" checked > 
+        {{else}}
+        	<input type="checkbox" value="option1" id="inlineCheckbox1" > 
+        {{/if}}
+       
+</label>
+
+</a>
+ -->
+
+<a>
+<table border='0' style="border-collapse: collapse;" cellpadding="0" cellspacing="0">
+<tr>
+<td >
+<img src="assets/image/lang/{{img}}" alt="{{img}}" style="margin-right:0px">
+</td>
+<td style="width:70px" >
+&nbsp;&nbsp;{{name}}
+</td>
+<td>
+<label style="padding:1px">
+       {{#if selected}}
+          <input type="checkbox" value="option1" id="inlineCheckbox1" checked > 
+        {{else}}
+       <input type="checkbox" value="option1" id="inlineCheckbox1"> 
+        {{/if}}
+       
+</label>
+</td>
+</tr>
+
+</table>
+
+</a>
+
+
+ 
+
+
+
+
+     
+       

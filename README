@@ -1,0 +1,62 @@
+Steps to build application
+
+1. > npm install
+
+2. > grunt build
+
+
+Create a public key on local
+
+>ssh-keygen -t rsa 
+
+Publish project to Heroky and gitHub. Go to Project folder
+
+> git init
+g
+> git add .
+
+> git commit -m "First committed"
+
+> git remote add heroku git@heroku.com:myproject.git
+
+> git remote add origin https://github.com/ScottWombat/myapp.git
+
+
+> heroku login
+
+> heroku create myproject --buildpack https://github.com/mbuchetics/heroku-buildpack-nodejs-grunt.git
+
+> heroku keys:add
+
+> git push heroku master
+
+> git push origin master
+
+> heroku ps:scale web=1
+
+> heroku open
+
+> heroku apps:open --app 'star2'
+
+> heroku apps:info --app 'star2'
+
+
+> heroku run node
+
+********************************
+>heroku run bash
+
+>heroku logs
+
+>heroku ps
+
+>heroku restart 
+
+*** bower ***
+>bower init
+>bower install
+>bower uninstall <package>
+>bower update <package>
+
+>bower list
+
