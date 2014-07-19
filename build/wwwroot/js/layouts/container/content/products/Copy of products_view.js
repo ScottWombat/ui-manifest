@@ -85,7 +85,7 @@ define(["application",'utils/templateManager','layout/content/products/entities/
 		navigate1 : function(e) {
 			e.preventDefault();
 			//this.trigger("navigate", this.model);
-			alert(this.model.id);
+			//alert(this.model.id);
 		}
    });
     

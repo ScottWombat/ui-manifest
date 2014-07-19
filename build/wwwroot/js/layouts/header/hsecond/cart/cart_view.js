@@ -64,8 +64,9 @@ define([ "application",'handlebars',
 			itemViewContainer : ".mini-cart-info",
 			itemView: View.Item,
 			initialize: function(){
-				 var items = this.model.get('products');
-				 this.collection = new Backbone.Collection(items);
+				 //get products from rest json
+				var items = this.model.get('products');
+				this.collection = new Backbone.Collection(items);
 			 },
 		events : {
 			"click a" : "showCart",

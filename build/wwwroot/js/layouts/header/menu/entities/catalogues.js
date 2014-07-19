@@ -12,7 +12,7 @@ define(["application",'localstorage'], function(Mystore){
 
     Entities.Catalogues = Backbone.Collection.extend({
       model: Entities.Catalogue,
-      url: REST_URL + "catalogues?callback=jsonCallback",
+      url: REST_URL + "catalogue/list?callback=jsonCallback",
      
 	  initialize: function(){
 	        console.info("Catalogues initialize")

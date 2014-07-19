@@ -6,6 +6,7 @@ define(["application",'layouts/header/hsecond/cart/cart_view',
     Main.Controller = {
     		
        addLayout:function(){
+    	  
     	   var cartCollection = App.request("cart:entities");
     	   $.when(cartCollection).done(function(cCollection){
     		   var cartview = new CartView.Carts({collection:cartCollection});
@@ -24,7 +25,12 @@ define(["application",'layouts/header/hsecond/cart/cart_view',
        },
       removeItem:function(id){
     	  var newCollection = App.request("cart:entities:removeitem",id);
-    	  this.view.collection.fetch();
+    	  $.when(newCollection).done(function(cCollection){
+   		   var cartview = new CartView.Carts({collection:cCollection});
+       	   App.cartRegion.show(cartview);
+   	       })
+    	  
+    	  //this.view.collection.fetch();
       },
       addItem:function(id){
     	 

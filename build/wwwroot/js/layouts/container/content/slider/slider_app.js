@@ -5,18 +5,13 @@ define([ "application", "layouts/container/content/slider/slider_controller",'co
 		var API = {
 			layout : function() {
 				Controller.addLayout();
-			},
-			layoutclose:function(){
-				Controller.close();
 			}
 		};
 
 		App.on("start", function() {
 			API.layout();
 		});
-		App.on("slider:close",function(){
-			API.layoutclose();
-		});
+		
 	});
 
 	return App.ContainerLayout;

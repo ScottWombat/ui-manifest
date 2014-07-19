@@ -119,12 +119,29 @@ define(['marionette'],function(Marionette){
 		 el: "#menu",
 		 //currentView: myView
 		 initialize: function(options){
-		    // your init code, here
+		  // alert("menuregion");
 		 }
 	 });
 	
 	App.SliderWrapperRegion =  Marionette.Region.extend({
-		 el: ".slider-wrapper",
+		 el: ".maincontent",
+		 //currentView: myView
+		 initialize: function(options){
+		    // your init code, here
+		 },
+		 open: function(view){
+			  
+			    this.$el.hide();
+			    this.$el.html(view.el);
+			   this.$el.slideDown(2500);
+		 },
+		 close:function(view){
+			 
+			  this.$el.slideUp(2500);
+		 }
+	 });
+	App.MainContentRegion =  Marionette.Region.extend({
+		 el: ".maincontent",
 		 //currentView: myView
 		 initialize: function(options){
 		    // your init code, here
@@ -140,7 +157,8 @@ define(['marionette'],function(Marionette){
 			   this.$el.slideUp(2500);
 		 }
 	 });
-	App.MainContentRegion =  Marionette.Region.extend({
+	
+	App.CheckoutRegion =  Marionette.Region.extend({
 		 el: ".maincontent",
 		 //currentView: myView
 		 initialize: function(options){

@@ -13,7 +13,7 @@ define([ "application",'layouts/header/menu/menu_controller',
 			},
 			showProducts: function(id){
 				//Controller.showProduct(id);
-				alert('showproduct')
+				//alert('showproduct' + id);
 			}
 		};
 

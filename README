@@ -1,9 +1,10 @@
 Steps to build application
-
 1. > npm install
 
 2. > grunt build
 
+
+npm install mocha@1.18.2 --save-devero
 
 Create a public key on local
 
@@ -59,4 +60,9 @@ g
 >bower update <package>
 
 >bower list
+
+**************Curl*******************
+
+curl -i -X POST -H "Content-Type: application/json" -d "{\"username\":\"xyz\",\"password\":\"xyz\"}" http://localhost:3000/login
+
 

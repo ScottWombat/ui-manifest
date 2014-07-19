@@ -30,7 +30,8 @@ define([ "application", "layouts/header/hsecond/cart/cart_controller" ], functio
 		App.on("cart:cart", function() {
 			API.refreshEntities();
 		});
-		App.on("cart:additem", function(id){
+		App.on("cart:addItem", function(id){
+			  alert("Additem:" +id);
 		      API.addItem(id);
 		});
 		App.on("cart:removeItem", function(id){

@@ -11,7 +11,8 @@
   "dependencies": {
     "express": "~4.4.5",
     "logfmt": "~1.1.2",
-    "http": "~0.0.0"
+    "http": "~0.0.0",
+     "colors": "~0.6.2"
   },
   "devDependencies": {
     "grunt": "~0.4.5",

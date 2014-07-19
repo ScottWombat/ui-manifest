@@ -11,7 +11,7 @@ define(["application",'localstorage'], function(App){
 
     Entities.Languages = Backbone.Collection.extend({
       model: Entities.Language,
-      url: REST_URL + "languages?callback=jsonCallback",
+      url: REST_URL + "language/list?callback=jsonCallback",
 	    initialize: function(){
 	        console.info("Languages initialize")
 	      

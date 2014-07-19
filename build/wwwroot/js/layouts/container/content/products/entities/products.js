@@ -7,10 +7,12 @@ define(["application"], function(Mystore){
 
     Entities.Products = Backbone.Collection.extend({
       model: Entities.Product,
-      url: REST_URL + "products/Mobile Phones?callback=jsonCallback",
+      url:'',
+     // url: REST_URL + "products/Mobile Phones?callback=jsonCallback",
      
-	  initialize: function(){
-	        console.info("Products initialize")
+	  initialize: function(options){
+	        console.info("Products initialize" + options.menuId);
+	        this.url = REST_URL + "product/list/" + options.menuId + "?callback=jsonCallback";
 	      
 	    },
 	    parse: function (response) {
@@ -18,16 +20,16 @@ define(["application"], function(Mystore){
 	    }
     });
 
-    var initializeHeaders = function(){
-    	Entities.Collection = new Entities.Products();
+    var initializeHeaders = function(menuId){
+    	Entities.Collection = new Entities.Products({menuId:menuId});
     	return Entities.Collection;
     };
     
    
     var API = {
-      getHeaders: function(){
-    	
-           Entities.Collection = initializeHeaders();
+      getHeaders: function(menuId){
+    	 
+           Entities.Collection = initializeHeaders(menuId);
            Entities.Collection.fetch(
         		   {success:function(){
         			   console.info('fetching products collection from storage');
@@ -42,8 +44,8 @@ define(["application"], function(Mystore){
       }
     };
 
-    Mystore.reqres.setHandler("products:entities", function(){
-      return API.getHeaders();
+    Mystore.reqres.setHandler("products:entities", function(menuId){
+      return API.getHeaders(menuId);
     });
   });
 

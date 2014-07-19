@@ -1,0 +1,47 @@
+<script id="wizard-template" type="text/x-handlebars-template">
+    <!-- Wizard -->
+        <div id="wizard">
+        
+            <!-- Tabs -->
+                <ul id="wizard-view-tabs" class="nav nav-tabs"></ul>
+            <!-- Tabs -->
+            
+            <!-- View Container -->        
+                <div id="wizard-view-container"></div>
+            <!-- View Container -->
+
+            <!-- Pagination -->
+                <ul class="pager">
+                    <li class="previous">
+                        <a href="#" class="btn-previousView hide">&larr; previous</a>
+                    </li>
+                    <li class="next">
+                        <a href="#" class="btn-nextView hide">next &rarr;</a>
+                    </li>
+                </ul>
+            <!-- Pagination -->
+
+            <!-- Form Action Buttons -->
+                <div class="form-actions hide">
+                    <button type="submit" class="btn btn-primary btn-save">Save changes</button>            
+                </div>
+            <!-- Form Action Buttons -->        
+            
+        </div>    
+    <!-- Wizard -->
+</script>
+
+            
+<div class="container-fluid">
+    <div class="row well">        
+        <div class="12">
+            
+            <div class="alert alert-info">
+            <strong>Backbone.js Wizard</strong> Click next and previous to navigate the wizard.
+            </div>
+            
+            <div id="wizard-container"></div>
+            
+        </div>         
+    </div>
+</div>

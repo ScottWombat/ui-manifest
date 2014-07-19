@@ -1,12 +1,14 @@
-define(["application", "layouts/container/content/checkout/checkout_view"], function(App,Layout){
+define(["application", "layouts/container/content/checkout/checkout_layout"], function(App,Layout){
 	
   App.module("Container", function(Container, App, Backbone, Marionette, $, _){
     Container.Controller = {
        addLayout: function(){
-    			 //var layout = new ContainerLayout.Slider();
-    	         var layout = new Layout.Item();
-    	         
+    			
+    	         var layout = new Layout.MainLayout();
     	         App.maincontentRegion.show(layout);
+    	         //var wizard = new Layout.WizardLayout();
+    	        // App.maincontentRegion.show(wizard);
+    	        
       },
       close:function(){
     	 // App.sliderRegion.close();

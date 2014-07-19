@@ -13,15 +13,23 @@ define([ "application",'handlebars' ,
 				
 				events : {
 					"click a" : "navigate",
+					'mouseover a': 'mouseOver'
 				},
 				
 				navigate : function(e) {
 					e.preventDefault();
 					e.stopPropagation();
 					var menuId = $(e.currentTarget).attr('id');
-					alert('dddd');
+					//alert("Menu_Layout.js:"+menuId);
+					$('.categories_hor  > div > .column ').css({"display":"none"});
 					this.trigger("menu:navigate",menuId,menuId);
-					// this.trigger("menu:navigate",menuId);
+					
+				},
+				mouseOver : function(){
+					//e.preventDefault();
+					//e.stopPropagation();
+				
+					$('.categories_hor > div > .column').css({"display":"block"});
 				},
 				onRender : function() {
 					if (this.model.selected) {

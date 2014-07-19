@@ -6,9 +6,8 @@ define(["application",'utils/templateManager',
         'text!layouts/container/content/products/templates/pagination_template.html',
         'text!layouts/container/content/products/templates/product_template.html',
         'text!layouts/container/content/products/templates/div_template.html',
-
+        'layouts/container/content/products/entities/products',
         'layouts/container/content/products/entities/products'
-       
         
         //,
        // ,
@@ -21,7 +20,7 @@ define(["application",'utils/templateManager',
 	
   App.module("Main.Content.View", function(View, App, Backbone, Marionette, $, _){
 	
-    View.Layout = Marionette.LayoutView.extend({
+    View.Layout = Marionette.Layout.extend({
     	
       template: TemplateManager.getTemplate(MainPanel),
 
@@ -30,15 +29,17 @@ define(["application",'utils/templateManager',
         productRegion: "#content"
       },
       initialize: function(options){
-    	
+    	  
+    	  var productCollection = options.products;
+    	 
     	  this.leftPanelView = new View.LeftPanel();
     	 
-    	  this.productPanelView = new View.ProductContentLayout();
+    	  this.productPanelView = new View.ProductContentLayout({products:productCollection});
       	 },
       	 onRender: function() {},
 
       	 onShow: function() {
-      		 //alert('onshow');
+      		
       		this.leftPanelRegion.show(this.leftPanelView);
       		this.productRegion.show(this.productPanelView);
       	 }
@@ -50,19 +51,20 @@ define(["application",'utils/templateManager',
         
       });
     
-    View.ProductContentLayout = Marionette.LayoutView.extend({
+    View.ProductContentLayout = Marionette.Layout.extend({
 		
 	      template: TemplateManager.getTemplate(RightPanel),
 	      regions: {
 	    	 
 	          filterRegion: ".product-filter",
-	          productGridRegion : '.product-grid',
+	          productGridRegion : '.product-grid1',
 	          paginationRegion : '.pagination'
 	      },
-	      initialize:function(){
-	    	  
-	    	 var productCollection = App.request("products:entities");
-	    	  
+	      initialize:function(options){
+	    	 
+	    	// var productCollection = App.request("products:entities");
+	    	  var productCollection = options.products;
+	    	
 	    	  this.filter = new View.ProductFilter();
 	    	  this.grid = new View.ProductGrid({collection:productCollection});
 	    	  this.pagination = new View.ProductPagination();
@@ -91,18 +93,25 @@ define(["application",'utils/templateManager',
      	 template:  TemplateManager.getTemplate(product_tpl),
      	
      	events : {
-     		'click #cartBtn' : 'navigate1',
-			 "click a" : "navigate"
+     		'click #cartBtn' : 'addCartItem',
+     		'click #wishlistBtn': 'addWishlistItem',
+			'click a' : 'navigate'
 		},
 		navigate : function(e) {
 			e.preventDefault();
 			//this.trigger("navigate", this.model);
-			alert("Here");
+			//alert("Here");
 		},
-		navigate1 : function(e) {
+		addCartItem : function(e) {
 			e.preventDefault();
-			//this.trigger("navigate", this.model);
-			alert(this.model.id);
+			//alert("ddd");
+			App.trigger("cart:addItem", this.model.id);
+			//alert(this.model.id);
+		},
+		addWishlistItem:function(e){
+			e.preventDefault();
+			
+			App.trigger("wishitems:addItem", this.model.id);
 		}
    });
     

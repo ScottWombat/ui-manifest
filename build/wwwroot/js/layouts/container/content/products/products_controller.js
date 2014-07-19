@@ -5,16 +5,17 @@ define(["application",
   App.module("Products", function(Products, App, Backbone, Marionette, $, _){
     Products.Controller = {
     
-      showProducts: function(id){
-    	 // alert(id);
-    	 var view = new ProductLayout.Layout({menuId: id});
-    	// App.sliderRegion.close();
-    	 App.sliderRegion.show(view);
+      showProducts: function(menuId){
+    	 var productCollection = App.request("products:entities",menuId);   
+    	 this.view = new ProductLayout.Layout({products:productCollection});
+    //	 App.MainContentRegion.MainCo.close() ;
+    	 App.sliderRegion.close();
+    	 App.maincontentRegion.show(this.view);
     	
       },
-
+    
       setActiveHeader: function(headerUrl){
-        var links = App.request("catalogues:entities");
+        var links = App.request("catalogues:entities",id);
        // var headerToSelect = links.find(function(header){ return header.get("url") === headerUrl; });
    
       }

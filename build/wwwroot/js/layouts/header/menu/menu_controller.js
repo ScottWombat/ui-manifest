@@ -7,15 +7,15 @@ define(["application", "layouts/header/menu/menu_layout","layouts/header/menu/en
 				
 				  var catalogueCollection = App.request("catalogues:entities");
 				  var viewMenu = new MenuLayout.Catalogues({collection:catalogueCollection});
-				  viewMenu.on("itemview:menu:navigate",function(myobject,id){
-					  
-					  App.trigger("products:show",id);
+				  viewMenu.on("itemview:menu:navigate",function(menuId,menuId){
+					 
+					  App.trigger("products:show",menuId);
 				  });
 				  
 				  App.menuRegion.show(viewMenu);
 			  },
 			  showProduct: function(id){
-				
+				 
 				 // App.sliderRegion.close();
 			  }
 	  };

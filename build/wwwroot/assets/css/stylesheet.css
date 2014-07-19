@@ -1004,7 +1004,7 @@ span.more.plus{background-position:0 -80px;}
 .product-info .image-additional { width:auto; margin-bottom:10px; max-width:none; }
 .product-info .image-additional a { display:inline-block; float:none; }
 .product-info .cart div { margin-bottom:15px; float:none;}
-.product-grid{ text-align:center; }
+.product-grid{ text-align:center;}
 .cart-info thead .price, .cart-info tbody .price { display:none; }
 .sitemap-info .left, .sitemap-info .right, #content .content .left, #content .content .right{ float:none; width:auto }
 .cart-info thead .model, .cart-info tbody .model{display:none;}

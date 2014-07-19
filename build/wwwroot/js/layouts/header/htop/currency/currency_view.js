@@ -89,7 +89,7 @@ define([ "application",'handlebars' ,
 			 
 		 });
 		
-		 View.Layout = Marionette.LayoutView.extend({
+		 View.Layout = Marionette.Layout.extend({
 			  itemViewContainer : "#currency",
 			  template : TemplateManager.getTemplate(container_tpl),
 		      regions: {

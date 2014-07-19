@@ -1,22 +1,23 @@
 requirejs.config({
     baseUrl: 'js',
     paths: {
-    	jquery                  : 'libs/jquery/jquery',
+    	jquery                  : 'libs/jquery/jquery-1.9.1',
     	'jquery-ui'             : 'libs/jquery-ui/jquery-ui',
-    	'jquery-validate'	    : 'libs/jquery-validate/jquery.validate',
+    	'jquery-validate'	    : 'libs/jquery/jquery.validate',
     	underscore              : 'libs/underscore/underscore', // https://github.com/amdjs
     	backbone                : 'libs/backbone/backbone',// https://github.com/amdjs
     	'backbone.picky'        : "libs/backbone/backbone.picky",
-    	'backbone.syphon'       : "libs/backbone.syphon/backbone.syphon",
-    	bootstrap				: 'libs/bootstrap/dist/js/bootstrap.min',
-    	localstorage            : 'libs/backbone.localStorage/backbone.localStorage',
+    	'backbone.syphon'       : "libs/syphon/backbone.syphon",
+    	bootstrap				: 'libs/bootstrap/js/bootstrap.min',
+    	//'bootstrap-validator'	: 'libs/bootstrap-validator/validator',
+    	localstorage            : 'libs/localStorage/backbone.localStorage',
     	marionette              : 'libs/marionette/backbone.marionette',
-    	handlebars              : 'libs/handlebars/handlebars',
+    	handlebars              : 'libs/handlebars/handlebars-v1.3.0',
     	json                    : 'libs/json/json2',
     	text                    : 'libs/text/text',
-    	//i18n					: 'libs/i18n/i18n',
-    	//traffiCop               : 'libs/trafficcop/TrafficeCop'
-    	//global			        : 'commons/global'
+    	i18n					: 'libs/i18n/i18n',
+    	traffiCop               : 'libs/trafficcop/TrafficeCop',
+    	global			        : 'commons/global'
     	
     
     },
@@ -48,7 +49,7 @@ requirejs.config({
      },
     
     
-     deps : ['jquery','jquery-ui','underscore','bootstrap','jquery-validate','marionette']
+     deps : ['jquery','jquery-ui','underscore','bootstrap','jquery-validate']
    
 });
 
@@ -75,15 +76,16 @@ require(['application','jquery','jquery-validate','bootstrap','commons/custom','
          'layouts/header/hsecond/search/search_app',
          'layouts/header/hsecond/cart/cart_app',
          'layouts/header/menu/menu_app',
-         //'layouts/container/content/slider/slider_app',
+         'layouts/container/content/slider/slider_app',
          'layouts/container/content/viewcart/viewcart_app',
          'layouts/container/content/checkout/checkout_app',
          'layouts/container/content/login/login_app',
-         'layouts/container/content/signup/signup_app'
+         'layouts/container/content/signup/signup_app',
+         'layouts/container/content/checkout/content/step1/login/step1Login_app'
          //'layouts/header/hsecond/cart/cart_app'
          ], function(App){
-	
-	    App.start();		
+		//  sessionToken="DDDD";
+	      App.start();		
 });
 
 
