@@ -78,7 +78,7 @@ require(['application','jquery','jquery-validate','bootstrap','commons/custom','
          'layouts/header/menu/menu_app',
          'layouts/container/content/slider/slider_app',
          'layouts/container/content/viewcart/viewcart_app',
-         'layouts/container/content/checkout/checkout_app',
+        // 'layouts/container/content/checkout/checkout_app',
          'layouts/container/content/login/login_app',
          'layouts/container/content/signup/signup_app',
          'layouts/container/content/checkout/content/step1/login/step1Login_app'

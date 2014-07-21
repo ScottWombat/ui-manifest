@@ -23,6 +23,20 @@ define(["application"], function(App){
 		   }
 	});
 	
+	 
+	Entities.UpdateModel = Backbone.Collection.extend({
+		model: Entities.Cart,
+		initialize: function(options){
+		        console.info("Update model" + options.id);
+		       // this.url= REST_URL + "cart/add/item/" + options.id +"?callback=jsonCallback";
+		        this.url = options.url;
+		 },
+		 parse: function (response) {
+		        return response;
+		 }
+		
+	});
+	
 	 var initializeCart = function(){
 		 var url = REST_URL + "cart/list?callback=jsonCallback";
 	     Entities.Collection = new Entities.Carts({url:url});
@@ -30,6 +44,7 @@ define(["application"], function(App){
 	 };
 	 
 	 var initializeUpdateCart = function(id){
+		
 		 var url= REST_URL + "cart/add/item/" + id +"?callback=jsonCallback";
 	     Entities.Collection = new Entities.UpdateModel({url:url});
 	     return Entities.Collection;
@@ -41,8 +56,7 @@ define(["application"], function(App){
 	     return Entities.Collection;
 	 };
 	   
-    
-	/*
+		/*
 	Entities.UpdateModel = Backbone.Collection.extend({
 		model: Entities.Cart,
 		initialize: function(options){
@@ -54,7 +68,7 @@ define(["application"], function(App){
 		 }
 		
 	});
-	
+
 	Entities.UpdateModel_old = Backbone.Model.extend({
 		initialize: function(options){
 		        console.info("Cart initialize" + options.id);
@@ -134,10 +148,12 @@ define(["application"], function(App){
     });
     
     App.reqres.setHandler("cart:entities:update", function(id){
+    	
         return API.getUpdateCart(id);
     });
     
     App.reqres.setHandler("cart:entities:removeitem", function(id){
+    	
         return API.removeItem(id);
     });
     

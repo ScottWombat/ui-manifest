@@ -3,12 +3,10 @@ define(
 				'application',
 				'utils/templateManager',
 				'text!layouts/container/content/checkout/templates/checkout_template.html',
-				'text!layouts/container/content/checkout/templates/news.html',
-				'text!layouts/container/content/checkout/templates/view1.html',
-				'layouts/container/content/checkout/steps/checkout_steps_layout',
+				'layouts/container/content/checkout/steps/steps_layout',
 				'layouts/container/content/checkout/content/step1/step1_layout'
 				 ],
-		function(App, TemplateManager, tpl, newTpl, view1Tpl,Steps, Step1) {
+		function(App, TemplateManager, tpl,Steps, Step1) {
 
 			App.module("Checkout.Layout", function(Layout, App, Backbone,
 					Marionette, $, _) {
@@ -68,15 +66,12 @@ define(
 						}
 
 					},
-					onRender : function() {
-
-					},
+					
 					onShow : function() {
-
 						this.stepsRegion.show(this.viewSteps);
 						if (typeof sessionToken === 'undefined') {
 							// this.contentRegion.show(new Step1.MainLayout());
-							this.contentRegion.show(new Step1.Content())
+							this.contentRegion.show(new Step1.Content({steps:this.viewSteps}))
 						} else {
 							// this.contentRegion.show(new Step2.Content());
 						}
@@ -84,10 +79,7 @@ define(
 					}
 				});
 
-				// Layout.ContentRegion = Marionette.Region.extend({
-				// el : "#wizard"
-				// }
-				
+			    /*
 				Layout.Node = Marionette.Controller.extend({
 					_next :null, // reference next node
 					_previous : null, // reference previus node
@@ -165,11 +157,11 @@ define(
 				})
 				
 				Layout.View1 = Marionette.ItemView.extend({
-					template : TemplateManager.getTemplate(view1Tpl),
+					//template : TemplateManager.getTemplate(view1Tpl),
 				}),
 
 				Layout.WizardLayout = Marionette.ItemView.extend({
-					template : TemplateManager.getTemplate(newTpl),
+					//template : TemplateManager.getTemplate(newTpl),
 					wizardViews : new Layout.WizardViews(),
 					tagName : "div",
 					className : 'container',
@@ -200,7 +192,7 @@ define(
 				});
 				
 				
-
+				*/
 				
 
 			});

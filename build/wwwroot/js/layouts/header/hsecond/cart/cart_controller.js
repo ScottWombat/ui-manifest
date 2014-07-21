@@ -33,7 +33,7 @@ define(["application",'layouts/header/hsecond/cart/cart_view',
     	  //this.view.collection.fetch();
       },
       addItem:function(id){
-    	 
+    	
     	 var newCollection = App.request("cart:entities:update",id);
     	 //var newCollection1 = App.request("cart:entities");
     	 $.when(newCollection).done(function(cartCollection){

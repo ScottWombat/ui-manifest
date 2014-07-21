@@ -89,7 +89,11 @@ define([ "application",'handlebars',
 			$('#mycart').removeClass('active');
 			$('#cart-content').css({"display":"none"});
 			App.trigger('slider:close');
-			App.trigger('checkout:start');
+			
+			require(['layouts/container/content/checkout/checkout_app'],function(CheckoutApp){
+				App.trigger('checkout:start');
+			})
+			
 		},
 		showCart : function(e) {
 			e.preventDefault();

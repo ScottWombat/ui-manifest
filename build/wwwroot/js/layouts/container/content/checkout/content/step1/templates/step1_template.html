@@ -1,12 +1,14 @@
+
 <table width="100%"><tr><td>
+<form id='form1'>
 <div class="right" id="login">
               <h2>Returning Customer</h2>
               <b>E-Mail:</b><br>
-              <input type="text" value="" name="email">
+              <input type="text" name="email" id="email" data-validation="[NOTEMPTY, >=6, <=16]">
               <br>
               <br>
               <b>Password:</b><br>
-              <input type="password" value="" name="password">
+              <input type="password" name="password" id="pwd">
               <br>
               <a href="#">Forgotten Password</a><br>
               <br>
@@ -15,26 +17,30 @@
               <br>
            
 </div>
+</form>
 </td>
 <td>
+<form id='form2'>
 <div class="right" id="login">
               <h2>User Register</h2>
               <b>E-Mail:</b><br>
-              <input type="text" value="" name="email">
+              <input type="text" value="" name="email" id="email1">
               <br>
               <b>Password:</b><br>
-              <input type="password" value="" name="password">
+              <input type="password" value="" name="password" id="pwd1">
               <br>
               <b>Confirm Password:</b><br>
-              <input type="password" value="" name="confirmpassword">
+              <input type="password" value="" name="confirmpassword" id="confirmPwd1">
               <br> <br>
               <input type="button" class="button" id="button-login" value="Register">
               <br>
               <br>
            
 </div>
+</form>
 </td></tr>
 </table>
+</form>
 
 
 

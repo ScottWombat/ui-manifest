@@ -31,7 +31,7 @@ define([ "application", "layouts/header/hsecond/cart/cart_controller" ], functio
 			API.refreshEntities();
 		});
 		App.on("cart:addItem", function(id){
-			  alert("Additem:" +id);
+			
 		      API.addItem(id);
 		});
 		App.on("cart:removeItem", function(id){
