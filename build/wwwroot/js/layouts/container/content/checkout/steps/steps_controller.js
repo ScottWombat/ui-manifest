@@ -1,19 +1,17 @@
-define(["application", "layouts/container/content/checkout/steps/steps_layout"], function(App,Layout){
+define(["application", 
+        "layouts/container/content/checkout/steps/steps_layout",
+        'layouts/container/content/checkout/steps/entities/user'
+        ], function(App,Layout,User){
 	
   App.module("Container", function(Container, App, Backbone, Marionette, $, _){
     Container.Controller = {
-       addLayout: function(){
-    			
-    	       //  var layout = new Layout.MainLayout();
-    	        // App.maincontentRegion.show(layout);
-    	      
-      },
-      close:function(){
-    	 // App.sliderRegion.close();
-      },
-      update:function(){
-    	  alert("update"  );
+       doLogin: function(data){
+    	//  console.info(data);
+    	  var cart = App.request("checkout:login",data);
+    	 
+    	 return cart;
       }
+      
     };
   });
 

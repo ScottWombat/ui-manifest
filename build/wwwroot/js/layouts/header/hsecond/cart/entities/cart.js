@@ -30,12 +30,26 @@ define(["application"], function(App){
 		        console.info("Update model" + options.id);
 		       // this.url= REST_URL + "cart/add/item/" + options.id +"?callback=jsonCallback";
 		        this.url = options.url;
+		     // var target = document.getElementById('loading');
+		      //var spinner = new Spinner(opts).spin(target);
+		     
+		        
+		       // var target = document.getElementById('loading');
+		     // var spinner = new Spinner(opts).spin($loading);
+		       // var spinner = new Spinner().spin();
+		       // $('#loading').appendChild(spinner.el);
+		       // $('#loading').ajaxStart(function(){ $(this).fadeIn(); });
+		       // var target = document.getElementById('loading');
+		      //  $loading.spin({opts:opts});
+		   
+		      //  this.spinner.hide();
 		 },
 		 parse: function (response) {
+			
 		        return response;
 		 }
 		
-	});
+	 });
 	
 	 var initializeCart = function(){
 		 var url = REST_URL + "cart/list?callback=jsonCallback";
@@ -122,7 +136,7 @@ define(["application"], function(App){
        		   },
        		   error:function(){
         		      console.info('error populating data');
-        		   }
+        		}
         });     
       
        return Entities.Model;

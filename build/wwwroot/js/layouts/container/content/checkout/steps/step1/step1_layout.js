@@ -71,56 +71,7 @@ define([ 'application',
 			}
 		});
         
-        Layout.WizardViews = Marionette.Controller.extend({
-        	  node:function(){
-        		  var _next = null; //reference next node
-                  var _previous = null; //reference previus node
-                  var _view = view.ref; //referce current view
-                  var _tab = view.tab;
-                  return {
-                      setPrevious: function (node) { _previous = node; return this; }, //chainable!
-                      getPrevious: function () { return _previous; },
-                      setNext: function (node) { _next = node; return this; }, //chainable!
-                      getNext: function () { return _next; },
-                      getView: function () { return _view; },
-                      getTab: function () { return _tab; }
-                  };
-        	  },
-        	  _head :null,
-              _tail : null,
-              _current : null,
-              first: function(){
-            	  return _head;
-              },
-              last:function(){
-            	  return _tail; 
-              },
-              moveNext: function () {
-                  return (_current !== null) ? _current = _current.getNext() : null;
-              }, //set current to next and return current or return null
-              movePrevious: function () {
-                  return (_current !== null) ? _current = _current.getPrevious() : null;
-              }, //set current to previous and return current or return null
-              getCurrent: function () { return _current; },
-              insertView: function (view) {
-                  if (_tail === null) { // list is empty (implied head is null)                    
-                      _current = _tail = _head = new Node(view);
-                  }
-                  else {//list has nodes                    
-                      _tail = _tail.setNext(new Node(view).setPrevious(_tail)).getNext();
-                  }
-              },
-              setCurrentByTab: function (tab) {
-                  var node = _head;
-                  while (node !== null) {
-                      if (node.getTab() !== tab) { node = node.getNext(); }
-                      else { _current = node; break; }
-                  }
-              }
-        	  
-          
-        })
-		
+       
 		/**** work ****/
         Layout.CheckoutInfo = Backbone.Model.extend({
         	
@@ -134,7 +85,23 @@ define([ 'application',
 			className:'div-lelft',
 			tagName:'div',
 			index:1,
-			template:this.template=TemplateManager.getTemplate(Step6Template),
+			getTemplate: function(){
+				  if(this.index ==1){ 
+					   return TemplateManager.getTemplate(Step1Template);
+				   }else if(this.index==2){
+					   return TemplateManager.getTemplate(Step2Template);
+				  }else if(this.index==3){
+					  return TemplateManager.getTemplate(Step3Template);
+				  }else if(this.index==4){
+					  return TemplateManager.getTemplate(Step4Template);
+				  }else if(this.index==5){
+					  return TemplateManager.getTemplate(Step5Template);
+				  }else if(this.index==6){
+					  return TemplateManager.getTemplate(Step6Template);
+				  }else{
+					  return TemplateManager.getTemplate(Step7Template);
+				  }
+			},
 			initialize:function(options){
 				this.steps = options.steps;
 				
@@ -159,7 +126,7 @@ define([ 'application',
 				
 				
 			},
-		
+		   /*
 			render: function() {
 				if (this.index == 1) {
 				    this.renderStep1();
@@ -182,23 +149,42 @@ define([ 'application',
 				
 				//return this;
 			},
-			
+			*/
+			onRender :function(){
+				if (this.index == 1) {
+				    this.renderStep1();
+				}else if(this.index ==2){
+					this.renderStep2();
+				}else if(this.index ==3){
+				   this.renderStep3();
+				}else if(this.index ==4){
+				   this.renderStep4();
+				}else if(this.index ==5){
+					   this.renderStep5();
+				}else if(this.index ==5){
+					   this.renderStep5();
+				}else if(this.index ==6){
+					   this.renderStep6();
+				}else if(this.index ==7){
+					   this.renderStep7();
+				}
+			},
 			renderStep1: function () {
-				var compiledHtml1= _.template(Step1Template);
+				//var compiledHtml1= _.template(Step1Template);
 				//this.$el.html(compiledHtml1);
 				var $bac = $('#step1');
 				var step1Status = this.stepstatus.get('step1Status');
 				if(step1Status == null){
 					$bac.addClass('active-step');
 				}
-			
+			    //this.index=2;
 				
 			},renderStep2:function(){
-				 var that = this;
-				 require(['text!layouts/container/content/checkout/content/step1/templates/step2_template.html'], function(Step2Template){
-					 var compiledHtml2= _.template(Step2Template);
-		             that.$el.html(compiledHtml2);
-				 });
+				 //var that = this;
+				// require(['text!layouts/container/content/checkout/content/step1/templates/step2_template.html'], function(Step2Template){
+				//	 var compiledHtml2= _.template(Step2Template);
+		        //     that.$el.html(compiledHtml2);
+				// });
 				 this.stepstatus.set('step1Status','complete-step');
 				 this.stepstatus.set('step2Status','active-step');
 				 
@@ -216,11 +202,11 @@ define([ 'application',
 					 $bac3.addClass('completed-step');
 				 }
 				 
-
+				 //this.index=3;
 			},
 			renderStep3:function(){
-				var compiledHtml3= _.template(Step3Template);
-				this.$el.html(compiledHtml3);
+				//var compiledHtml3= _.template(Step3Template);
+				//this.$el.html(compiledHtml3);
 				
 				 this.stepstatus.set('step2Status','complete-step');
 				 this.stepstatus.set('step3Status','active-step');
@@ -238,11 +224,11 @@ define([ 'application',
 					 $bac4.removeClass('active-step');
 					 $bac4.addClass('completed-step');
 				 }
-				
+				//this.index=4;
 			},
 			renderStep4:function(){
-				var compiledHtml4= _.template(Step4Template);
-				this.$el.html(compiledHtml4);
+				//var compiledHtml4= _.template(Step4Template);
+				//this.$el.html(compiledHtml4);
 				
 				 this.stepstatus.set('step3Status','complete-step');
 				 this.stepstatus.set('step4Status','active-step');
@@ -260,11 +246,12 @@ define([ 'application',
 					 $bac5.removeClass('active-step');
 					 $bac5.addClass('completed-step');
 				 }
+				// this.index=5;
 				
 			},
 			renderStep5:function(){
-				var compiledHtml5= _.template(Step5Template);
-				this.$el.html(compiledHtml5);
+				//var compiledHtml5= _.template(Step5Template);
+				//this.$el.html(compiledHtml5);
 				
 				 this.stepstatus.set('step4Status','complete-step');
 				 this.stepstatus.set('step5Status','active-step');
@@ -282,12 +269,13 @@ define([ 'application',
 					 $bac6.removeClass('active-step');
 					 $bac6.addClass('completed-step');
 				 }
+				 //this.index=6;
 				
 			},
 			renderStep6:function(){
-				 var compiledHtml6= _.template(Step6Template,this.checkoutInfo);
+				// var compiledHtml6= _.template(Step6Template,this.checkoutInfo);
 				// this.$el.html(compiledHtml6);
-				 this.template=this.template=TemplateManager.getTemplate(Step6Template),
+				 //this.template=TemplateManager.getTemplate(Step6Template),
 				//this.template=TemplateManager.getTemplate(Step6Template),
 				
 				 this.stepstatus.set('step5Status','complete-step');
@@ -308,11 +296,12 @@ define([ 'application',
 					 $bac7.addClass('completed-step');
 				 }
 				
+				//this.index=7;
 				
 			},
 			renderStep7:function(){
-				var compiledHtml7= _.template(Step7Template);
-				this.$el.html(compiledHtml7);
+				//var compiledHtml7= _.template(Step7Template);
+				//this.$el.html(compiledHtml7);
 				
 				 this.stepstatus.set('step6Status','complete-step');
 				
@@ -324,12 +313,13 @@ define([ 'application',
 				 $bac7.addClass('active-step');
 				 
 				 this.stepstatus.set('step7Status','active-step');
-				
+				 //this.index=6;
 			},
 		
 			clickOnGotoStep1: function(e) {
 				e.preventDefault();
-				this.index = 1;
+				//this.index = 1;
+				var loginData = Backbone.Syphon.serialize(this);
 				this.render();
 			},	 
 			clickOnGotoStep2: function(e) {
@@ -355,16 +345,16 @@ define([ 'application',
 			},
 			clickOnGotoStep5: function(e) {
 				e.preventDefault();
-				var shippingMethodData = Backbone.Syphon.serialize(this);
-				this.checkoutInfo.shippingMethod=shippingMethodData;
+				//var shippingMethodData = Backbone.Syphon.serialize(this);
+				//this.checkoutInfo.shippingMethod=shippingMethodData;
 				this.index = 5;
 				this.render();
 			},
 			clickOnGotoStep6: function(e) {
-				var paymentMethodData = Backbone.Syphon.serialize(this);
-				this.checkoutInfo.paymentMethod=paymentMethodData;
-				this.model.test='test';
-				console.info(this.model);
+				//var paymentMethodData = Backbone.Syphon.serialize(this);
+				//this.checkoutInfo.paymentMethod=paymentMethodData;
+				//this.model.test='test';
+				//console.info(this.model);
 				e.preventDefault();
 				this.index = 6;
 				this.render();

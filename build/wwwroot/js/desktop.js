@@ -17,6 +17,7 @@ requirejs.config({
     	text                    : 'libs/text/text',
     	i18n					: 'libs/i18n/i18n',
     	traffiCop               : 'libs/trafficcop/TrafficeCop',
+    	lodash					: 'libs/lodash/lodash',
     	global			        : 'commons/global'
     	
     
@@ -81,7 +82,8 @@ require(['application','jquery','jquery-validate','bootstrap','commons/custom','
         // 'layouts/container/content/checkout/checkout_app',
          'layouts/container/content/login/login_app',
          'layouts/container/content/signup/signup_app',
-         'layouts/container/content/checkout/content/step1/login/step1Login_app'
+         'layouts/container/content/checkout/steps/steps_app'
+         //'layouts/container/content/checkout/content/step1/login/step1Login_app'
          //'layouts/header/hsecond/cart/cart_app'
          ], function(App){
 		//  sessionToken="DDDD";

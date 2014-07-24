@@ -26,7 +26,7 @@ define([ 'application',
 		   getTemplate: function(){
 			   if(this.index ==1){
 				return TemplateManager.getTemplate(Step6Template);
-			   }else{
+			   } else{
 				   return TemplateManager.getTemplate(Step2Template);
 			   }
 		   },
@@ -39,7 +39,7 @@ define([ 'application',
 				//return this;
 			//},
 			onShow:function(){
-				alert("onshow");
+				//alert("onshow");
 			
 			},
 			modelEvents: {

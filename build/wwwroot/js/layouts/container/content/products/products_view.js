@@ -104,7 +104,7 @@ define(["application",'utils/templateManager',
 		},
 		addCartItem : function(e) {
 			e.preventDefault();
-			//alert("ddd");
+
 			App.trigger("cart:addItem", this.model.id);
 			//alert(this.model.id);
 		},
