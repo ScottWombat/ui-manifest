@@ -4,7 +4,7 @@ define(
 				'utils/templateManager',
 				'text!layouts/container/content/checkout/templates/checkout_template.html',
 				'layouts/container/content/checkout/menubar/menubar_layout',
-				'layouts/container/content/checkout/steps/steps_layout'
+				'layouts/container/content/checkout/steps/steps_layout','backbone.syphon'
 				//'layouts/container/content/checkout/content/step1/step1_layout'
 				 ],
 		function(App, TemplateManager, tpl,Steps, Step1) {

@@ -1,11 +1,27 @@
 'use strict';
 var bcrypt = require('bcrypt-nodejs');
-var authService = require('../middleware/auth');
+
+var mid = require('../middleware/auth.js');
+
+
+var common = require('../env/common');
+var config = common.config();
+
+
 var auth = function (app) {
-	app.post('/login',
-			authService.getUser,
+	console.log("auth");
+	app.get('/login',
+			mid.getUser,
 			returnOk
 	);
+	
+
+
+	app.post('/login3',
+			mid.postUser,
+			returnToken
+	);
+	
 	function checkUser(req, res, next) {
 		
 		var signup = req.body;
@@ -28,6 +44,10 @@ var auth = function (app) {
 	function returnOk(req, res, next) {
 		res.send(200);
 	}
+	function returnToken(req, res, next) {
+		res.json(201, {token: req.token});
+	}
+
 
 }
 module.exports = auth;

@@ -65,4 +65,4 @@ g
 
 curl -i -X POST -H "Content-Type: application/json" -d "{\"username\":\"xyz\",\"password\":\"xyz\"}" http://localhost:3000/login
 
-
+curl -i -X POST -H "Content-Type: application/json" -d "{\"email\":\"revit@exemail.com.au\",\"pwd\":\"pwd\"}" http://localhost:8080/rs-manifest/user/login

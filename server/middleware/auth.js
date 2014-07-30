@@ -1,6 +1,10 @@
 'use strict';
 var http = require('http');
 
+var common = require('../env/common')
+var config = common.config();
+
+
 //options for GET
 var optionsget = {
     host : 'localhost', // here only the domain name
@@ -32,9 +36,9 @@ var postheaders = {
  
 // the post options
 var optionspost = {
-    host : 'graph.facebook.com',
-    port : 443,
-    path : '/youscada/feed?access_token=your_api_key',
+    host : 'localhost',
+    port : 8080,
+    path : '/rs-manifest/user/login',
     method : 'POST',
     headers : postheaders
 };
@@ -63,18 +67,31 @@ function getUser(req, res, next){
 }
 
 function postUser(req,res,next){
-	var reqPost = https.request(optionspost, function(res) {
+
+    console.log(req.body.data.email);
+    console.log(req.body.data.pwd);
+	var reqPost = http.request(optionspost, function(res) {
 	    console.log("statusCode: ", res.statusCode);
-	    // uncomment it for header details
-	//  console.log("headers: ", res.headers);
-	 
+	    var buffer='';
 	    res.on('data', function(d) {
-	        console.log('POST result:\n');
-	        process.stdout.write(d);
-	        console.log('\n\nPOST completed');
+	    	 buffer += d.toString();
+	    });
+	    res.on('end', function() {
+	        console.info('Post result:\n');
+	        var ret = JSON.parse(buffer);
+	        if(ret.authenticated){
+	        	 console.log("User Authenticated:" + ret.token +":"+ret.email);
+	        	 console.log(config.facebook_app_id);
+	        }else{
+	        	console.log("invalid user");
+	        	 console.log(config.facebook_app_id);
+	        }
+	        console.info('\n\nCall completed');
 	    });
 	});
-	 
+	// var jsonObject = JSON.stringify({'email':'revit@exemail.com.au','pwd':'pwd'});
+
+	var jsonObject = JSON.stringify({'email':req.body.data.email,'pwd':req.body.data.pwd});
 	// write the json data
 	reqPost.write(jsonObject);
 	reqPost.end();
@@ -87,6 +104,7 @@ function postUser(req,res,next){
 
 
 module.exports = {
-		getUser: getUser
+		getUser: getUser,
+		postUser:postUser
 	
 };

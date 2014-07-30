@@ -1,0 +1,23 @@
+To start mongodb server
+
+>mongod
+
+
+To run mongodb shell
+
+
+>mongo
+
+To list databases
+
+>show dbs
+
+To show current database
+
+>db
+
+To run web based mongo administration
+
+>cd node_module/mongo-express
+
+>node app
