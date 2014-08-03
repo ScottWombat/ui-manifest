@@ -7,6 +7,7 @@ var mid = require('../middleware/auth.js');
 var common = require('../env/common');
 var config = common.config();
 
+var jwt = require('jsonwebtoken');
 
 var auth = function (app) {
 	console.log("auth");
@@ -15,12 +16,27 @@ var auth = function (app) {
 			returnOk
 	);
 	
-
-
 	app.post('/login3',
 			mid.postUser,
 			returnToken
 	);
+	
+	app.post('/login4', function (req, res) {
+		 var profile = {
+				    first_name: 'John',
+				    last_name: 'Doe',
+				    email: 'john@doe.com',
+				    id: 123
+		};
+		// we are sending the profile in the token
+		 
+		  var token = jwt.sign(profile, 'jwtSecret', { expiresInMinutes: 60*5 });
+          console.log("DDDDDDDDDDD" + token);
+          console.log(req.body.data.email);
+          console.log(req.body.data.pwd);
+		  //res.json({token: token});
+          res.json(201, {token: token});
+	});
 	
 	function checkUser(req, res, next) {
 		

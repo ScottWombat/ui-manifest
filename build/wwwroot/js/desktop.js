@@ -9,7 +9,7 @@ requirejs.config({
     	'backbone.picky'        : "libs/backbone/backbone.picky",
     	'backbone.syphon'       : "libs/syphon/backbone.syphon",
     	bootstrap				: 'libs/bootstrap/js/bootstrap.min',
-    	//'bootstrap-validator'	: 'libs/bootstrap-validator/validator',
+    	'socket.io-client'  	: 'libs/socket.io-client/socket.io',
     	localstorage            : 'libs/localStorage/backbone.localStorage',
     	marionette              : 'libs/marionette/backbone.marionette',
     	handlebars              : 'libs/handlebars/handlebars-v1.3.0',
@@ -31,6 +31,9 @@ requirejs.config({
   	      deps: ['backbone'] ,
   	      exports: 'Backbone.Marionette'
         },
+        'underscore':{
+        	exports: '_'
+        },
         handlebars:{
             "exports":"Handlebars"
         },
@@ -46,6 +49,9 @@ requirejs.config({
         'trafficCop' : ['trafficCop'],
         global:{
         	deps:['handlebars']
+        },
+        'socket.io-client': {
+        		    exports: 'io'
         }
      },
     

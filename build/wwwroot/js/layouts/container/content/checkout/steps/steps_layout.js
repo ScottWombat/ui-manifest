@@ -1,4 +1,4 @@
-define([ 'application',
+define([ 'application','socketio/socket',
          'utils/templateManager',
          'text!layouts/container/content/checkout/steps/templates/step1_template.html',
          'text!layouts/container/content/checkout/steps/templates/step2_template.html',
@@ -10,7 +10,7 @@ define([ 'application',
          'backbone.syphon',
          'layouts/container/content/checkout/steps/entities/user'
 
-         ], function(App,TemplateManager,Step1Template,Step2Template,Step3Template,Step4Template,Step5Template,Step6Template,Step7Template) {
+         ], function(App,Socket,TemplateManager,Step1Template,Step2Template,Step3Template,Step4Template,Step5Template,Step6Template,Step7Template) {
 	
 	App.module("Step1.Layout", function(Layout,App,Backbone, Marionette, $, _) {
 		
@@ -106,7 +106,13 @@ define([ 'application',
 		   // model: new Layout.CheckoutInfo(),
 			className:'div-lelft',
 			tagName:'div',
-			index:1,
+			//index:1,
+			getTemplate:function(){
+			       var template =require('text!layouts/container/content/checkout/steps/templates/step'+ this.index +'_template.html');
+			       return TemplateManager.getTemplate(template);
+				   
+			},
+			/*
 			getTemplate: function(){
 				  if(this.index ==1){ 
 					   return TemplateManager.getTemplate(Step1Template);
@@ -124,9 +130,36 @@ define([ 'application',
 					  return TemplateManager.getTemplate(Step7Template);
 				  }
 			},
+			*/
+			getTemplate1: function(){
+				var dfd = $.Deferred(); // create a new jQuery deferred object */
+		        var self = this;
+		        //setTimeout(function() {
+		            //require([view.templatePath], // use require to fetch the template
+		        	//'text!layouts/container/content/checkout/steps/templates/step1_template.html',
+		            require(['text!layouts/container/content/checkout/steps/templates/step1_template.html'], function(Template){
+		                    // alert(Template);
+		                    //var tem = _.template(Template);
+		                   //  var  te =_.template(Tem)
+		            	   // view.template = TemplateManager.getTemplate(Template);
+		                    /* resolveWith() will set the deferred object to complete and all callbacks
+		                       waiting for completion will fire. view will be set as this for all callbacks */
+		                   // dfd.resolveWith(tem);
+		            		return TemplateManager.getTemplate(Template);
+		            });
+		       // }, 100);
+
+		        //return dfd.promise();
+			},
+			renderAsync: function(event) {
+				    alert('dddd');
+			        // Fetch the template from the server and when complete call the normal render method
+			        //var render = $.when(this.getTemplate()).then(this.render);
+			        //return render;
+			},
 			initialize:function(options){
 				this.steps = options.steps;
-				
+				this.index=1;
 			},
 			showError :function(model, errors, options){
 				console.info('showError');
@@ -380,8 +413,18 @@ define([ 'application',
 			
 			doLogin:function(e){
 				e.preventDefault();
+				
 				this.clearErrors();
 				var loginData = Backbone.Syphon.serialize(this);
+				
+				var io =Socket.createConnection();
+			
+				io.emit('user:login', loginData);
+				
+				io.on('message', function (data) {
+					alert(data);
+				});
+			
 			
 				var loginerrors = this.validateUserLogin(loginData);
 				
@@ -390,6 +433,7 @@ define([ 'application',
 
 				}else{
 				  var ret =	App.request("checkout:login",loginData)
+				  console.info("RETURN:" +ret);
 					  //var data =JSON.stringify(response)
 		        	  // var json = JSON.parse(data);
 		        	 //  console.info(cart1);

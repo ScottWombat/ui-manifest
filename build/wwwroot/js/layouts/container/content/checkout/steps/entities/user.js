@@ -23,9 +23,10 @@ define(["application"], function(App){
 		  Backbone.sync.call(this, method, model, options);
 	  }
 	  
-	  
+	  var posts=[];
+	
 	  Entities.LoginModel = Backbone.Model.extend({
-		
+		    
 			initialize: function(options){
 			        console.info("Step1 Login Model initialize");
 			        this.url = options.url;
@@ -33,11 +34,12 @@ define(["application"], function(App){
 			
 			 },
 			 
-			
-			 sync: authenticatedKinveySync,
+			// async:false,
+			 async: authenticatedKinveySync,
 			 parse: function (response) {
+				   
 			        return response;
-			 },
+			 }
 			 /*
 			 sync: function(method, model, options) {
 			        var that = this;
@@ -56,7 +58,8 @@ define(["application"], function(App){
 	
 	  var initializeLogin = function(data){
 		 
-			 var url = "/login3";
+			 //var url = "/login3";
+			 var url = "/login4";
 		    // var url = REST_URL + "user/login1?callback=jsonCallback";
 		     Entities.Login = new Entities.LoginModel({url:url,data:data});
 		    
@@ -68,8 +71,15 @@ define(["application"], function(App){
 		    
 		     return Entities.Login;
 	  };
+	  
+	 
+	//  var token='dd';
 	  var API = {
+			 
 		      doLogin: function(data){
+		    	
+		    	  //var socketEvents= _.extend({}, Backbone.Events);
+		    	 // Socket.initialize(socketEvents);
 		    	  // console.info(data);
 		    	  /*
 		    	  var Response = initializeLogin(data);
@@ -98,40 +108,39 @@ define(["application"], function(App){
 		    	   return "Success";
 		    	  */
 		    	  var loginModel = initializeLogin(data);
-		    	  //console.info(data);
+		    	  console.info(data);
 		    	  //loginModel.save("{'id:'dd'}");
 		    	//  var jsonObject =JSON.stringify(data);
 		    	//  console.info(jsonObject);
-		    	  loginModel.save();
-		    	  //loginModel.save(jsonObject);
-		    	  /*
-		    	  loginModel.save({
-		    	        success: function(model, response, options) {
-		    	          
-		    	            model.set('email', 'revit@gmail.com');
-		    	            model.set('pwd','pwd');
-		    	           // printData(model.get("name"), model.get("favoriteColor"), model.get("favoriteFood"));
-		    	        },
-		    	        error: function(model, xhr, options) {
-		    	            console.log('An error occured while saving the data...');
-		    	        }
-		    	    });    
 		    	  
-		    		*/
-		    	 /*
-		    	  loginModel.save({
-		    	        success: function(model, response, options) {
-		    	          
-		    	            model.set('email', 'revit@exemail.com.au');
-		    	            model.set('pwd','pwd');
-		    	            printData(model.get("name"), model.get("favoriteColor"), model.get("favoriteFood"));
-		    	        },
-		    	        error: function(model, xhr, options) {
-		    	            console.log('An error occured while saving the data...');
-		    	        }
-		    	    });    
-		    	 */
-		    	  return "Success";
+		    	 // loginModel.save();
+		    	  /*
+		    	  var posts = [];
+		    	  var deferred = $.Deferred(); 
+		    	  loginModel.save({}, {
+		    		  success: function (model, response,options) {
+		    		        console.info("success" + response.token);
+		    		        //deferred.resolve(response);
+		    		        //return "dd";
+		    		        //posts.push("DD");
+		    		        //console.info(posts);
+		    		    },
+		    		    error: function (model, response) {
+		    		        console.info("error");
+		    		    }
+		    	  });
+		    	  */
+		    	  var d = loginModel.save({})
+		    	          .done(function(response) {
+		    	        	  return response;
+		    	          })
+		    	          .fail(function(response) {
+		    	        	  console.log("Error!");
+		    	          });
+		    
+		    	  console.info(d);
+		    	 
+		    	  return "success";
 		    	  
 		      }
 	   };
