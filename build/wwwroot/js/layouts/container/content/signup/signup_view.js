@@ -1,6 +1,6 @@
 define(["application",'utils/templateManager',
         'text!layouts/container/content/signup/templates/signup.html',
-        'commons/ui/modalView','backbone.syphon',
+        'commons/ui/modalView'
        ], 
 		function(App,TemplateManager,tpl,ModalView){
 	App.module("SignupApp.Common.Views", function(Views, App, Backbone, Marionette, $, _){

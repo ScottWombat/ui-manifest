@@ -7,8 +7,8 @@ var express     = require('express'),
     fs 			= require('fs'),
    // cookie      = require("cookie"),
     server      = http.createServer(app),
-    io          = require('./server/socket/io')(server),
-   // io          = require("socket.io").listen(server),
+   // io          = require('./server/socket/io')(server),
+    io          = require("socket.io").listen(server),
     path        = require('path'),
     favicon     = require('serve-favicon'),
     bodyParser  = require('body-parser'),
@@ -16,11 +16,74 @@ var express     = require('express'),
     cookieParser= require("cookie-parser"),
     events 		= require('events'),
     colors      = require('colors'),
-    mongoose    = require('mongoose');
+    mongoose    = require('mongoose'),
+    mongo = require("./server/mongodb/db")(mongoose);
    
 
-console.log(io);
+var socketioJwt = require('socketio-jwt');
+io.set('authorization', socketioJwt.authorize({
+	  secret: 'jwtSecret',
+	  handshake: true
+	}));
 
+////With socket.io >= 1.0 ////
+io.use(socketioJwt.authorize({
+  secret: 'jwtSecret',
+  handshake: true
+}));
+
+
+
+io.on('connection', function(socket){
+	  console.log('a user connected');
+	  console.log(socket.decoded_token.email);
+	//  var session = socket.handshake.session;
+	//  console.log("session");
+	//  console.log(session);
+	//   var hs = socket.handshake;
+	//   console.log('A socket with sessionID '+hs.sessionID+' connected.');
+	  socket.on('user:login', function (data) {
+     		
+     		console.log("user:login.email :" + data.email);
+       		console.log("user:login.pwd :" + data.pwd);
+       		
+       		var user = mongo.UserInfo;
+       		var query =user.findOne({ 'email': data.email,'pwd':data.pwd});
+       		query.exec(function (err, data) {
+       		  if (err) {
+       			  return handleError(err);
+       		  }else{
+       			console.log(data) ;// Space Ghost is a talk show host.
+       			socket.emit('message',"Authenticated");
+       		  }
+       		  
+       		})
+       		
+     		socket.emit('message',"helo");
+     });
+	  socket.on('user:register', function (data) {
+   		console.log("user:register.email" + data.email1);
+   		console.log("user:register.pwd" + data.pwd1);
+   		var user = mongo.UserInfo({'email':data.email1,'pwd':data.pwd1});
+   		   		
+   		user.save(function (err,data) {
+   			if (err){
+   				console.log ('Error on save!')
+   				socket.emit('message',"authentication failed");
+   			}else{
+   				console.log("Save");
+   				console.log(data);
+   				socket.emit('message',"authenticated");
+   			}
+   		});
+   		
+   });
+	  socket.on('disconnect', function(){
+		    console.log('user disconnected');
+	});
+});
+
+/*
 var env = process.env.NODE_ENV || 'development',
 config = require('./server/config/config')[env];
 
@@ -31,7 +94,7 @@ fs.readdirSync(models_dir).forEach(function (file) {
   if(file[0] === '.') return;
   require(models_dir+'/'+ file);
 });
-
+*/
 
 
 //var models = require("./mongodb/common")

@@ -1,5 +1,10 @@
 module.exports = function(mongoose) {
 	var Schema = mongoose.Schema;
+	var User     = new Schema({
+		id					: Schema.ObjectId,
+		email               :    {type: String, index: true},
+		pwd                :    {type: String}
+	});
 	var SessionToken = new Schema({
 		Token 				: {type:String,index:true},
 		id					: Schema.ObjectId,
@@ -39,7 +44,8 @@ module.exports = function(mongoose) {
 	 var models = {
 		      Materials : mongoose.model('Materials', Material),
 		      SeatCovers : mongoose.model('SeatCovers', SeatCover),
-		      SessionToken : mongoose.model('SessionToken', SessionToken)
+		      SessionToken : mongoose.model('SessionToken', SessionToken),
+		      User : mongoose.model("User",User)
 	 };
 	return models;
 }

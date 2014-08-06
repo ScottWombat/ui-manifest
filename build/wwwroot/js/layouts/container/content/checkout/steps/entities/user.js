@@ -31,7 +31,6 @@ define(["application"], function(App){
 			        console.info("Step1 Login Model initialize");
 			        this.url = options.url;
 			        this.data=JSON.stringify(options.data);
-			
 			 },
 			 
 			// async:false,
@@ -117,29 +116,42 @@ define(["application"], function(App){
 		    	  /*
 		    	  var posts = [];
 		    	  var deferred = $.Deferred(); 
-		    	  loginModel.save({}, {
+		    	  */
+		    	  /*
+		    	  var d =loginModel.save({}, {
 		    		  success: function (model, response,options) {
+		    			  var jsonObject =JSON.stringify(response);
+	    			      console.info(jsonObject);
 		    		        console.info("success" + response.token);
 		    		        //deferred.resolve(response);
 		    		        //return "dd";
 		    		        //posts.push("DD");
 		    		        //console.info(posts);
+		    		        //self.status="success";
 		    		    },
 		    		    error: function (model, response) {
-		    		        console.info("error");
+		    		    	  var jsonObject =JSON.stringify(response);
+		    			      console.info(jsonObject);
+		    		          console.info("error" + response.token);
 		    		    }
 		    	  });
 		    	  */
+		    
+		    	  /*
 		    	  var d = loginModel.save({})
 		    	          .done(function(response) {
+		    	        	  console.info("dd");
+		    	        	  console.info(response);
 		    	        	  return response;
 		    	          })
 		    	          .fail(function(response) {
 		    	        	  console.log("Error!");
 		    	          });
-		    
-		    	  console.info(d);
-		    	 
+		    	*/
+		    	  var d = loginModel.save({});
+		    	  var json =JSON.stringify(d);
+		    	  console.info(JSON.stringify(json));
+		    	
 		    	  return "success";
 		    	  
 		      }

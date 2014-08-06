@@ -1,17 +1,12 @@
 define([ 'application','socketio/socket',
          'utils/templateManager',
          'text!layouts/container/content/checkout/steps/templates/step1_template.html',
-         'text!layouts/container/content/checkout/steps/templates/step2_template.html',
-         'text!layouts/container/content/checkout/steps/templates/step3_template.html',
-         'text!layouts/container/content/checkout/steps/templates/step4_template.html',
-         'text!layouts/container/content/checkout/steps/templates/step5_template.html',
-         'text!layouts/container/content/checkout/steps/templates/step6_template.html',
-         'text!layouts/container/content/checkout/steps/templates/step7_template.html',
+         'backbone.syphon',
          'layouts/container/content/checkout/steps/entities/user'
 
-         ], function(App,Socket,TemplateManager,Step1Template,Step2Template,Step3Template,Step4Template,Step5Template,Step6Template,Step7Template,Q1) {
+         ], function(App,Socket,TemplateManager,Step1Template) {
 	
-	App.module("Step1.Layout", function(Layout,App,Backbone, Marionette, $, _) {
+	App.module("Step1.Layout", function(Layout,App,Backbone, Marionette, $, _,Q) {
 		
 		Layout.Step1LoginRegion = Marionette.Region.extend({
 			el : "#loginSection",
@@ -98,39 +93,6 @@ define([ 'application','socketio/socket',
         });
         Layout.StepStatus = Backbone.Model.extend({});
         
-        authenticatedKinveySync = function(method, model, options) {
-  		  options.type = "POST";
-  		 // options.crossDomain = true;
-  		  //options.dataType='JSONP';
-  		  options.xhrFields = {withCredentials:true};
-  		  options.beforeSend = function(jqXHR) {
-  			  jqXHR.setRequestHeader("accept", "application/json");
-  			  jqXHR.setRequestHeader("Content-Type","application/json");
-  			 // jqXHR.setRequestHeader(
-  			//		  'Authorization',
-  			//		  'Basic ' + $.base64.encode(
-  			//				  kinvey_app_key + ':' + kinvey_secret
-  				//	  )
-  			  //);
-  		  }
-  		  // Call the default Backbone sync implementation
-  		// if (method === 'OPTIONS') options.type = 'POST';
-  		  Backbone.sync.call(this, method, model, options);
-  	    };
-        Layout.UserModel = Backbone.Model.extend({
-		    
-			initialize: function(options){
-			        this.url = options.url;
-			        this.data=JSON.stringify(options.data);
-			 },
-			 async: authenticatedKinveySync,
-			 parse: function (response) {
-			        return response;
-			 }
-			  
-	   });
-	  
-        
 		Layout.Content = Marionette.ItemView.extend({
 		    stepstatus : new Layout.StepStatus(),
 		    //checkoutInfo : new Layout.CheckoutInfo(),
@@ -184,8 +146,11 @@ define([ 'application','socketio/socket',
              },
         
 			onRender :function(){
+				this.renderStep();
+				/*
 				if (this.index == 1) {
 				    this.renderStep1();
+					
 				}else if(this.index ==2){
 					this.renderStep2();
 				}else if(this.index ==3){
@@ -201,14 +166,44 @@ define([ 'application','socketio/socket',
 				}else if(this.index ==7){
 					   this.renderStep7();
 				}
+				*/
 			},
-			renderStep:function(step){
+			renderStep:function(){
 				
+				if(this.index == 1){
+					this.renderStep1();
+				}else if(this.index ==7){
+					this.renderStep7();
+				}else{
+					this.renderElseStep();
+				}
+			},
+			renderElseStep: function(){
+				 var previous = this.index - 1;
+				 var current = this.index;
+				 var next     = this.index + 1;
+				 this.stepstatus.set('step' + previous + 'Status','complete-step');
+				 this.stepstatus.set('step' + current + 'Status','active-step');
+				 
+				 var $prev = $('#step' + previous);
+				 $prev.removeClass('active-step');
+				 $prev.addClass('completed-step');
+				                
+				 var $curr= $('#step' + current);
+				 $curr.addClass('active-step');
+				 
+				 var stepStatus = this.stepstatus.get('step' + next +'Status');
+				 if(stepStatus=='active-step'){
+					 var $next= $('#step'+ next);
+					 $next.removeClass('active-step');
+					 $next.addClass('completed-step');
+				 }
 			},
 			renderStep1: function () {
 				//var compiledHtml1= _.template(Step1Template);
 				//this.$el.html(compiledHtml1);
-				var $bac = $('#step1');
+				//var $bac = $('#step1');
+				var $bac = $('#step'+this.index);
 				var step1Status = this.stepstatus.get('step1Status');
 				if(step1Status == null){
 					$bac.addClass('active-step');
@@ -216,7 +211,9 @@ define([ 'application','socketio/socket',
 			
 			    //this.index=2;
 				
-			},renderStep2:function(){
+			},
+			/*
+			renderStep2:function(){
 				 //var that = this;
 				// require(['text!layouts/container/content/checkout/content/step1/templates/step2_template.html'], function(Step2Template){
 				//	 var compiledHtml2= _.template(Step2Template);
@@ -336,6 +333,7 @@ define([ 'application','socketio/socket',
 				//this.index=7;
 				
 			},
+			*/
 			renderStep7:function(){
 				//var compiledHtml7= _.template(Step7Template);
 				//this.$el.html(compiledHtml7);
@@ -361,6 +359,8 @@ define([ 'application','socketio/socket',
 			},	 
 			gotoStep2: function() {
 				//e.preventDefault();
+				   var template =require('text!layouts/container/content/checkout/steps/templates/step'+ this.index +'_template.html');
+			       this.template = TemplateManager.getTemplate(template);
 				
 				this.index = 2;
 				this.render();
@@ -403,48 +403,36 @@ define([ 'application','socketio/socket',
 			
 			doLogin:function(e){
 				e.preventDefault();
-								
+				//var q = require('q');
 				this.clearErrors();
 				var loginData = Backbone.Syphon.serialize(this);
 				
-				var loginerrors = this.validateUserLogin(loginData);
+				var io =Socket.createConnection();
+				io.emit('user:login', loginData);
+				io.on('message', function (data) {
+					alert(data);
+				});
+			
+				var loginerrors = this.validateUserEnter(loginData);
 				
 				if(loginerrors.length > 0){
 				    this.showErrors(errors);
 
 				}else{
-					var url = "/logon";
-				    var data = JSON.stringify(loginData)
-				    console.info(data);
-				    Layout.Login = new Layout.UserModel({url:url,data:loginData});
-				   // var ret = Layout.Login.save({});
-				    var self = this;
-				    var d = Layout.Login.save({})
-	    	          			.done(function(response) {
-	    	          				var token =response.token;
-				    				var io =Socket.createConnection(token);
-					
-				    				io.emit('user:login', loginData);
-					
-				    				io.on('message', function (data) {
-				    					//alert(data);
-				    					self.gotoStep2();
-				    				});
-	    	          				
-	    	          			})
-	    	          			.fail(function(err) {
-	    	          			    var data = JSON.stringify(err)
-	    	  				        console.info(data);
-	    	          			    var $loginMsg = $('#loginMsg');
-	    	          			    $loginMsg.html('* Invalid email or password');
-	    	          			    $loginMsg.addClass('fieldrequired');
-	    	          				console.info("Error!" + response);
-	    	          			});
-				}
-				
+				  var ret =	App.request("checkout:login",loginData)
+				  console.info("RETURN:" +ret);
+					  //var data =JSON.stringify(response)
+		        	  // var json = JSON.parse(data);
+		        	 //  console.info(cart1);
+				   //})
+				   if(ret)
+				      this.gotoStep2();
+			   }
+		
 			},
 			doRegister:function(e){
 				e.preventDefault();
+				 this.$('#imail').text('');
 				this.clearErrors();
 				var registerData = Backbone.Syphon.serialize(this);
 				var register_errs = this.validateUserRegister(registerData);
@@ -452,34 +440,13 @@ define([ 'application','socketio/socket',
 				    this.showErrors(register_errs);
 
 				}else{
-					var url = "/register";
-				    Layout.Register = new Layout.UserModel({url:url,data:registerData});
-				   // var ret = Layout.Login.save({});
-				    var self = this;
-				    var d = Layout.Register.save({})
-	    	          			.done(function(response) {
-	    	          				console.info("register");
-	    	          				console.info(response.token);
-	    	          				var token =response.token;
-				    				var io =Socket.createConnection(token);
-					
-				    				io.emit('user:register', registerData);
-					
-				    				io.on('message', function (data) {
-				    					//alert(data);
-				    					self.gotoStep2();
-				    				});
-	    	          				self.gotoStep2()
-	    	          			})
-	    	          			.fail(function(err) {
-	    	          			    var data = JSON.stringify(err)
-	    	  				        console.info(data);
-	    	          			    var $loginMsg = $('#registerMsg');
-	    	          			    $loginMsg.html('* Invalid email or password');
-	    	          			    $loginMsg.addClass('fieldrequired');
-	    	          				console.info("Error!" + response);
-	    	          			});
-				
+				  var ret =	App.request("checkout:login",registerData)
+					  //var data =JSON.stringify(response)
+		        	  // var json = JSON.parse(data);
+		        	 //  console.info(cart1);
+				   //})
+				   if(ret)
+				      this.gotoStep2();
 			   }
 				
 			},
@@ -497,7 +464,7 @@ define([ 'application','socketio/socket',
 				
 					 }, this);
 			},
-			validateUserLogin:function(loginData){
+			validateUserEnter:function(loginData){
 				 var errors = [];
 				 var emailfilter = /(([a-zA-Z0-9\-?\.?]+)@(([a-zA-Z0-9\-_]+\.)+)([a-z]{2,3}))+$/;
 				 if(!loginData.email  && !emailfilter.test(loginData.email)) {
@@ -525,6 +492,8 @@ define([ 'application','socketio/socket',
 				 if(registerData.pwd1 != registerData.pwd2){
 					 errors.push({name: 'pwd1', message: 'Please enter same password and confirm password'});
 				 }
+				 
+				 
 				 
 				 return errors;
 			}

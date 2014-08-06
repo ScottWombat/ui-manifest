@@ -1,6 +1,6 @@
 define(["application",'utils/templateManager',
         'text!layouts/container/content/login/templates/loginform_template.html',
-        'commons/ui/modalView','backbone.syphon','bootstrap','jquery-validate'
+        'commons/ui/modalView','bootstrap','jquery-validate'
        ], 
 		function(App,TemplateManager,tpl,ModalView){
 	App.module("LoginApp.Common.Views", function(Views, App, Backbone, Marionette, $, _){

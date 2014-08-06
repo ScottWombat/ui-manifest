@@ -3,7 +3,6 @@ var bcrypt = require('bcrypt-nodejs');
 
 var mid = require('../middleware/auth.js');
 
-
 var common = require('../env/common');
 var config = common.config();
 
@@ -21,21 +20,38 @@ var auth = function (app) {
 			returnToken
 	);
 	
-	app.post('/login4', function (req, res) {
+	app.post('/logon', function (req, res) {
 		 var profile = {
-				    first_name: 'John',
-				    last_name: 'Doe',
-				    email: 'john@doe.com',
-				    id: 123
+				    email: req.body.data.email,
+				    pwd: req.body.data.pwd,
+				    salt:'The rain in Spain falls mainly on the plane'
+				 
 		};
 		// we are sending the profile in the token
 		 
 		  var token = jwt.sign(profile, 'jwtSecret', { expiresInMinutes: 60*5 });
-          console.log("DDDDDDDDDDD" + token);
+          console.log("Login Token:" + token);
           console.log(req.body.data.email);
           console.log(req.body.data.pwd);
-		  //res.json({token: token});
-          res.json(201, {token: token});
+         // res.send(401,{token:'invalid'});
+          res.send(201, {token: token})
+	});
+	
+	app.post('/register', function (req, res) {
+		 var profile = {
+				    email: req.body.data.email1,
+				    pwd: req.body.data.pwd1,
+				    salt:'The rain in Spain falls mainly on the plane'
+				 
+		};
+		// we are sending the profile in the token
+		 
+		  var token = jwt.sign(profile, 'jwtSecret', { expiresInMinutes: 60*5 });
+         console.log("Reguster Token:" + token);
+         console.log(req.body.data.email1);
+         console.log(req.body.data.pwd1);
+        // res.send(401,{token:'invalid'});
+         res.send(201, {token: token})
 	});
 	
 	function checkUser(req, res, next) {

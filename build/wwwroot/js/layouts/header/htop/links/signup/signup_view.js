@@ -1,6 +1,7 @@
 define([ "application",'handlebars' ,
          'utils/templateManager',
-         'text!layouts/header/htop/links/signup/templates/signup_template.html'
+        // 'text!layouts/header/htop/links/signup/templates/signup_template.html'
+         'text!layouts/header/htop/links/login/templates/login_template.html'
          ], function(App,HandleBars,TemplateManager,tpl) {
 	
 	App.module("Signup.View", function(View,App,Backbone, Marionette, $, _) {

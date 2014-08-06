@@ -7,7 +7,7 @@ requirejs.config({
     	underscore              : 'libs/underscore/underscore', // https://github.com/amdjs
     	backbone                : 'libs/backbone/backbone',// https://github.com/amdjs
     	'backbone.picky'        : "libs/backbone/backbone.picky",
-    	'backbone.syphon'       : "libs/syphon/backbone.syphon",
+    	'backbone.syphon'      : "libs/backbone/backbone.syphon",
     	bootstrap				: 'libs/bootstrap/js/bootstrap.min',
     	'socket.io-client'  	: 'libs/socket.io-client/socket.io',
     	localstorage            : 'libs/localStorage/backbone.localStorage',
@@ -52,11 +52,17 @@ requirejs.config({
         },
         'socket.io-client': {
         		    exports: 'io'
-        }
+        },
+       
+        'backbone.syphon' : {
+            exports : 'Backbone.Syphon',
+            deps : [ 'backbone' ]
+         }
+
      },
     
     
-     deps : ['jquery','jquery-ui','underscore','bootstrap','jquery-validate']
+     deps : ['jquery','jquery-ui','underscore','bootstrap','jquery-validate','backbone.syphon']
    
 });
 
