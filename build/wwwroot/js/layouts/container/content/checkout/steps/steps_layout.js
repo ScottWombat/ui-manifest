@@ -7,7 +7,8 @@ define([ 'application','socketio/socket',
          'text!layouts/container/content/checkout/steps/templates/step5_template.html',
          'text!layouts/container/content/checkout/steps/templates/step6_template.html',
          'text!layouts/container/content/checkout/steps/templates/step7_template.html',
-         'layouts/container/content/checkout/steps/entities/user'
+         'layouts/container/content/checkout/steps/entities/user',
+         'layouts/header/hsecond/cart/entities/cart' 
 
          ], function(App,Socket,TemplateManager,Step1Template,Step2Template,Step3Template,Step4Template,Step5Template,Step6Template,Step7Template,Q1) {
 	
@@ -71,31 +72,24 @@ define([ 'application','socketio/socket',
 			}
 		});
         
-       
+       /*
+        defaults:{
+        		firstname:'',
+        		lastname :'',
+        		company  :'',
+        		company_id :'',
+        		address_1 : '',
+        		address_2 :'',
+        		city :'',
+        		postcode :'',
+        		state :'',
+        		country:''
+        	}
+        */
 		/**** work ****/
-        Layout.CheckoutInfo = Backbone.Model.extend({
-        	initialize: function(options){
-        		
-        	},
-        	 validate: function(attrs) {
-        		 var errors = [];
-        		 
-        		 if (!attrs.email) {
-        		 errors.push({name: 'email', message: 'Please fill email field.'});
-        		 }
-        		 if (!attrs.pwd ){
-        		 errors.push({name: 'pwd', message: 'Please fill password field.'});
-        		 }
-        		  
-        		 return errors.length > 0 ? errors : false;
-	        	
-	        	 // var errors ={};
-	        	  //return 'email is required';
-	        	 // errors.email = 'Email is requiredq';
-	        	 // this.errors = errors;
-	        	  //return errors;
-	          }
-        });
+       
+        
+        
         Layout.StepStatus = Backbone.Model.extend({});
         
         authenticatedKinveySync = function(method, model, options) {
@@ -118,7 +112,6 @@ define([ 'application','socketio/socket',
   		  Backbone.sync.call(this, method, model, options);
   	    };
         Layout.UserModel = Backbone.Model.extend({
-		    
 			initialize: function(options){
 			        this.url = options.url;
 			        this.data=JSON.stringify(options.data);
@@ -129,19 +122,46 @@ define([ 'application','socketio/socket',
 			 }
 			  
 	   });
+        
+        Layout.BillingDetails = Backbone.Model.extend({
+        	default:{
+        		firstname:'revit'
+        	}
+        });
+        Layout.ShippingDetails = Backbone.Model.extend({});
+        Layout.ShippingMethod = Backbone.Model.extend({});
+        Layout.PaymentMethod = Backbone.Model.extend({});
+        Layout.CartInfo       = Backbone.Model.extend({
+        	
+        });
+        
+        Layout.Cart = Backbone.Model.extend({
+       	 	url: function () {
+       	        return REST_URL + "cart/list?callback=jsonCallback";
+       	 	}
+         });
 	  
+        Layout.CheckoutInfo = Backbone.Model.extend({
+        	
+        	initialize: function(){
+        		//this.set( "billingDetails", new Layout.BillingDetails());
+        	}
+        });
         
 		Layout.Content = Marionette.ItemView.extend({
 		    stepstatus : new Layout.StepStatus(),
 		    //checkoutInfo : new Layout.CheckoutInfo(),
 		    //model: new Backbone.Model({loggedIn:false}),
-		   // model: new Layout.CheckoutInfo(),
-			className:'div-lelft',
-			tagName:'div',
+		    //checkoutInfo: new Layout.CheckoutInfo(),
+		     model :new Layout.CheckoutInfo(),
+		    //  model : new Backbone.Model(),
+			//className:'div-lelft',
+			//tagName:'div',
 			//index:1,
 			initialize:function(options){
 				this.steps = options.steps;
 				this.index=1;
+				//this.model.set('cartInfo',new Layout.CartInfo());
 			},
 			getTemplate:function(){
 			       var template =require('text!layouts/container/content/checkout/steps/templates/step'+ this.index +'_template.html');
@@ -173,9 +193,9 @@ define([ 'application','socketio/socket',
 				
 				'click #previous-confirm' : 'clickOnGotoStep6',
 				'click #previous-order-summary' : 'clickOnGotoStep5',
-				'click #prvious-payment-method' : 'clickOnGotoStep4',
-				'click #previous-shipping-method' : 'clickOnGotoStep3',
-				'click #prvious-shipping-deatils' : 'clickOnGotoStep2'
+				'click #prvious-payment-method' : 'gotoShippingMethod',
+				'click #previous-shipping-method' : 'gotoShippingDetails',
+				'click #previous-shipping-details' : 'clickOnGotoStep2'
 				
 			},
 			 modelEvents: {
@@ -238,8 +258,18 @@ define([ 'application','socketio/socket',
 					 $bac3.removeClass('active-step');
 					 $bac3.addClass('completed-step');
 				 }
+				// $('#firstname').val(this.checkoutInfo.firstname);
+				// $('#lastname').val('dddd');
+				// $('#company').val(this.checkoutInfo.company);
+				// $('#company_id').val(this.checkoutInfo.company_id);
+				/// $('#address_1').val(this.checkoutInfo.address_1);
+				// $('#address_2').val(this.checkoutInfo.address_2);
+				// $('#city').val(this.checkoutInfo.city);
+				// $('#state').val(this.checkoutInfo.state);
+				// $('#postcode').val(this.checkoutInfo.postcode);
+				// $('#country').val(this.checkoutInfo.country);
+				
 				 
-				 //this.index=3;
 			},
 			renderStep3:function(){
 				//var compiledHtml3= _.template(Step3Template);
@@ -359,44 +389,196 @@ define([ 'application','socketio/socket',
 				this.render();
 				$('#email').focus();
 			},	 
-			gotoStep2: function() {
+			gotoBillingDetails: function() {
 				//e.preventDefault();
+				this.index = 2;
+				this.render();
+			},
+			gotoShippingDetails:function(e){
+				/*
+				var billingDetails = this.model.get('billingDetails')
+				billingDetails={firstname : billingDetails.firstname,
+					            lastname: billingDetails.lastname,
+					            company: billingDetails.company,
+							     company_id: billingDetails.company_id,
+							     address_1: billingDetails.address_1,
+							     address_2: billingDetails.address_2,
+							     city: billingDetails.city,
+							     postcode: billingDetails.postcode,
+							     state: billingDetails.state,
+							     country: billingDetails.country
+					            
+				};
 				
+				
+				this.model.set("billingDetails", billingDetails);
+				*/
+				this.index = 3;
+				this.render();
+			},
+			gotoShippingMethod:function(e){
+				this.index = 4;
+				this.render();
+			},
+			clickOnGotoStep2: function(e) {
+				e.preventDefault();
+				console.info("Gototstpe2");
 				this.index = 2;
 				this.render();
 			},
 			clickOnGotoStep3: function(e) {
 				e.preventDefault();
-				var billingData = Backbone.Syphon.serialize(this);
-				this.checkoutInfo.billingdetails=billingData;
-				this.index = 3;
-				this.render();
+				this.clearErrors();
+				var accountDetailData = Backbone.Syphon.serialize(this);
+			
+				var errors = this.validateBillingDetailsForm(accountDetailData);
+
+				if(errors.length > 0){
+					this.showErrors(errors);
+				}else{
+					//console.info(this.model);
+					var billingDetails = this.model.get('billingDetails')
+					billingDetails={firstname : accountDetailData.firstname,
+						            lastname: accountDetailData.lastname,
+						            company: accountDetailData.company,
+								     company_id: accountDetailData.company_id,
+								     address_1: accountDetailData.address_1,
+								     address_2: accountDetailData.address_2,
+								     city: accountDetailData.city,
+								     postcode: accountDetailData.postcode,
+								     state: accountDetailData.state,
+								     country: accountDetailData.country
+						            
+					};
+					//billingDetails.set("firstname","rev");
+					this.model.set("billingDetails", billingDetails);
+					/*
+					this.model.set({
+					     firstname: accountDetailData.firstname,
+					     lastname: accountDetailData.lastname,
+					     company: accountDetailData.company,
+					     company_id: accountDetailData.company_id,
+					     address_1: accountDetailData.address_1,
+					     address_2: accountDetailData.address_2,
+					     city: accountDetailData.city,
+					     postcode: accountDetailData.postcode,
+					     state: accountDetailData.state,
+					     country: accountDetailData.country
+					});
+					*/
+					this.index = 3;
+					this.render();
+				}
 			},
 			clickOnGotoStep4: function(e) {
 				e.preventDefault();
-				var shippingDetailsData = Backbone.Syphon.serialize(this);
-				this.checkoutInfo.shippingdetails=shippingDetailsData;
-				this.index = 4;
-				this.render();
+				var shippingDetailData = Backbone.Syphon.serialize(this);
+				this.clearErrors();
+			
+				var errors = this.validateBillingDetailsForm(shippingDetailData);
+				console.info(this.model);
+				if(errors.length > 0){
+					this.showErrors(errors);
+				}else{
+					var shippingDetails = this.model.get('shippingDetails')
+					shippingDetails={firstname : shippingDetailData.firstname,
+						            lastname: shippingDetailData.lastname,
+						            company: shippingDetailData.company,
+								     company_id: shippingDetailData.company_id,
+								     address_1: shippingDetailData.address_1,
+								     address_2: shippingDetailData.address_2,
+								     city: shippingDetailData.city,
+								     postcode: shippingDetailData.postcode,
+								     state: shippingDetailData.state,
+								     country: shippingDetailData.country
+						            
+					};
+					
+					this.model.set("shippingDetails", shippingDetails);
+					//set default shipping method
+					var shippingMethod = this.model.get('shippingMethod');
+					shippingMethod={
+					     shippingMethod: 'free'
+					};
+					this.model.set("shippingMethod", shippingMethod);
+					
+					this.index = 4;
+					this.render();
+				}
 			},
 			clickOnGotoStep5: function(e) {
 				e.preventDefault();
-				//var shippingMethodData = Backbone.Syphon.serialize(this);
-				//this.checkoutInfo.shippingMethod=shippingMethodData;
+				console.info(this.model);
+				
+				var shippingMethodData = Backbone.Syphon.serialize(this);
+				var shippingMethod = this.model.get('shippingMethod');
+
+				shippingMethod={
+				     shippingMethod: shippingMethodData.shipping_method,
+				     shippingMethodNote: shippingMethodData.shipping_method_note
+				    
+				};
+				this.model.set("shippingMethod", shippingMethod);
+				//set default payment method
+				var paymentMethod = this.model.get('paymentMethod');
+				paymentMethod={
+						paymentType: 'cod',
+						agree:'no'
+				};
+				this.model.set("paymentMethod", paymentMethod);
+				
+				
 				this.index = 5;
 				this.render();
 			},
 			clickOnGotoStep6: function(e) {
-				//var paymentMethodData = Backbone.Syphon.serialize(this);
-				//this.checkoutInfo.paymentMethod=paymentMethodData;
-				//this.model.test='test';
-				//console.info(this.model);
+				
 				e.preventDefault();
-				this.index = 6;
-				this.render();
+				
+				var paymentMethodForm = Backbone.Syphon.serialize(this);
+				this.clearErrors();
+			
+				var errors = this.validatePaymentMethodForm(paymentMethodForm);
+			
+				if(errors.length > 0){
+					console.info(errors);
+					this.showErrors(errors);
+				}else{
+					var paymentMethod = this.model.get('paymentMethod');
+					paymentMethod={
+							paymentType:paymentMethodForm.paymentType,
+							comment :paymentMethodForm.comment,
+							agree : paymentMethodForm.agree
+					};
+					this.model.set("paymentMethod", paymentMethod);
+					
+					
+					var cart = new Layout.Cart();
+				    var _that = this;
+					$.when(cart.fetch())
+				      .done(function (cart) {
+				    	  var cartInfo = _that.model.get("cartInfo");
+				    	  cartInfo={
+				    			  products:cart.products,
+				    			  subtotal: cart.subtotal,
+				    			  total:cart.total
+				    			  
+				    	  };
+				    	 _that.model.set("cartInfo",cartInfo)
+				    
+				    	 _that.index = 6;
+						 _that.render();
+				      });
+					console.info(this.model);
+					
+				}
+				
+			
 			},
 			clickOnGotoStep7: function(e) {
 				e.preventDefault();
+				//var cartCollection = App.request("cart:entities");
+				console.info(this.model);
 				this.index = 7;
 				this.render();
 			},
@@ -428,7 +610,7 @@ define([ 'application','socketio/socket',
 					
 				    				io.on('message', function (data) {
 				    					//alert(data);
-				    					self.gotoStep2();
+				    					self.gotoBillingDetails();
 				    				});
 	    	          				
 	    	          			})
@@ -527,8 +709,56 @@ define([ 'application','socketio/socket',
 				 }
 				 
 				 return errors;
+			},
+			validateBillingDetailsForm:function(form){
+				var regPostcode_temp = /^([N][S][W]|[A][C][T]|[V][I][C]|[Q][L][D]|[S][A]|[W][A]|[T][A][S]|[N][T])([ ])([0-9]{4})$/;
+				
+				 var errors = [];
+				 if (!form.firstname) {
+					 errors.push({name: 'firstname', message: 'Please enter first name'});
+				 }
+				 if (!form.lastname) {
+					 errors.push({name: 'lastname', message: 'Please enter last name'});
+				 }
+				 if (!form.address_1) {
+					 errors.push({name: 'address_1', message: 'Please enter address'});
+				 }
+				 if (!form.city) {
+					 errors.push({name: 'city', message: 'Please enter city'});
+				 }
+				 if (!form.postcode) {
+					 errors.push({name: 'postcode', message: 'Please enter postcode'});
+				 }
+				 
+				 if (form.state=='Please Select') {
+					 errors.push({name: 'state', message: 'Please enter state'});
+				 }else{
+					 
+					 var map = {'NSW' : /^([2][0-9]{3})$/,
+							    'VIC' : /^([3][0-9]{3})$/,
+							    'ACT' : /^([2][0-9]{3})$/,
+							    'QLD' : /^([4][0-9]{3})$/,
+							    'SA'  : /^([5][0-9]{3})$/,
+							    'WA'  : /^([6][0-9]{3})$/,
+							    'TAS' : /^([7][0-9]{3})$/,
+							    'NT'  : /^([8][0-9]{3})$/
+						 };
+					
+					  var regPostcode = map[form.state];
+					 if(regPostcode.test(form.postcode)==false){
+						errors.push({name: 'postcode', message: 'Please enter valid ' + form.state +' postcode'});
+					 }
+
+				 }
+				 return errors;
+			},
+			validatePaymentMethodForm:function(form){
+				 var errors = [];
+				 if (!form.agree) {
+					 errors.push({name: 'agree', message: 'Please accept term & conditions'});
+				 }
+				 return errors;
 			}
-		
 			
 		});
 		

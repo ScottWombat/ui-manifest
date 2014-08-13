@@ -2,8 +2,13 @@ define(["application"], function(App){
   App.module("Entities", function(Entities, App, Backbone, Marionette, $, _){
 	
 	Entities.Cart = Backbone.Model.extend({
+		
 		initialize: function(){
 		        console.info("Cart initialize");
+		       // this.url=function(){
+		        //	return REST_URL + "cart/list?callback=jsonCallback";
+		      //  }
+		       
 		 },
 		 parse: function (response) {
 		        return response;
@@ -17,6 +22,7 @@ define(["application"], function(App){
 		  initialize: function(options){
 		        console.info("Carts initialize");
 		        this.url = options.url;
+		       
 		  },
 		  parse: function (response) {
 		        return response;

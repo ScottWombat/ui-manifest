@@ -81,7 +81,7 @@ require(['application','jquery','bootstrap','commons/custom',
 */
 
 
-require(['application','jquery','jquery-validate','bootstrap','commons/custom','commons/global',
+require(['application','jquery','jquery-validate','bootstrap','commons/custom','commons/global','utils/handlebarsHelpers',
          'layouts/header/htop/language/language_app',
          'layouts/header/htop/currency/currency_app',
          'layouts/header/htop/links/links_app',

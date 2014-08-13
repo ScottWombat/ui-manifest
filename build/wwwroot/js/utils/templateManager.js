@@ -3,6 +3,8 @@ define( function( require ) {
 	 var Marionette = require('marionette');
 	 var text = require('text');
 	 
+	
+	 
 	 Backbone.Marionette.TemplateCache.loadTemplate = function(templateId){
 		 var myTemplate = _compiled(templateId);
 		 return myTemplate;
@@ -24,4 +26,18 @@ define( function( require ) {
 				 return load(template);
 		}
 	 }
+	 
+	 
+	 Handlebars.registerHelper('ifequal', function(lvalue, rvalue, options) {
+	    	
+	        if (arguments.length < 2)
+	            throw new Error("Handlebars Helper equal needs 2 parameters");
+	        if( lvalue!=rvalue ) {
+	            return options.inverse(this);
+	        } else {
+	            return options.fn(this);
+	        }
+	    });
+	 
+	 
 });

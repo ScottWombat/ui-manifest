@@ -4,27 +4,45 @@
 		<p>Please select the preferred shipping method to use on this
 			order.</p>
 		<form>
-		<table class="radio">
+		<table class="radio1" border='0' >
 			<tbody>
 				<tr>
-					<td colspan="3"><b>Free Shipping</b></td>
+					<td colspan="3">Free Shipping</td>
 				</tr>
+				<tr><td>&nbsp;</td></tr>
 				<tr class="highlight">
-					<td><label> <input type="radio" checked="checked"
-							id="" value="" name="shipping_method"> Free Shipping <b>($0.00)</b></label></td>
+					<td><label> 
+					{{#ifequal  shippingMethod.shippingMethod 'free'}}
+					<input type="radio" checked value="free" name="shipping_method">
+					{{else}}
+					<input type="radio"  value="free" name="shipping_method">
+					{{/ifequal}}
+					Free Shipping<b>($0.00)</b>
+					</label></td>
+										
 				</tr>
+				<tr><td>&nbsp;</td></tr>
 				<tr>
-					<td colspan="3"><b>Flat Rate</b></td>
+					<td colspan="3">Flat Rate</td>
 				</tr>
-				<tr class="highlight">
-					<td><label> <input type="radio" checked="checked"
-							id="" value="" name="shipping_method"> Flat Shipping Rate
-							<b>($5.03)</b></label></td>
+				
+				<tr><td>&nbsp;</td></tr>
+			    <tr class="highlight">
+					<td><label> 
+					{{#ifequal  shippingMethod.shippingMethod 'flatrate'}}
+					<input type="radio" checked value="flatrate" name="shipping_method">
+					{{else}}
+					<input type="radio"  value="flatrate" name="shipping_method">
+					{{/ifequal}}
+					Flat Shipping Rate<b>($5.03)</b>
+					</label></td>
+										
 				</tr>
+				
 			</tbody>
 		</table>
 		<br> <b>Add Comments About Your Order</b>
-		<textarea style="width: 96%;" rows="8" name="comment"></textarea>
+		<textarea style="width: 96%;" rows="8" name="shipping_method_note">{{shippingMethod.shippingMethodNote}}</textarea>
 		<br> <br>
 		<div class="buttons">
 			<div class="left">

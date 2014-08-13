@@ -4,14 +4,7 @@ define(['handlebars'], function (Handlebars) {
     //}
 
    // Handlebars.registerHelper('addOn', addOn);
-   // return new Handlebars.SafeString(addOn);
-	Handlebars.registerHelper('ifvalue', function (conditional, options) {
-		  if (options.hash.value === conditional) {
-		    return options.fn(this)
-		  } else {
-		    return options.inverse(this);
-		  }
-		});
+  
     
     Handlebars.registerHelper('equal', function(lvalue, rvalue, options) {
     	
@@ -62,5 +55,52 @@ define(['handlebars'], function (Handlebars) {
             return options.inverse(this);
         }
 
-      });
+    });
+    function yeller ( context, options ) {
+    	 // Assume it's a string for simplicity.
+    	return context + "!!!!!!!!";
+    }
+    function yeller1 ( context, options ) {
+   	 // Assume it's a string for simplicity.
+   	return context + "!!!!!!!!";
+   }
+    
+    function ifequal(lvalue, rvalue, options) {
+    	 if (arguments.length < 3)
+             throw new Error("Handlebars Helper ifequal needs 2 parameters");
+         if( lvalue!=rvalue ) {
+             return options.inverse(this);
+         } else {
+             return options.fn(this);
+         }
+   }
+    
+    function add(lvalue, rvalue, options) {
+   	 if (arguments.length < 3)
+            throw new Error("Handlebars Helper ifequal needs 2 parameters");
+        
+     return lvalue * rvalue;
+        
+  }
+    
+    Handlebars.registerHelper('ifCond', function(v1, v2, options) {
+    	  if(v1 === v2) {
+    		 alert='equal';
+    	    return options.fn(this);
+    	  }
+    	  return options.inverse(this);
+    	});
+    	 
+    Handlebars.registerHelper( 'yeller', yeller );
+    Handlebars.registerHelper( 'add', add );
+  
+    Handlebars.registerHelper( 'ifequal', ifequal );
+    
+    	 return {yeller:yeller,
+    		 	ifequal:ifequal,
+    		 	add:add
+    		 
+    	 }
+    
+   
 });

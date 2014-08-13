@@ -1,31 +1,82 @@
 
  <div class="checkout">
-          <div class="checkout-heading">Step 7: Confirm Order</div>
-         
+          <div class="checkout-heading">Step 7: Order Summary</div>
             <div class="checkout-product">
               <table>
+                <thead>
+                  <tr>
+                    <td class="name">Billing Details</td>
+                    <td class="name">Shipping Details</td>
+                    <td class="name">Shipping Method</td>
+                    <td class="name">Payment Method</td>
+                 
+                  </tr>
+                </thead>
+                 <tbody>
+                  <tr>
+                    <td class="name">
+                    <b>First name :</b>{{billingDetails.firstname}}<br>
+                    <b>Last name :</b>{{billingDetails.lastname}}<br>
+                    <b>Company :</b>{{billingDetails.company}}<br>
+                    <b>Company ID:</b>{{billingDetails.company_id}}<br>
+                    <b>Address 1:</b>{{billingDetails.address_1}}<br>
+                    <b>Address 2:</b>{{billingDetails.address_2}}<br>
+                    <b>City:</b>{{billingDetails.city}}<br>
+                    <b>State:</b>{{billingDetails.state}}<br>
+                     <b>Country:</b>AUSTRALIA
+                    </td>
+                    <td class="name">
+                    <b>Last name:</b>{{shippingDetails.lasttname}}
+                    <b>First name :</b>{{shippingDetails.firstname}}<br>
+                    <b>Last name :</b>{{shippingDetails.lastname}}<br>
+                    <b>Company :</b>{{shippingDetails.company}}<br>
+                    <b>Company ID:</b>{{shippingDetails.company_id}}<br>
+                    <b>Address 1:</b>{{shippingDetails.address_1}}<br>
+                    <b>Address 2:</b>{{shippingDetails.address_2}}<br>
+                    <b>City:</b>{{shippingDetails.city}}<br>
+                    <b>State:</b>{{shippingDetails.state}}<br>
+                     <b>Country:</b>AUSTRALIA
+                    </td>
+                     <td class="name">
+                     <b>Shipping Method:</b>{{shippingMethod.shippingMethod}}
+                     </td>
+                     <td class="name">
+                     <b>Payment Type:</b>{{paymentMethod.paymentType}}
+                     </td>
+                    
+                  </tr>
+                 </tbody>
+            </table>
+            </div>
+            <div class="checkout-product">
+              <table border='0'>
                 <thead>
                   <tr>
                     <td class="name">Product Name</td>
                     <td class="model">Model</td>
                     <td class="quantity">Quantity</td>
-                    <td class="price">Price</td>
+                    <td class="price">Price/Item</td>
                     <td class="total">Total</td>
+                
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td class="name"><a href="#">Canon EOS 5D</a></td>
-                    <td class="model">Product 3</td>
-                    <td class="quantity">1</td>
-                    <td class="price">£61.33</td>
-                    <td class="total">£61.33</td>
+                {{#each cartInfo.products}}
+                <tr>
+                    <td class="name"><a href="#">{{name}}</a></td>
+                    <td class="model">{{name}}</td>
+                    <td class="quantity"><input  width="2" maxlength="2" size="2" type="text" name='qty' value='{{qty}}' style="width:50px;text-align:center;" ></td>
+                    <td class="price">${{price}}</td>
+                    <td class="total">${{add qty price}}</td>
+                   
                   </tr>
+                {{/each}}
+                
                 </tbody>
                 <tfoot>
                   <tr>
                     <td class="price" colspan="4"><b>Sub-Total:</b></td>
-                    <td class="total">£51.11</td>
+                    <td class="total">${{cartInfo.subtotal}}</td>
                   </tr>
                   <tr>
                     <td class="price" colspan="4"><b>Flat Shipping Rate:</b></td>
@@ -33,7 +84,7 @@
                   </tr>
                   <tr>
                     <td class="price" colspan="4"><b>Total:</b></td>
-                    <td class="total">£66.37</td>
+                    <td class="total">${{cartInfo.total}}</td>
                   </tr>
                 </tfoot>
               </table>
