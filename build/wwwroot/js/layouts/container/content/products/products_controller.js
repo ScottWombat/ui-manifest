@@ -6,12 +6,24 @@ define(["application",
     Products.Controller = {
     
       showProducts: function(menuId){
-    	 var productCollection = App.request("products:entities",menuId);   
-    	 this.view = new ProductLayout.Layout({products:productCollection});
-    //	 App.MainContentRegion.MainCo.close() ;
+    	 //var productCollection = App.request("products:entities",menuId);   
+    	// this.view = new ProductLayout.Layout({products:productCollection,menuId:menuId});
+    	  this.view = new ProductLayout.Layout({menuId:menuId});
     	 App.sliderRegion.close();
     	 App.maincontentRegion.show(this.view);
     	
+      },
+      listProducts:function(menuId){
+    	  var productCollection =App.trigger("products:entities",'Mobile Phones',2,5);
+    	 // App.maincontentRegion.close();
+    	  $.when(productCollection).done(function(cCollection) {
+				//var cartview = new CartView.Carts({
+				//	collection : cartCollection
+				//});
+				//App.cartRegion.show(cartview);
+    		  App.productRegion.close();
+			})
+
       },
     
       setActiveHeader: function(headerUrl){

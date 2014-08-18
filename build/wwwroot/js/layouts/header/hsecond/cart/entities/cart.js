@@ -4,7 +4,7 @@ define(["application"], function(App){
 	Entities.Cart = Backbone.Model.extend({
 		
 		initialize: function(){
-		        console.info("Cart initialize");
+		        //console.info("Cart initialize");
 		       // this.url=function(){
 		        //	return REST_URL + "cart/list?callback=jsonCallback";
 		      //  }
@@ -20,7 +20,7 @@ define(["application"], function(App){
 	      model: Entities.Cart,
 	     // url: REST_URL + "cart/list?callback=jsonCallback",
 		  initialize: function(options){
-		        console.info("Carts initialize");
+		       // console.info("Carts initialize");
 		        this.url = options.url;
 		       
 		  },
@@ -33,7 +33,7 @@ define(["application"], function(App){
 	Entities.UpdateModel = Backbone.Collection.extend({
 		model: Entities.Cart,
 		initialize: function(options){
-		        console.info("Update model" + options.id);
+		       // console.info("Update model" + options.id);
 		       // this.url= REST_URL + "cart/add/item/" + options.id +"?callback=jsonCallback";
 		        this.url = options.url;
 		     // var target = document.getElementById('loading');
@@ -120,11 +120,11 @@ define(["application"], function(App){
            Entities.Model = initializeCart();
            deferred =Entities.Model.fetch(
         		   {success:function(){
-        			   console.info('fetching cart collection from locale storage');
+        			   //console.info('fetching cart collection from locale storage');
         		      //console.info('collection size:'+Entities.Collection.length)
         		   },
         		   error:function(){
-         		      console.info('error populating data');
+         		      //console.info('error populating data');
          		   }
            });     
            $.when(deferred).then(function() {
@@ -137,11 +137,11 @@ define(["application"], function(App){
           Entities.Model = initializeUpdateCart(id);
           Entities.Model.fetch(
        		   {success:function(){
-       			   console.info('fetching udate cart collection from locale storage');
+       			   //console.info('fetching udate cart collection from locale storage');
        		     
        		   },
        		   error:function(){
-        		      console.info('error populating data');
+        		     // console.info('error populating data');
         		}
         });     
       

@@ -16,7 +16,7 @@ define([ "application",'handlebars' ,
 			},
 			addItem : function(e) {
 				e.preventDefault();
-				alert("DD");
+				
 				$('#wishlist ul').css({"display":"none"});
 				App.trigger("wishlist:addItem", this.model.get('id'));
 			},

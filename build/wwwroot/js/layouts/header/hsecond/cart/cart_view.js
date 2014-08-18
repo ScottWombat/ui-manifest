@@ -12,6 +12,7 @@ define([ "application",'handlebars',
 			id:'mycart',
 			
 			initialize:function(){
+				
 				//this.model.on('change', this.render);
 			},
 		
@@ -125,6 +126,9 @@ define([ "application",'handlebars',
 		
 		View.Carts= Marionette.CollectionView.extend({
 			itemView : View.Cart,
+			initialize:function(options){
+				
+			},
 			
 			onRender:function(){
 				

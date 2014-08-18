@@ -1,0 +1,42 @@
+
+<div class="product-filter">
+	<div class="display">
+		<b>Display:{{pageNo}};</b> <span class="grid1-icon">Grid</span> <a
+			href="category-list.html" class="list-icon">List</a>
+	</div>
+	<div class="limit">
+		<b>Show:</b> <select>
+			<option value="5" {{#ifequal pageSize 5}} selected{{/ifequal}}>5</option>
+			<option value="10" {{#ifequal pageSize 10}} selected{{/ifequal}}>10</option>
+			<option value="15" {{#ifequal pageSize 15}} selected{{/ifequal}}>15</option>
+			<option value="25" {{#ifequal pageSize 25}} selected{{/ifequal}}>25</option>
+			<option value="50" {{#ifequal pageSize 50}} selected{{/ifequal}}>50</option>
+			<option value="100" {{#ifequal pageSize 100}} selected{{/ifequal}}>100</option>
+		</select>
+	</div>
+	<div class="sort">
+		<b>Sort By:</b> <select>
+			<option value="" selected="selected">Default</option>
+			<option value="">Name (A - Z)</option>
+			<option value="">Name (Z - A)</option>
+			<option value="">Price (Low &gt; High)</option>
+			<option value="">Price (High &gt; Low)</option>
+			<option value="">Rating (Highest)</option>
+			<option value="">Rating (Lowest)</option>
+			<option value="">Model (A - Z)</option>
+			<option value="">Model (Z - A)</option>
+		</select>
+	</div>
+
+</div>
+
+<div class="product-grid">
+
+</div>
+
+ <div class="pagination">
+          <div class="links"> <b>1</b> <a href="#">2</a> <a href="#">&gt;</a> <a href="#">&gt;|</a></div>
+          <div class="results">Showing 1 to {{pageSize}} of {{numberOfPages}} ({{numberOfPages}} Pages)</div>
+ </div>
+
+

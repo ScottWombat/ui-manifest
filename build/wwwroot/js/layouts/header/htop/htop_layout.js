@@ -13,7 +13,7 @@ define([ "application",'handlebars' ,
 		View.LanguageRegion = Marionette.Region.extend({
 	    	el: "#language",
 	    	initialize: function(){
-	    		console.info('Initialize language region');
+	    		//console.info('Initialize language region');
 	    		//this.viewLanguage= new LanguageLayout.Layout();
 	    	},
 	    	onShow: function (view) {
@@ -21,7 +21,7 @@ define([ "application",'handlebars' ,
 	    	},
 	    	displayMessage: function (id) {
 	    
-	    		console.log('regionManager received display:message');
+	    		//console.log('regionManager received display:message');
 	    	}
 	    
 	    });
@@ -36,7 +36,7 @@ define([ "application",'handlebars' ,
 	    	},
 	    	displayMessage: function (id) {
 	    
-	    		console.log('regionManager received display:message');
+	    		//console.log('regionManager received display:message');
 	    	}
 	    
 	    });
@@ -51,7 +51,7 @@ define([ "application",'handlebars' ,
 	    	},
 	    	displayMessage: function (id) {
 	    
-	    		console.log('regionManager received display:message');
+	    		//console.log('regionManager received display:message');
 	    	}
 	    
 	    });

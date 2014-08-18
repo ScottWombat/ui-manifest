@@ -15,7 +15,7 @@ define([ "application", 'handlebars', 'utils/templateManager',
 		View.LoginRegion = Marionette.Region.extend({
 			el : "#login",
 			initialize : function() {
-				console.info('Initialize language region');
+				//console.info('Initialize language region');
 				// this.viewLanguage= new LanguageLayout.Layout();
 			},
 			onShow : function(view) {
@@ -24,13 +24,13 @@ define([ "application", 'handlebars', 'utils/templateManager',
 				// this.displayMessage);
 			},
 			displayMessage : function(id) {
-				console.log('regionManager received display:message');
+				//console.log('regionManager received display:message');
 			}
 		});
 		View.SignupRegion = Marionette.Region.extend({
 			el : "#signup",
 			initialize : function() {
-				console.info('Initialize Signup region');
+				//console.info('Initialize Signup region');
 				// this.viewLanguage= new LanguageLayout.Layout();
 			},
 			onShow : function(view) {
@@ -38,13 +38,13 @@ define([ "application", 'handlebars', 'utils/templateManager',
 				// this.displayMessage);
 			},
 			displayMessage : function(id) {
-				console.log('regionManager received display:message');
+				//console.log('regionManager received display:message');
 			}
 		});
 		View.WishlistRegion = Marionette.Region.extend({
 			el : "#wishlist",
 			initialize : function() {
-				console.info('Initialize wishlistRegion region');
+				//console.info('Initialize wishlistRegion region');
 				// this.viewLanguage= new LanguageLayout.Layout();
 			},
 			onShow : function(view) {
@@ -52,13 +52,13 @@ define([ "application", 'handlebars', 'utils/templateManager',
 				// this.displayMessage);
 			},
 			displayMessage : function(id) {
-				console.log('regionManager received display:message');
+				//console.log('regionManager received display:message');
 			}
 		});
 		View.MyaccountRegion = Marionette.Region.extend({
 			el : "#myaccount",
 			initialize : function() {
-				console.info('Initialize language region');
+				//console.info('Initialize language region');
 				// this.viewLanguage= new LanguageLayout.Layout();
 			},
 			onShow : function(view) {
@@ -66,13 +66,13 @@ define([ "application", 'handlebars', 'utils/templateManager',
 				// this.displayMessage);
 			},
 			displayMessage : function(id) {
-				console.log('regionManager received display:message');
+				//console.log('regionManager received display:message');
 			}
 		});
 		View.ContactRegion = Marionette.Region.extend({
 			el : "#contact",
 			initialize : function() {
-				console.info('Initialize language region');
+				//console.info('Initialize language region');
 				// this.viewLanguage= new LanguageLayout.Layout();
 			},
 			onShow : function(view) {
@@ -80,13 +80,13 @@ define([ "application", 'handlebars', 'utils/templateManager',
 				// this.displayMessage);
 			},
 			displayMessage : function(id) {
-				console.log('regionManager received display:message');
+				//console.log('regionManager received display:message');
 			}
 		});
 		View.CheckoutRegion = Marionette.Region.extend({
 			el : "#checkout",
 			initialize : function() {
-				console.info('Initialize language region');
+				//console.info('Initialize language region');
 				// this.viewLanguage= new LanguageLayout.Layout();
 			},
 			onShow : function(view) {
@@ -94,7 +94,7 @@ define([ "application", 'handlebars', 'utils/templateManager',
 				// this.displayMessage);
 			},
 			displayMessage : function(id) {
-				console.log('regionManager received display:message');
+				//console.log('regionManager received display:message');
 			}
 		});
 

@@ -2,10 +2,22 @@ define(['handlebars'], function (Handlebars) {
     //function addOn(context, options) {
     //    console.log(options.hash);
     //}
-
-   // Handlebars.registerHelper('addOn', addOn);
-  
-    
+//return new Handlebars.SafeString("<img src='" + src + "' title='" + groupName +  "' class='" + cssClass + "'/>");
+	Handlebars.registerHelper('times', function(n,current,catalogueName,pageSize, options) {
+	    var accum = '';
+	    for(var i = 1; i < n+1; ++i){
+	    	 //accum += options.fn(i+1);
+	    	console.info(i +":" + current);
+	    	if(i==current){
+	    		accum +=new Handlebars.SafeString("<b>" + i +"</b>");
+	    	}else{
+	    		accum +=new Handlebars.SafeString("<a class='paging' id='" + catalogueName + "/" + i + "/" + pageSize +"'>" + i +"</a>");
+	    	}
+	    }
+	       
+	    return accum;
+	});
+	
     Handlebars.registerHelper('equal', function(lvalue, rvalue, options) {
     	
         if (arguments.length < 3)
@@ -66,9 +78,11 @@ define(['handlebars'], function (Handlebars) {
    }
     
     function ifequal(lvalue, rvalue, options) {
+    	console.info(lvalue +":"+rvalue);
     	 if (arguments.length < 3)
              throw new Error("Handlebars Helper ifequal needs 2 parameters");
          if( lvalue!=rvalue ) {
+        	
              return options.inverse(this);
          } else {
              return options.fn(this);

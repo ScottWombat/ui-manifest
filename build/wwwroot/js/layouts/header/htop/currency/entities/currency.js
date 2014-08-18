@@ -15,7 +15,7 @@ define(["application",'localstorage'], function(App){
       url: REST_URL + "currency/list?callback=jsonCallback",
      
 	  initialize: function(){
-	        console.info("Currencies initialize")
+	        //console.info("Currencies initialize")
 	      
 	    },
 	    parse: function (response) {
@@ -57,11 +57,11 @@ define(["application",'localstorage'], function(App){
           
                 Entities.Collection.fetch(
         		   {success:function(){
-        			   console.info('fetching currencys collection from locale storage');
-        		      console.info('collection size:'+Entities.Collection.length)
+        			  // console.info('fetching currencys collection from locale storage');
+        		     // console.info('collection size:'+Entities.Collection.length)
         		   },
         		   error:function(){
-         		      console.info('error populating data');
+         		     // console.info('error populating data');
          		   }
                 });     
                 return Entities.Collection;
@@ -72,11 +72,11 @@ define(["application",'localstorage'], function(App){
               
               Entities.Collection.fetch(
       		   {success:function(){
-      			   console.info('updating currencys collection from locale storage');
-      		      console.info('collection size:'+Entities.Collection.length)
+      			   //console.info('updating currencys collection from locale storage');
+      		      //console.info('collection size:'+Entities.Collection.length)
       		   },
       		   error:function(){
-       		      console.info('error populating data');
+       		      //console.info('error populating data');
        		   }
               });     
               return Entities.Collection;

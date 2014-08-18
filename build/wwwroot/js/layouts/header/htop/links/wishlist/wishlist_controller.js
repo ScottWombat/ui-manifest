@@ -10,7 +10,7 @@ define([ "application", 'layouts/header/htop/links/links_layout',
 			},
 			deleteItem : function(id) {
 				var newCollection = App.request("wishitems:removeItem", id);
-				alert("dd");
+				
 				$.when(newCollection).done(function(newCollection) {
 
 					var viewWishlist = new WishlistView.Wishlist({

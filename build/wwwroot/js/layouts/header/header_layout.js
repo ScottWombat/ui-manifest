@@ -12,14 +12,14 @@ define([ "application",'handlebars' ,
 		View.HtopRegion = Marionette.Region.extend({
 	    	el: ".htop",
 	    	initialize: function(){
-	    		console.info('Initialize htop region');
+	    		//console.info('Initialize htop region');
 	    		//this.viewLanguage= new LanguageLayout.Layout();
 	    	},
 	    	onShow: function (view) {
 	    		//this.listenTo(view, "itemview:menu:navigate", this.displayMessage);
 	    	},
 	    	displayMessage: function (id) {
-	    		console.log('regionManager received display:message');
+	    		//console.log('regionManager received display:message');
 	    	}
 	    
 	    });
@@ -27,14 +27,14 @@ define([ "application",'handlebars' ,
 		View.HsecondRegion = Marionette.Region.extend({
 	    	el: ".hsecond",
 	    	initialize: function(){
-	    		console.info('Initialize hsecond region');
+	    		//console.info('Initialize hsecond region');
 	    	},
 	    	onShow: function (view) {
 	    		this.listenTo(view, "itemview:menu:navigate", this.displayMessage);
 	    	},
 	    	displayMessage: function (id) {
 	    
-	    		console.log('regionManager received display:message');
+	    		//console.log('regionManager received display:message');
 	    	}
 	    
 	    });
@@ -42,14 +42,14 @@ define([ "application",'handlebars' ,
 		View.MenuRegion = Marionette.Region.extend({
 	    	el: "#menu",
 	    	initialize: function(){
-	    		console.info('Initialize Menu region');
+	    		//console.info('Initialize Menu region');
 	    	},
 	    	onShow: function (view) {
 	    		this.listenTo(view, "itemview:menu:navigate", this.displayMessage);
 	    	},
 	    	displayMessage: function (id) {
 	    
-	    		console.log('regionManager received display:message');
+	    		//console.log('regionManager received display:message');
 	    	}
 	    
 	    });

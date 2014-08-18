@@ -13,7 +13,7 @@ define(["application",'localstorage'], function(App){
       model: Entities.Language,
       url: REST_URL + "language/list?callback=jsonCallback",
 	    initialize: function(){
-	        console.info("Languages initialize")
+	       // console.info("Languages initialize")
 	      
 	    },
 	    parse: function (response) {
@@ -53,11 +53,11 @@ define(["application",'localstorage'], function(App){
         
            Entities.Collection.fetch(
         		   {success:function(){
-        			   console.info('Successfully fetching languages collection with size(' + Entities.Collection.length +')');
+        			   //console.info('Successfully fetching languages collection with size(' + Entities.Collection.length +')');
         		      
         		   },
         		   error:function(){
-         		      console.info('Error in fectching languages collection');
+         		     // console.info('Error in fectching languages collection');
          		   }
            });     
        
@@ -70,11 +70,11 @@ define(["application",'localstorage'], function(App){
           
           Entities.Collection.fetch(
   		   {success:function(){
-  			   console.info('updating currencys collection from locale storage');
-  		      console.info('collection size:'+Entities.Collection.length)
+  			   //console.info('updating currencys collection from locale storage');
+  		      //console.info('collection size:'+Entities.Collection.length)
   		   },
   		   error:function(){
-   		      console.info('error populating data');
+   		      //console.info('error populating data');
    		   }
           });     
           return Entities.Collection;

@@ -3,7 +3,7 @@ define(["application"], function(App){
 	
 	Entities.WishItem = Backbone.Model.extend({
 		initialize: function(){
-	        console.info("WishItem initialize");
+	        
 		},
 		parse: function (response) {
 	        return response;
@@ -17,7 +17,7 @@ define(["application"], function(App){
     //  url: REST_URL + "wishlist/list?callback=jsonCallback",
      
 	  initialize: function(options){
-	        console.info("WishItems initialize")
+	        
 	        this.url = options.url;
 	      
 	    },
@@ -55,11 +55,11 @@ define(["application"], function(App){
            Entities.Collection = initializeWishlist();
            Entities.Collection.fetch(
         		   {success:function(){
-        			   console.info('fetching wishitems collection from locale storage');
-        		      console.info('collection size:'+Entities.Collection.length)
+        			   //console.info('fetching wishitems collection from locale storage');
+        		      //console.info('collection size:'+Entities.Collection.length)
         		   },
         		   error:function(){
-         		      console.info('error populating data');
+         		      //console.info('error populating wishlistdata');
          		   }
          });     
        
@@ -70,11 +70,11 @@ define(["application"], function(App){
     	  
     	   Entities.Collection.fetch(
         		   {success:function(){
-        			   console.info('fetching wishitems collection from locale storage');
-        		      console.info('collection size:'+Entities.Collection.length)
+        			   //console.info('fetching wishitems collection from locale storage');
+        		      //console.info('collection size:'+Entities.Collection.length)
         		   },
         		   error:function(){
-         		      console.info('error populating data');
+         		      //console.info('errorupdating wishlist data');
          		   }
          });    
        	
@@ -86,11 +86,11 @@ define(["application"], function(App){
    	  
    	   	Entities.Collection.fetch(
        		   {success:function(){
-       			   console.info('fetching wishitems collection from locale storage');
-       		      console.info('collection size:'+Entities.Collection.length)
+       			 //  console.info('fetching wishitems collection from locale storage');
+       		     // console.info('collection size:'+Entities.Collection.length)
        		   },
        		   error:function(){
-        		      console.info('error populating data');
+        		      //console.info('error removing wishlist data');
         		   }
         });    
       	

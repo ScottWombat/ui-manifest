@@ -15,7 +15,7 @@ define(["application",'localstorage'], function(Mystore){
       url: REST_URL + "catalogue/list?callback=jsonCallback",
      
 	  initialize: function(){
-	        console.info("Catalogues initialize")
+	        //console.info("Catalogues initialize")
 	      
 	    },
 	    parse: function (response) {
@@ -35,11 +35,11 @@ define(["application",'localstorage'], function(Mystore){
            Entities.Collection = initializeHeaders();
            Entities.Collection.fetch(
         		   {success:function(){
-        			   console.info('fetching catalogues collection from locale storage');
-        		      console.info('collection size:'+Entities.Collection.length)
+        			  // console.info('fetching catalogues collection from locale storage');
+        		     // console.info('collection size:'+Entities.Collection.length)
         		   },
         		   error:function(){
-         		      console.info('error populating data');
+         		      //console.info('error populating data');
          		   }
          });     
        
