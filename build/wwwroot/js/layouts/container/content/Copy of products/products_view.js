@@ -1,6 +1,5 @@
 define(["application",'utils/templateManager',
         'text!layouts/container/content/products/templates/mainpanel.html',
-        'text!layouts/container/content/products/templates/container.html',
         'text!layouts/container/content/products/templates/leftpanel.html',
         'text!layouts/container/content/products/templates/rightpanel.html',
         'text!layouts/container/content/products/templates/product_filter_template.html',
@@ -12,34 +11,30 @@ define(["application",'utils/templateManager',
 
 
         ],
-		function(App, TemplateManager,MainPanel,Container,LeftPanel,RightPanel,pro_filter_tpl,pagination_tpl,
+		function(App, TemplateManager,MainPanel,LeftPanel,RightPanel,pro_filter_tpl,pagination_tpl,
 				product_tpl,div_tpl,productlist_tpl){
 	
   App.module("Main.Content.View", function(View, App, Backbone, Marionette, $, _){
 	
     View.Layout = Marionette.Layout.extend({
     	
-      //template: TemplateManager.getTemplate(MainPanel),
-      template: TemplateManager.getTemplate(Container),
+      template: TemplateManager.getTemplate(MainPanel),
+
       regions: {
-        //leftPanelRegion: "#column-left",
-       // productRegion: "#content"
-    	  productRegion: '#container'
+        leftPanelRegion: "#column-left",
+        productRegion: "#content"
       },
       initialize: function(options){
     	  
     	  var productCollection = options.products;
     	  var menuId = options.menuId;
-    	 // this.leftPanelView = new View.LeftPanel({menuId:menuId});
+    	  this.leftPanelView = new View.LeftPanel({menuId:menuId});
     	//  this.productListView = new View.ProductList();
-    	  //this.productPanelView = new View.ProductContentLayout({products:productCollection,menuId:menuId});
-    	  
-    	  this.grid1 = new View.ProductList({menuId:menuId});
+    	  this.productPanelView = new View.ProductContentLayout({products:productCollection,menuId:menuId});
       	 },
       	 onRender: function() {
-      	//	this.leftPanelRegion.show(this.leftPanelView);
-      		//this.productRegion.show(this.productPanelView);
-      		this.productRegion.show(this.grid1);
+      		this.leftPanelRegion.show(this.leftPanelView);
+      		this.productRegion.show(this.productPanelView);
       	 },
 
       	// onShow: function() {
@@ -108,7 +103,70 @@ define(["application",'utils/templateManager',
     		 //this.collection=options.collection;
     	 }
     });
+    /*
+     * 
+     View.ProductPage =  Backbone.Model.extend({
+    	
+    	initialize:function(options){
+    		this.url= REST_URL + "product/list/" + options.menuId + "/" + options.pageNumber +"/" + options.pageSize + "?callback=jsonCallback";
+    		//console.info("DD");
+    		//console.info(this.url);
+    		this.on('change', this.notifyGeneral, this);
+    	},
+    	notifyGeneral:function(){
+    		//alert('ddddddddddd');
+    	}
    
+    });
+    
+    View.PaginationModel =  Backbone.Model.extend({
+    	  defaults:{
+    		  pages:'',
+    		  records:''
+    	  },
+    	 
+          initialize:function(options){
+    		 
+    		 this.menuId = options.menuId;
+    		
+    		 this.url = REST_URL + "product/count/" + this.menuId + "/" + '1' + "?callback=jsonCallback";
+    		 this.fetch();
+    		
+    	 },
+    	 parse: function (response) {
+    	
+    		 response.pages = 'response.pages';
+    		 return response;
+ 	    },
+ 	    getPages:function(){
+ 	    	return this.pages;
+ 	    },
+ 	    getRecords:function(){
+ 	    	return this.records;
+ 	    }
+    	
+    });
+    
+    
+    View.ProductPagination = Marionette.ItemView.extend({
+      	 template: TemplateManager.getTemplate(pagination_tpl),
+      	 //model : new View.
+      	 initialize:function(options){
+      		 this.menuId = options.menuId;
+      		 this.model = new View.PaginationModel({menuId:this.menuId});
+      	 },
+     	 events : {
+     		'click .paging' : 'doPaging'
+     	 },
+     	doPaging:function(e){
+			e.preventDefault();
+			console.info("Target");
+			var id = $(e.target).attr('id');
+			//alert(id);
+			this.trigger("menu:navigate",this.menuId,this.menuId);
+		},
+    });
+    */
     View.Product = Marionette.ItemView.extend({
      	 template:  TemplateManager.getTemplate(product_tpl),
      	 initialize:function(options){
@@ -151,38 +209,8 @@ define(["application",'utils/templateManager',
       	 events : {
      	
 			'click a.paging': 'goToPage',
-			'click a.filterPaging':'goToPageFilterPaging',
 			'change #sortBy' : 'doSort',
-			'change #byPageSize' : 'doPageSize',
-			'click #button-filter' : 'doFilter'
-		 },
-		 
-		 doFilter:function(e){
-			 e.preventDefault();
-	
-			 var params='';
-			 $('.filter_search:checked').each(function(){
-				        var thevalue =$(this).val(); 
-				        var splitthevalue = thevalue.split('-');
-				        params += '&' + 'filter'+splitthevalue[1]+ '=' + thevalue;
-			 });
-			// console.info('doFilter');
-			// console.info(params);
-			 var pagination =this.model.get('pagination');
-			// console.info(pagination);
-			// console.info(pagination.catalogueName);
-			// console.info(pagination.pageSize);
-			 var url = REST_URL + "product/filter?" + "catalogueName=" + pagination.catalogueName + "&pageNumber=" + pagination.currentPage
-			           + "&pageSize=" + pagination.pageSize + params;   
-			 var _that =this;
-			$.getJSON(url,function(result) {
-				    console.info("DD");
-					console.info(result);
-					 _that.collection = new Backbone.Collection(result.products)
-	 				   _that.model.set('pagination',result.pagination);
-					  _that.model.set('filters',result.filters);
-	 				   _that.render();
-			});
+			'change #byPageSize' : 'doPageSize'
 			
 		 },
 		 doSort: function(e){
@@ -199,6 +227,7 @@ define(["application",'utils/templateManager',
 			};
             this.collection.sort();
           
+			
 			
             this.collection.trigger('reset');
 			
@@ -221,7 +250,7 @@ define(["application",'utils/templateManager',
 		 goToPage:function(e){
 			e.preventDefault();
 			var id = $(e.target).attr('id');
-			//alert(id);
+			alert(id);
 			var url = REST_URL + "product/productlist/" + id;
 			var _that =this;
 			//$.getJSON('http://localhost:8080/rs-manifest/product/productlist/Mobile Phones/2/5', function(data) {
@@ -232,45 +261,7 @@ define(["application",'utils/templateManager',
 			});
 			 
 		 },
-		 goToPageFilterPaging:function(e){
-			 e.preventDefault();
-			 var id = $(e.target).attr('id');
-			 var i= 0;
-			 var params='';
-			 $('.filter_search:checked').each(function(){
-				        //params += '&' + 'filter' + ++i + '=' + $(this).val();
-				    var thevalue =$(this).val(); 
-			        var splitthevalue = thevalue.split('-');
-			        params += '&' + 'filter'+splitthevalue[1]+ '=' + thevalue;
-			 });
-			// console.info("params")
-			//console.info(params);
-			// console.info(id);
-			 
-			var catalogueName= id.split('/')[0];
-			var pageNumber= id.split('/')[1];
-			var pageSize= id.split('/')[2];
-			
-			 
-			 var url = REST_URL + "product/filter?catalogueName=" + catalogueName + '&pageNumber='+pageNumber + '&pageSize=' + pageSize + params;
-				var _that =this;
-				
-				$.getJSON(url,function(result) {
-				    console.info("DD");
-					console.info(result);
-					 _that.collection = new Backbone.Collection(result.products)
-	 				   _that.model.set('pagination',result.pagination);
-					  _that.model.set('filters',result.filters);
-	 				   _that.render();
-			      });
-				
-				//$.getJSON(url, function(data) {
-				//	  _that.collection = new Backbone.Collection(data.products)
-				//	   _that.model.set('pagination',data.pagination);
-				//	   _that.render();
-				//});
-			
-		 },
+      	 
       	 initialize: function(options){
       		console.info("initialize product grid");
       		
@@ -282,11 +273,10 @@ define(["application",'utils/templateManager',
     View.ProductList= Marionette.CollectionView.extend({
     	pageNo:1,
     	pageSize:5,
-    	channel:'paging',
 		itemView : View.ProductGrid,
 		initialize:function(options){
 			this.menuId = options.menuId;
-			 var productCollection = App.request("products:entities",this.menuId,this.pageNo,this.pageSize,this.channel);   
+			 var productCollection = App.request("products:entities",this.menuId,this.pageNo,this.pageSize);   
 			 this.collection= productCollection;
 			//console.info("initialize product collection view");
 		},

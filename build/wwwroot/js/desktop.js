@@ -10,18 +10,26 @@ requirejs.config({
     	'backbone.syphon'      : "libs/backbone/backbone.syphon",
     	bootstrap				: 'libs/bootstrap/js/bootstrap.min',
     	'socket.io-client'  	: 'libs/socket.io-client/socket.io',
-    	localstorage            : 'libs/localStorage/backbone.localStorage',
+    	//localstorage            : 'libs/localStorage/backbone.localStorage',
+    	'backbone.localStorage' : 'libs/localStorage/backbone.localStorage',
     	marionette              : 'libs/marionette/backbone.marionette',
     	handlebars              : 'libs/handlebars/handlebars-v1.3.0',
     	json                    : 'libs/json/json2',
     	text                    : 'libs/text/text',
     	i18n					: 'libs/i18n/i18n',
+    	i18next					: 'libs/i18next/i18next.amd.withJQuery',
     	traffiCop               : 'libs/trafficcop/TrafficeCop',
     	lodash					: 'libs/lodash/lodash',
     	global			        : 'commons/global'
     	
     
     },
+    //locale:  'en-us',
+    //locale: localStorage.getItem('locale') || 'en-us',
+    //i18n: {
+    //    locale: 'th'
+   // },
+   
     shim: {
         backbone: {
           deps: ['jquery', 'underscore'],
@@ -44,7 +52,6 @@ requirejs.config({
         "jquery-ui": ["jquery"],
         'jquery-validate' : {
         	deps: ["jquery"]
-           
         },
         'trafficCop' : ['trafficCop'],
         global:{
@@ -57,8 +64,11 @@ requirejs.config({
         'backbone.syphon' : {
             exports : 'Backbone.Syphon',
             deps : [ 'backbone' ]
+         },
+         'backbone.localStorage': {
+             deps: ['backbone'],
+             exports: 'Backbone.localStorage'
          }
-
      },
     
     
@@ -81,7 +91,7 @@ require(['application','jquery','bootstrap','commons/custom',
 */
 
 
-require(['application','jquery','jquery-validate','bootstrap','commons/custom','commons/global','utils/handlebarsHelpers',
+require(['application','i18next','jquery','jquery-validate','bootstrap','commons/custom','commons/global','utils/handlebarsHelpers',
          'layouts/header/htop/language/language_app',
          'layouts/header/htop/currency/currency_app',
          'layouts/header/htop/links/links_app',
@@ -95,10 +105,30 @@ require(['application','jquery','jquery-validate','bootstrap','commons/custom','
          'layouts/container/content/login/login_app',
          'layouts/container/content/signup/signup_app',
          'layouts/container/content/checkout/steps/steps_app'
+         
          //'layouts/container/content/checkout/content/step1/login/step1Login_app'
          //'layouts/header/hsecond/cart/cart_app'
-         ], function(App){
-		//  sessionToken="DDDD";
+         ], function(App,i18n,$){
+	
+	      var i18NOptions = {
+	    	languages: ["en-US"],
+			detectFromHeaders: false,
+			lng: window.navigator.userLanguage || window.navigator.language || 'en-US',
+			fallbackLang: 'en',
+			ns: 'app',
+			resGetPath: 'locales/__lng__/__ns__.json',
+			useCookie: false
+			};
+	      
+	      $.i18n.init(i18NOptions, function(t) {
+	    	  $(document).i18n(); //Once the translations are loaded translate the whole document
+	    	});
+	      
+	     // App.start().then(function () {
+	    //	  i18n.init(i18NOptions, function () {
+	    		  
+	    	//  });
+	      //});
 	      App.start();		
 });
 

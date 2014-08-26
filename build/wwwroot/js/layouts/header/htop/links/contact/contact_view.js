@@ -14,8 +14,34 @@ define([ "application",'handlebars' ,
 			},
 			navigateToSignup : function(e) {
 				e.preventDefault();
-				
 				this.trigger("signuplink_clicked");
+				var data = {'id':'ddd'};
+				
+				$.ajax({
+					url : REST_URL + 'user/login1' +'?callback=jsonCallback',
+					type : 'POST',
+					crossDomain : true,
+					dataType: "json",
+					data : JSON.stringify(data),
+					 processData: false,
+			            xhrFields: {
+			                withCredentials: true
+			            }
+				    })
+				    .done(function(response) {
+						 alert( "success" );
+					})
+					.fail(function(req, status, error) {
+						//console.info(s);
+						 alert( "error:" + req.responseText);
+						 })
+					.always(function() {
+						 alert( "complete" );
+						
+					
+		             });
+			  
+				
 			}
 		
 		});

@@ -3,7 +3,8 @@ define([ "application",
          'text!layouts/header/htop/language/templates/language_template.html',
          'text!layouts/header/htop/language/templates/languages_template.html',
          'text!layouts/header/htop/language/templates/container_template.html',
-         ], function(App,TemplateManager,lang_tpl,langs_tpl,container_tpl) {
+         'i18n!nls/locales','i18next'
+         ], function(App,TemplateManager,lang_tpl,langs_tpl,container_tpl,locales,i18n) {
 	
 	App.module("Language.View", function(View,App,Backbone, Marionette, $, _) {
 		/************* Language view ************************/
@@ -11,6 +12,10 @@ define([ "application",
 		View.Language = Marionette.ItemView.extend({
 			
 			template : TemplateManager.getTemplate(lang_tpl),
+			//template: function () {
+			//     var renderedTemplate = TemplateManager.getTemplate(lang_tpl);
+			//     return  renderedTemplate(locales);
+		    //},
 			tagName : "li",
 			
 			events : {
@@ -20,16 +25,46 @@ define([ "application",
 			navigate : function(e) {
 				e.preventDefault();
 				$('#language ul').css({"display":"none"});
-				App.trigger("language:change", this.model.get('name'));
+				
+				var i18NOptions = {
+				    	
+						detectFromHeaders: false,
+						lng:'th-TH',
+						fallbackLang: 'en',
+						ns: 'app',
+						resGetPath: 'locales/__lng__/__ns__.json',
+						useCookie: false
+						};
+				
+				$.i18n.init(i18NOptions, function(t) {
+			    	  $(document).i18n(); 
+			    	  $('.langlink').i18n();
+			    	  //Once the translations are loaded translate the whole document
+			    	  App.start();
+			    });
+			
 			},
 			//mouseOver:function(){
 			//	$('#language ul').css({"display":"block"});
 			//},
 			onRender : function() {
 				if (this.model.selected) {
+					//alert('d');
 					// add class so Bootstrap will highlight the active entry in
 					// the navbar
 					//this.$el.addClass("active");
+					/*
+					var locale = localStorage.getItem('locale');
+		            if(locale != 'fr-fr') {
+		                localStorage.setItem('locale', 'fr-fr');
+		                location.reload();
+		            }
+		            var locale = localStorage.getItem('locale');
+		            if(locale != 'en-us') {
+		                localStorage.setItem('locale', 'en-us');
+		                location.reload();
+		            }
+		            */
 				}
 				
 			}

@@ -68,8 +68,8 @@ function getUser(req, res, next){
 
 function postUser(req,res,next){
 
-    console.log(req.body.data.email);
-    console.log(req.body.data.pwd);
+   // console.log(req.body.data.email);
+  //  console.log(req.body.data.pwd);
 	var reqPost = http.request(optionspost, function(res) {
 	    console.log("statusCode: ", res.statusCode);
 	    var buffer='';
@@ -91,7 +91,8 @@ function postUser(req,res,next){
 	});
 	// var jsonObject = JSON.stringify({'email':'revit@exemail.com.au','pwd':'pwd'});
 
-	var jsonObject = JSON.stringify({'email':req.body.data.email,'pwd':req.body.data.pwd});
+	//var jsonObject = JSON.stringify({'email':req.body.data.email,'pwd':req.body.data.pwd});
+	var jsonObject = JSON.stringify({'email':'req.body.data.email','pwd':'req.body.data.pwd'});
 	// write the json data
 	reqPost.write(jsonObject);
 	reqPost.end();

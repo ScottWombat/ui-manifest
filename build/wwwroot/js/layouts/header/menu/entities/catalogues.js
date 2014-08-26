@@ -1,4 +1,4 @@
-define(["application",'localstorage'], function(Mystore){
+define(["application"], function(Mystore){
   Mystore.module("Entities", function(Entities, Mystore, Backbone, Marionette, $, _){
     Entities.Catalogue = Backbone.Model.extend({
     	 defaults : {

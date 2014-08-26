@@ -1,0 +1,85 @@
+
+<div class="product-filter">
+	<div class="display">
+		<b>Display:{{pageNo}};</b> <span class="grid1-icon">Grid</span> <a
+			href="category-list.html" class="list-icon">List</a>
+	</div>
+	<div class="limit" >
+		<b>Show:</b> <select id="byPageSize">
+		    <option value="3" {{#ifequal pagination.pageSize 3}} selected{{/ifequal}}>3</option>
+			<option value="5" {{#ifequal pagination.pageSize 5}} selected{{/ifequal}}>5</option>
+			<option value="10" {{#ifequal pagination.pageSize 10}} selected{{/ifequal}}>10</option>
+			<option value="15" {{#ifequal pagination.pageSize 15}} selected{{/ifequal}}>15</option>
+			<option value="25" {{#ifequal pagination.pageSize 25}} selected{{/ifequal}}>25</option>
+			<option value="50" {{#ifequal pagination.pageSize 50}} selected{{/ifequal}}>50</option>
+			<option value="100" {{#ifequal pagination.pageSize 100}} selected{{/ifequal}}>100</option>
+		</select>
+	</div>
+	<div class="sort">
+		<b>Sort By:</b> <select id="sortBy">
+			<option value="" selected="selected">Default</option>
+			<option value="name_ASC">Name ASC</option>
+			<option value="name_DESC">Name DESC</option>
+			<option value="price_ASC">Price (Low &gt; High)</option>
+			<option value="price_DESC">Price (High &gt; Low)</option>
+			<option value="rating_ASC">Rating (Lowest)</option>
+			<option value="rating_DESC">Rating (Highest)</option>
+			<option value="model_ASC">Model ASC</option>
+			<option value="model_DESC">Model DESC</option>
+		</select>
+	</div>
+
+</div>
+
+<div class="product-grid">
+
+</div>
+
+
+
+ <div class="pagination">
+ 	<div class="links">
+        {{#if pagination.hasFirst}}
+			<!--  <a id='pagination.first'>|&lt;</a>-->
+			{{#first pagination.catalogueName pagination.pageSize}}
+				{{this}}
+			{{/first}}
+		{{else}}
+			<a class='disabled'>|&lt;</a>
+		{{/if}}
+		
+		{{#if pagination.hasPrevious}}
+        		<!--  <a id="{{pagination.previous}}">&lt;</a> -->
+        		{{#previous pagination.currentPage pagination.catalogueName pagination.pageSize}}
+				{{this}}
+			    {{/previous}}
+        {{else}}
+          <a class='disabled'>&lt;</a> 
+        {{/if}}
+ 		{{#times pagination.numberOfPages pagination.currentPage pagination.catalogueName pagination.pageSize}}
+ 		 {{this}}
+		{{/times}}
+		
+		{{#if pagination.hasNext}}
+			<!--  <a id={{pagination.next}}>&gt;</a> -->
+			{{#next pagination.currentPage pagination.catalogueName pagination.pageSize}}
+				{{this}}
+			{{/next}}
+		{{else}}
+			<a class='disabled'>&gt;</a> 
+		{{/if}}
+		
+		{{#if pagination.hasLast}}
+				<!--  <a id='{{pagination.last}}'>&gt;|</a>-->
+				{{#last pagination.numberOfPages pagination.catalogueName pagination.pageSize}}
+				{{this}}
+			   {{/last}}
+		{{else}}
+		<a class='disabled'>&gt;|</a>
+		{{/if}}
+	</div>
+    <!-- <div class="links"> <b>1</b> <a href="#">2</a> <a href="#">&gt;</a> <a href="#">&gt;|</a></div> -->
+    <div class="results">Showing {{pagination.startpage}} to {{pagination.topage}} of {{pagination.numberOfRecords}} items ({{pagination.numberOfPages}} Pages)</div>
+ </div>
+
+

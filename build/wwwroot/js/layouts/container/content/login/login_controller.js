@@ -10,7 +10,7 @@ define([ "application", "layouts/container/content/login/login_view",'commons/ui
 				view.render();
 				view.on("form:submit", function(data) {
 					$.ajax({
-						//url : REST_URL + 'user1/login?callback=jsonCallback',
+						//url : REST_URL + 'user/login?callback=jsonCallback',
 						url : '/login3',
 						crossDomain : true,
 					    contentType: 'application/json',

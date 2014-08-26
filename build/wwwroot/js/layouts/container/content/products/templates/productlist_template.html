@@ -1,17 +1,90 @@
+ <div id="column-left">
+       <div class="box">
+          	<div class="box-heading">Refine Search</div>
+          	<div class="box-content">
+            	<ul class="box-filter">
+              		<li><span id="filter-group">Price </span>
+                		<ul>
+                  			<li>
+                  			    {{#if filters.filter250}}
+                    			<input type="checkbox" value="0-250" id="filter" class="filter_search" checked/>
+                    			{{else}}
+                    			<input type="checkbox" value="0-250" id="filter" class="filter_search" />
+                    			{{/if}}
+                    			<label for="filter3">$0 - $250 ({{filters.recs000250}})</label>
+                  			</li>
+                  			<li>
+                  			    {{#if filters.filter500}}
+                    			<input type="checkbox" value="251-500" id="filter" class="filter_search" checked/>
+                    			{{else}}
+                    			<input type="checkbox" value="251-500" id="filter" class="filter_search"/>
+                    			{{/if}}
+                    			<label for="filter4">$251 - $500 ({{filters.recs251500}})</label>
+                  			</li>
+                  			<li>
+                  			    {{#if filters.filter750}}
+                    			<input type="checkbox" value="501-750" id="filter" class="filter_search" checked/>
+                    			{{else}}
+                    			<input type="checkbox" value="501-750" id="filter" class="filter_search"/>
+                    			{{/if}}
+                    			<label for="filter5">$501 - $750 ({{filters.recs501750}})</label>
+                  			</li>
+                  			<li>
+                  			    {{#if filters.filter1000}}
+                    			<input type="checkbox" value="751-1000" id="filter" class="filter_search" checked/>
+                    			{{else}}
+                    			<input type="checkbox" value="751-1000" id="filter" class="filter_search" />
+                    			{{/if}}
+                    			<label for="filter6">$751 - $1000({{filters.recs7511000}})</label>
+                  			</li>
+                  			
+                		</ul>
+              		</li>
+            	</ul>
+                <a id="button-filter" class="button">Refine Search</a> 
+            </div>
+        </div>
+        <!--Refine Search End-->
+        <!--Latest Product Start-->
+        <div class="box">
+        	<div class="box-heading">Latest</div>
+          	<div class="box-content">
+            	<div class="box-product">
+              		<div class="flexslider">
+                		<ul class="slides">
+                  			<li>
+                   	 			<div class="slide-inner">
+                      				<div class="image"><a href="product.html"><img src="assets/image/products/sony_vaio_1-45x45.jpg" alt="Friendly Jewelry" /></a></div>
+                      				<div class="name"><a href="product.html">Friendly Jewelry</a></div>
+                      				<div class="price">$1,177.00</div>
+                      				<div class="clear"></div>
+                    			</div>
+                  			</li>
+                  		</ul>
+              		</div>
+            	</div>
+            </div>
+        </div>
+</div>
 
+<div id="content">
+<a href="index.html">Home</a> &raquo; <a href="">{{pagination.catalogueName}}</a> 
+        <!--Breadcrumb Part End-->
+        <h1>{{pagination.catalogueName}}</h1>
 <div class="product-filter">
 	<div class="display">
-		<b>Display:{{pageNo}};</b> <span class="grid1-icon">Grid</span> <a
+		<b>Display:{{pageNo}}</b> <span class="grid1-icon">Grid</span> <a
 			href="category-list.html" class="list-icon">List</a>
 	</div>
 	<div class="limit" >
 		<b>Show:</b> <select id="byPageSize">
-			<option value="5" {{#ifequal pageSize 5}} selected{{/ifequal}}>5</option>
-			<option value="10" {{#ifequal pageSize 10}} selected{{/ifequal}}>10</option>
-			<option value="15" {{#ifequal pageSize 15}} selected{{/ifequal}}>15</option>
-			<option value="25" {{#ifequal pageSize 25}} selected{{/ifequal}}>25</option>
-			<option value="50" {{#ifequal pageSize 50}} selected{{/ifequal}}>50</option>
-			<option value="100" {{#ifequal pageSize 100}} selected{{/ifequal}}>100</option>
+		    <option value="3" {{#ifequal pagination.pageSize 3}} selected{{/ifequal}}>3</option>
+			<option value="5" {{#ifequal pagination.pageSize 5}} selected{{/ifequal}}>5</option>
+			<option value="10" {{#ifequal pagination.pageSize 10}} selected{{/ifequal}}>10</option>
+			<option value="15" {{#ifequal pagination.pageSize 15}} selected{{/ifequal}}>15</option>
+			<option value="25" {{#ifequal pagination.pageSize 25}} selected{{/ifequal}}>25</option>
+			<option value="50" {{#ifequal pagination.pageSize 50}} selected{{/ifequal}}>50</option>
+			<option value="100" {{#ifequal pagination.pageSize 100}} selected{{/ifequal}}>100</option>
 		</select>
 	</div>
 	<div class="sort">
@@ -31,7 +104,6 @@
 </div>
 
 <div class="product-grid">
-
 </div>
 
 
@@ -39,28 +111,40 @@
  <div class="pagination">
  	<div class="links">
         {{#if pagination.hasFirst}}
-		<a id='pagination.first'>|&lt;</a>
+			<!--  <a id='pagination.first'>|&lt;</a>-->
+			{{#first pagination.catalogueName pagination.pageSize pagination.channel}}
+				{{this}}
+			{{/first}}
 		{{else}}
-		<a class='disabled'>|&lt;</a>
+			<a class='disabled'>|&lt;</a>
 		{{/if}}
 		
 		{{#if pagination.hasPrevious}}
-        <a id="{{pagination.previous}}">&lt;</a> 
+        		<!--  <a id="{{pagination.previous}}">&lt;</a> -->
+        		{{#previous pagination.currentPage pagination.catalogueName pagination.pageSize pagination.channel}}
+				{{this}}
+			    {{/previous}}
         {{else}}
           <a class='disabled'>&lt;</a> 
         {{/if}}
- 		{{#times pagination.numberOfPages pagination.currentPage pagination.catalogueName pagination.pageSize}}
+ 		{{#times pagination.numberOfPages pagination.currentPage pagination.catalogueName pagination.pageSize pagination.channel}}
  		 {{this}}
 		{{/times}}
 		
 		{{#if pagination.hasNext}}
-		<a id={{pagination.next}}>&gt;</a> 
+			<!--  <a id={{pagination.next}}>&gt;</a> -->
+			{{#next pagination.currentPage pagination.catalogueName pagination.pageSize pagination.channel}}
+				{{this}}
+			{{/next}}
 		{{else}}
-		<a class='disabled'>&gt;</a> 
+			<a class='disabled'>&gt;</a> 
 		{{/if}}
 		
-		 {{#if pagination.hasLast}}
-		<a id='{{pagination.last}}'>&gt;|</a>
+		{{#if pagination.hasLast}}
+				<!--  <a id='{{pagination.last}}'>&gt;|</a>-->
+				{{#last pagination.numberOfPages pagination.catalogueName pagination.pageSize pagination.channel}}
+				{{this}}
+			   {{/last}}
 		{{else}}
 		<a class='disabled'>&gt;|</a>
 		{{/if}}
@@ -68,5 +152,7 @@
     <!-- <div class="links"> <b>1</b> <a href="#">2</a> <a href="#">&gt;</a> <a href="#">&gt;|</a></div> -->
     <div class="results">Showing {{pagination.startpage}} to {{pagination.topage}} of {{pagination.numberOfRecords}} items ({{pagination.numberOfPages}} Pages)</div>
  </div>
+ 
+ </div>
 
-
+ <div class="clear"></div>

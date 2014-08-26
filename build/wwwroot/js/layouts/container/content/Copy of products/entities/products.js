@@ -97,10 +97,10 @@ define(["application"], function(Mystore){
      });
   
 
-    var initializeHeaders = function(menuId,pageNumber,pageSize,channel){
+    var initializeHeaders = function(menuId,pageNumber,pageSize){
     	
     	//var url = REST_URL + "product/list/" + menuId + "/" + pageNumber +"/" + pageSize + "?callback=jsonCallback";
-    	var url = REST_URL + "product/productlist/" + menuId + "/" + pageNumber +"/" + pageSize + "/" + channel +"/" + "?callback=jsonCallback";
+    	var url = REST_URL + "product/productlist/" + menuId + "/" + pageNumber +"/" + pageSize + "?callback=jsonCallback";
     
     	//Entities.Collection = new Entities.Products({menuId:menuId});
     	Entities.Collection = new Entities.Products({url:url});
@@ -126,9 +126,9 @@ define(["application"], function(Mystore){
     
    
     var API = {
-      getHeaders: function(menuId,pageNumber,pageSize,channel){
+      getHeaders: function(menuId,pageNumber,pageSize){
     	 
-           Entities.Collection = initializeHeaders(menuId,pageNumber,pageSize,channel);
+           Entities.Collection = initializeHeaders(menuId,pageNumber,pageSize);
            Entities.Collection.fetch(
         		   {success:function(){
         			   console.info('fetching products collection from storagefffffff');
@@ -170,9 +170,9 @@ define(["application"], function(Mystore){
     
     };
 
-    Mystore.reqres.setHandler("products:entities", function(menuId,pageNumber,pageSize,channel){
+    Mystore.reqres.setHandler("products:entities", function(menuId,pageNumber,pageSize){
     	
-      return API.getHeaders(menuId,pageNumber,pageSize,channel);
+      return API.getHeaders(menuId,pageNumber,pageSize);
     });
     
     Mystore.reqres.setHandler("products:getProducts", function(menuId,pageNumber,pageSize){

@@ -1,8 +1,9 @@
 define([ "application",'handlebars' ,
          'utils/templateManager',
          'text!layouts/header/htop/links/login/templates/login_template.html',
+         'i18n!nls/locales',
          'layouts/container/content/login/login_app'
-         ], function(App,HandleBars,TemplateManager,tpl) {
+         ], function(App,HandleBars,TemplateManager,tpl,locales) {
 	
 	App.module("Login.View", function(View,App,Backbone, Marionette, $, _) {
 		
@@ -15,6 +16,12 @@ define([ "application",'handlebars' ,
 		
 		View.Login = Marionette.ItemView.extend({
 			template:TemplateManager.getTemplate(tpl),
+		
+			//template: function () {
+			//     var renderedTemplate = TemplateManager.getTemplate(tpl);
+			//     return  renderedTemplate(locales);
+		   // },
+		    
 			model : new View.LoginModel(),
 			className:'login',
 			tagName:'div',

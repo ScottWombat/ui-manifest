@@ -1,17 +1,43 @@
-define(['handlebars'], function (Handlebars) {
+define(['handlebars','i18next'], function (Handlebars,i18next) {
     //function addOn(context, options) {
     //    console.log(options.hash);
     //}
 //return new Handlebars.SafeString("<img src='" + src + "' title='" + groupName +  "' class='" + cssClass + "'/>");
-	Handlebars.registerHelper('times', function(n,current,catalogueName,pageSize, options) {
+	
+	Handlebars.registerHelper("i18n", function(key, options) {
+		return i18next.t(key, options.hash);
+		});
+	
+	Handlebars.registerHelper('first', function(catalogueName,pageSize,channel, options) {
+		
+		var first=1;
+		return new Handlebars.SafeString("<a class='" +channel + "' id='" + catalogueName + "/" + first + "/" + pageSize + "/" + channel +"'>" + '|<<' +"</a>");
+	}); 
+	
+	Handlebars.registerHelper('previous', function(current,catalogueName,pageSize, channel,options) {
+		var previous= current - 1;
+		return new Handlebars.SafeString("<a class='" + channel +"' id='" + catalogueName + "/" + previous + "/" + pageSize + "/" + channel +"'>" + "<" +"</a>");
+	});
+	
+	Handlebars.registerHelper('next', function(current,catalogueName,pageSize,channel, options) {
+		var next= current + 1;
+		return new Handlebars.SafeString("<a class='" + channel +"' id='" + catalogueName + "/" + next + "/" + pageSize + "/" + channel +"'>" + ">" +"</a>");
+	});
+	
+	Handlebars.registerHelper('last', function(numberOfPages,catalogueName,pageSize,channel, options) {
+		var last=numberOfPages;
+		return new Handlebars.SafeString("<a class='" + channel +"' id='" + catalogueName + "/" + last + "/" + pageSize + "/" + channel +"'>" + '>>|' +"</a>");
+	});
+	
+	Handlebars.registerHelper('times', function(n,current,catalogueName,pageSize,channel, options) {
 	    var accum = '';
 	    for(var i = 1; i < n+1; ++i){
 	    	 //accum += options.fn(i+1);
-	    	console.info(i +":" + current);
+	    	//console.info(i +":" + current);
 	    	if(i==current){
 	    		accum +=new Handlebars.SafeString("<b>" + i +"</b>");
 	    	}else{
-	    		accum +=new Handlebars.SafeString("<a class='paging' id='" + catalogueName + "/" + i + "/" + pageSize +"'>" + i +"</a>");
+	    		accum +=new Handlebars.SafeString("<a class='" + channel + "' id='" + catalogueName + "/" + i + "/" + pageSize + "/" + channel +"'>" + i +"</a>");
 	    	}
 	    }
 	       

@@ -1,4 +1,4 @@
-define(["application",'localstorage'], function(App){
+define(["application"], function(App){
   App.module("Entities", function(Entities, App, Backbone, Marionette, $, _){
     Entities.Language = Backbone.Model.extend({
     	 defaults : {
