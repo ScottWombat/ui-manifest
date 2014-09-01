@@ -10,6 +10,9 @@ define([ "application",'handlebars' ,
 			
 			template:TemplateManager.getTemplate(wishitem_tpl),
 			tagName : "li",
+			initialize:function(){
+				
+			},
 			events:{
 				"click h4 a.addItem" : "addItem",
 				"click h4 a.deleteItem" : "removeItem"
@@ -37,7 +40,7 @@ define([ "application",'handlebars' ,
 		itemView: View.Item,
 		initialize: function(options){
 			//alert("ViewITems");
-			//console.info(options.collection);
+			
 			 var items = this.model.get('items');
 			 this.collection = new Backbone.Collection(items);//options.collection;
 		},

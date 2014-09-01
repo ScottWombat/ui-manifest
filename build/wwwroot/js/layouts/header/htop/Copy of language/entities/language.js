@@ -1,10 +1,9 @@
-define(["application",'backbone.localStorage'], function(App){
+define(["application"], function(App){
   App.module("Entities", function(Entities, App, Backbone, Marionette, $, _){
     Entities.Language = Backbone.Model.extend({
-    	
     	 defaults : {
-             items   : [],
-             language  : ''
+             name   : '',
+             img  : ''
         },	
         initialize: function(){}
         
@@ -13,16 +12,14 @@ define(["application",'backbone.localStorage'], function(App){
     Entities.Languages = Backbone.Collection.extend({
       model: Entities.Language,
       url: REST_URL + "language/list?callback=jsonCallback",
-	  initialize: function(){},
-	  parse: function (response) {
+	    initialize: function(){
+	       // console.info("Languages initialize")
+	      
+	    },
+	    parse: function (response) {
 	        return response;
-	  }
+	    }
     });
-    
-    Entities.LanguageCollection = Backbone.Collection.extend({
-    	localStorage: new Backbone.LocalStorage("LanguagesLocalStorage"),
-    	model: Entities.Language
-    })
     
     Entities.UpdateLanguageModel = Backbone.Collection.extend({
         model: Entities.Language,
@@ -38,37 +35,24 @@ define(["application",'backbone.localStorage'], function(App){
 
 
     var initializeLanguages = function(){
-    	
-    	var languageCollection = new Entities.LanguageCollection([
-           {"items":[],
-                    // {"id":1,"selected":true,"name":"English","img":"en.png"},
-                    // {"id":2,"selected":false,"name":"Turkey","img":"tr.png"},
-                    // {"id":3,"selected":false,"name":"Thailand","img":"th.png"}
-                   // ],
-            "language":"language"
-           }
-    	]);
-    	
-    	languageCollection.each(function(model) {
-    	    model.save();
-    	});
-    	//return languageCollection;
     	return new Entities.Languages();
     };
     
     var initializeUpdateLanguage = function(name){
+        
     	Entities.Model = new Entities.UpdateLanguageModel({name:name});
     	return Entities.Model;
     };
     
+    
+   
     var API = {
       getLanguages: function(){
     	  
            Entities.Collection = initializeLanguages();
         
            Entities.Collection.fetch(
-        		   {success:function(data){
-        			   //console.info(data);
+        		   {success:function(){
         			   //console.info('Successfully fetching languages collection with size(' + Entities.Collection.length +')');
         		      
         		   },
@@ -76,7 +60,7 @@ define(["application",'backbone.localStorage'], function(App){
          		     // console.info('Error in fectching languages collection');
          		   }
            });     
-            
+       
           return Entities.Collection;
          
       },

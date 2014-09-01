@@ -91,17 +91,18 @@ require(['application','jquery','bootstrap','commons/custom',
 */
 
 
-require(['application','i18next','jquery','jquery-validate','bootstrap','commons/custom','commons/global','utils/handlebarsHelpers',
+require(['application','i18next','jquery','jquery-validate','bootstrap',
+         'commons/custom','commons/global','utils/handlebarsHelpers',
          'layouts/header/htop/language/language_app',
          'layouts/header/htop/currency/currency_app',
          'layouts/header/htop/links/links_app',
-         'layouts/header/htop/links/wishlist/wishlist_app',
+        // 'layouts/header/htop/links/wishlist/wishlist_app',
          'layouts/header/hsecond/search/search_app',
          'layouts/header/hsecond/cart/cart_app',
          'layouts/header/menu/menu_app',
          'layouts/container/content/slider/slider_app',
          'layouts/container/content/viewcart/viewcart_app',
-        // 'layouts/container/content/checkout/checkout_app',
+         //'layouts/container/content/checkout/checkout_app',
          'layouts/container/content/login/login_app',
          'layouts/container/content/signup/signup_app',
          'layouts/container/content/checkout/steps/steps_app'

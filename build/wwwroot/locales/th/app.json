@@ -3,5 +3,26 @@
     "button":"Next page",
     "input":"Input text",
     "second_input":"fffffffffff",
-    "Thailand":"ไทย"
+    "signin":"เข้าสู่ระบบ",
+    "youremail":"อีเมลของคุณ",
+    "yourpassword":"รหัสผ่านของคุณ",
+    "email":"อีเมล์",
+    "password":"รหัสผ่าน",
+    "cancel":"ยกเลิก",
+    "forgotpassword":"ลืมรหัสผ่าน?",
+    "search":"ค้นหา",
+    "items":"ชิ้น",
+    "Thailand":"ไทย",
+    "language":"ภาษา",
+    "currency":"เงินตรา",
+    "myaccount_link":"บัญชีของฉัน",
+    "wishlist_link":"รายการสินค้าที่ต้องการ",
+    "you_have":"คุณมี  ",
+    "items_on_your_wish_list":" รายการที่อยู่ในรายการสินค้าที่ต้องการของคุณ",
+    "login_link":"เข้าสู่ระบบ",
+    "contact_link":"ติดต่อ",
+    "myorder_link":"สั่งซื้อ",
+    "myorder_orderid":"สั่งซื้อ เลขที่",
+    "myorder_orderstatus":"ขั้นตอน"
+ 
 }

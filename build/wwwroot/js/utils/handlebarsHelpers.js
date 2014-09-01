@@ -4,9 +4,35 @@ define(['handlebars','i18next'], function (Handlebars,i18next) {
     //}
 //return new Handlebars.SafeString("<img src='" + src + "' title='" + groupName +  "' class='" + cssClass + "'/>");
 	
-	Handlebars.registerHelper("i18n", function(key, options) {
-		return i18next.t(key, options.hash);
-		});
+	//Handlebars.registerHelper('t1', function(i18n_key) {
+	//	  var result = i18n.t(i18n_key);
+		 
+	//	  return new Handlebars.SafeString(result);
+	//});
+	
+	Handlebars.registerHelper("i18n_e", function(options) {
+		//console.info("DDDDDDDDDDDD");
+		//console.info(options);
+		//if (key === undefined){
+			//key = defautname;
+		//}
+		//return i18next.t(key,options.hash);
+		 var key = options.hash.key;
+		 var defaultname = options.hash.defaultname;
+		 console.info(key +":" + defaultname);
+		 var result = i18next.t(defaultname,options.hash);
+		 console.info(result);
+		 return "result";
+	});
+	
+	Handlebars.registerHelper("i18n", function(key,options) {
+		console.info("i18n" + key);
+		//console.info(options);
+		//if (key === undefined){
+			//key = defautname;
+		//}
+		return i18next.t(key,options.hash);
+	});
 	
 	Handlebars.registerHelper('first', function(catalogueName,pageSize,channel, options) {
 		

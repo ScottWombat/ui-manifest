@@ -78,7 +78,7 @@ define([ "application",'handlebars' ,
 			},
 
 			onShow: function() {
-				this.htopRegion.show(this.viewHtop);	
+				//this.htopRegion.show(this.viewHtop);	
 				this.hsecondRegion.show(this.viewHsecond);
 				this.menuRegion.show(this.viewMenu);
 			}

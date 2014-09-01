@@ -1,27 +1,37 @@
 define(["application",'backbone.localStorage'], function(App){
   App.module("Entities", function(Entities, App, Backbone, Marionette, $, _){
-    Entities.Language = Backbone.Model.extend({
+    Entities.Checkout = Backbone.Model.extend({
     	
-    	 defaults : {
-             items   : [],
-             language  : ''
-        },	
+    	// defaults : {
+        //     items   : [],
+        //     language  : 'language'
+       // },	
         initialize: function(){}
         
     });
 
-    Entities.Languages = Backbone.Collection.extend({
-      model: Entities.Language,
-      url: REST_URL + "language/list?callback=jsonCallback",
+    Entities.Checkouts = Backbone.Collection.extend({
+      model: Entities.Checkout,
+     // url: REST_URL + "language/list?callback=jsonCallback",
+      url: REST_URL + "myorder/list?callback=jsonCallback",
 	  initialize: function(){},
 	  parse: function (response) {
 	        return response;
 	  }
     });
     
-    Entities.LanguageCollection = Backbone.Collection.extend({
-    	localStorage: new Backbone.LocalStorage("LanguagesLocalStorage"),
-    	model: Entities.Language
+    Entities.CheckoutCollection = Backbone.Collection.extend({
+    	localStorage: new Backbone.LocalStorage("CheckoutLocalStorage"),
+    	model: Entities.Checkout,
+    	initialize:function(){
+    		//this.localStorage.each(function(model) {
+    		 //     model.destroy();
+    		//    }
+    		//)
+    		localStorage.clear();
+    		//this.collection = options.collection;
+    		//this.localStorate = options.collection;
+    	}
     })
     
     Entities.UpdateLanguageModel = Backbone.Collection.extend({
@@ -37,23 +47,26 @@ define(["application",'backbone.localStorage'], function(App){
       });
 
 
-    var initializeLanguages = function(){
+    var initializeCheckouts = function(){
     	
-    	var languageCollection = new Entities.LanguageCollection([
-           {"items":[],
-                    // {"id":1,"selected":true,"name":"English","img":"en.png"},
-                    // {"id":2,"selected":false,"name":"Turkey","img":"tr.png"},
-                    // {"id":3,"selected":false,"name":"Thailand","img":"th.png"}
-                   // ],
+    	/*
+        var list=   {"items":[
+                     {"id":1,"selected":true,"name":"English","img":"en.png"},
+                     {"id":2,"selected":false,"name":"Turkey","img":"tr.png"},
+                     {"id":3,"selected":false,"name":"Thailand","img":"th.png"}
+                    ],
             "language":"language"
-           }
-    	]);
-    	
-    	languageCollection.each(function(model) {
+           };
+        var checkoutCollection = new Entities.CheckoutCollection();
+        //var checkoutCollection = new Entities.CheckoutCollection();
+        checkoutCollection.create({language:'language'})
+    	checkoutCollection.fetch();
+    	checkoutCollection.each(function(model) {
     	    model.save();
     	});
-    	//return languageCollection;
-    	return new Entities.Languages();
+    	*/
+    	//return checkoutCollection;
+        return new Entities.Checkouts();
     };
     
     var initializeUpdateLanguage = function(name){
@@ -62,9 +75,9 @@ define(["application",'backbone.localStorage'], function(App){
     };
     
     var API = {
-      getLanguages: function(){
+      getOrders: function(){
     	  
-           Entities.Collection = initializeLanguages();
+           Entities.Collection = initializeCheckouts();
         
            Entities.Collection.fetch(
         		   {success:function(data){
@@ -97,14 +110,10 @@ define(["application",'backbone.localStorage'], function(App){
       }
     };
 
-    App.reqres.setHandler("language:entities", function(){
-        return API.getLanguages();
+    App.reqres.setHandler("myorder:entities", function(){
+        return API.getOrders();
     });
-    App.reqres.setHandler("language:update", function(name){
-    	
-        return API.updateLanguage(name);
-    });
-    
+  
     
   });
 

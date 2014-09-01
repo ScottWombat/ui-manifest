@@ -10,7 +10,7 @@
             -->
             <div class="modal-body">
             <div class="row-fluid">
-             <p><h3 class="modal-title">&nbsp;Sign in</p>
+             <p><h3 class="modal-title">&nbsp;{{i18n 'signin'}}</p>
              </h3>
              </div>
                 <!-- ddd -->
@@ -23,19 +23,19 @@
 			                             <!--  <form data-toggle="validator" role="form">-->
 			                             <form>
 			                                 <div class="form-group">
-												<label for="email">Email</label>
+												<label for="email">{{i18n 'email'}}</label>
 												<div class="input-group">
 												<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-												<input id="email" name="email" class="email form-control" placeholder="Your Email" type="email" 
+												<input id="email" name="email" class="email form-control" placeholder="{{i18n 'youremail'}}" type="email" 
 												data-error="Bruh, that email address is invalid"
 												required >
 												</div>
 											</div>
 			                                <div class="form-group">
-													<label for="pwd">Password</label>
+													<label for="pwd">{{i18n 'password'}}</label>
 													<div class="input-group">
 													<span class="input-group-addon"><i class="fa fa-key"></i></span>
-													<input id="pwd" name="pwd" class="form-control" placeholder="Your Password" type="password" required >
+													<input id="pwd" name="pwd" class="form-control" placeholder="{{i18n 'yourpassword'}}" type="password" required >
 													</div>
 											</div>
 											<br/>
@@ -44,10 +44,10 @@
 			                 
 			                                <p><input type="password" class="form-control" name="passwd" placeholder="Password" required></p>
 			                                -->
-			                                <p><button type="submit" class="btn btn-primary js-submit">Sign in</button>&nbsp;<button type="submit" class="btn btn-primary js-cancel">Cancel</button></p>
+			                                <p><button type="submit" class="btn btn-primary js-submit">{{i18n 'signin'}}</button>&nbsp;<button type="submit" class="btn btn-primary js-cancel">{{i18n 'cancel'}}</button></p>
 			                                <p>
 			                                <a href="#forgotpassword" data-toggle="tab"  onMouseOver="this.style.color='#d45c93'"
-   														onMouseOut="this.style.color='#000'">Forgot Password?</a>
+   														onMouseOut="this.style.color='#000'">{{i18n 'forgotpassword'}}</a>
 			                                </p>
 			                              
 			                            </form>

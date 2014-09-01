@@ -5,11 +5,12 @@ define([ "application", 'handlebars', 'utils/templateManager',
 		'layouts/header/htop/links/wishlist/wishlist_view',
 		'layouts/header/htop/links/myaccount/myaccount_view',
 		'layouts/header/htop/links/contact/contact_view',
-		'layouts/header/htop/links/checkout/checkout_view',
-		'layouts/header/htop/links/wishlist/entities/wishlist'
+		'layouts/header/htop/links/myorder/myorder_view',
+		'layouts/header/htop/links/wishlist/entities/wishlist',
+		'layouts/header/htop/links/myorder/entities/myorder'
 		], function(App,
 		HandleBars, TemplateManager, tpl, LoginView, SignupView, WishlistView,
-		MyaccountView, ContactView, CheckoutView,CartView) {
+		MyaccountView, ContactView, MyOrderView,CartView) {
 
 	App.module("Links.View", function(View, App, Backbone, Marionette, $, _) {
 		View.LoginRegion = Marionette.Region.extend({
@@ -83,8 +84,8 @@ define([ "application", 'handlebars', 'utils/templateManager',
 				//console.log('regionManager received display:message');
 			}
 		});
-		View.CheckoutRegion = Marionette.Region.extend({
-			el : "#checkout",
+		View.MyOrderRegion = Marionette.Region.extend({
+			el : "#myorder",
 			initialize : function() {
 				//console.info('Initialize language region');
 				// this.viewLanguage= new LanguageLayout.Layout();
@@ -111,7 +112,7 @@ define([ "application", 'handlebars', 'utils/templateManager',
 				wishlistRegion : View.WishlistRegion,
 				myaccountRegion : View.MyaccountRegion,
 				contactRegion : View.ContactRegion,
-				checkoutRegion : View.CheckoutRegion
+				myorderRegion : View.MyOrderRegion
 
 			},
 			initialize : function() {
@@ -119,12 +120,20 @@ define([ "application", 'handlebars', 'utils/templateManager',
 				this.viewLogin = new LoginView.Login()
 				this.viewSignup = new SignupView.Signup();
 			
-				this.viewMyaccount = new MyaccountView.Myaccount();
-				this.viewContact = new ContactView.Contact();
-				this.viewCheckout = new CheckoutView.Checkout();
-				
 				var wCollection = App.request("wishitems:entities");
 				this.viewWishlist = new WishlistView.Wishlist({collection:wCollection});
+				
+				this.viewMyaccount = new MyaccountView.Myaccount();
+				this.viewContact = new ContactView.Contact();
+				
+				
+				var cCollection = App.request("myorder:entities");
+				console.info('cCollection');
+				console.info(cCollection);
+				this.viewMyorder = new MyOrderView.CheckoutLink({collection:cCollection});
+				
+				
+				//this.viewCheckout= new CheckoutView.CheckoutItemView1();
 				
 				
 
@@ -138,7 +147,7 @@ define([ "application", 'handlebars', 'utils/templateManager',
 				this.wishlistRegion.show(this.viewWishlist);
 				this.myaccountRegion.show(this.viewMyaccount);
 				this.contactRegion.show(this.viewContact);
-				this.checkoutRegion.show(this.viewCheckout);
+				this.myorderRegion.show(this.viewMyorder);
 			}
 
 		});

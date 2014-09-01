@@ -38,17 +38,9 @@ define([ "application",
 				
 				$.i18n.init(i18NOptions, function(t) {
 			    	  $(document).i18n(); 
-			    	 // $('#languages').i18n();
+			    	  $('.langlink').i18n();
 			    	  //Once the translations are loaded translate the whole document
-			    	
-			    	 App.start();
-			    	 // Backbone.history.loadUrl();
-			    	 // Backbone.history.navigate('#');
-			    	  //Backbone.history.start();
-			    	 // Backbone.history.stop()
-			    	  //Backbone.history.start()
-			    	 // Backbone.history.navigate('',{ trigger:true, replace: true });
-			    	  //location.reload();
+			    	  App.start();
 			    });
 			
 			},
@@ -81,13 +73,7 @@ define([ "application",
 		View.Languages = Marionette.CompositeView.extend({
 			template : TemplateManager.getTemplate(langs_tpl),
 			itemViewContainer : ".ullanguages",
-			
 			itemView : View.Language,
-			initialize: function(options){
-				
-				var items = this.model.get('items');
-				 this.collection = new Backbone.Collection(items);//options.collection;
-			},
 			events : {
 				"click span" : "navigate",
 				'mouseover span': "showLanguages",
@@ -132,17 +118,17 @@ define([ "application",
 		 });
 		
 		 View.Layout = Marionette.Layout.extend({
-			  //itemViewContainer : "#language",
+			  itemViewContainer : "#language",
 			  template : TemplateManager.getTemplate(container_tpl),
 		      regions: {
-		       languageRegion: View.LanguageRegion
+		        languageRegion: View.LanguageRegion
 		        
-		     },
+		      },
 		      initialize: function(options){
 		    	 // var languageCollection = App.request("language:entities");
 		    	  var languageCollection = options.languages;	    	  
-		    	 // this.viewLanguages = new View.Languages({collection:languageCollection});
-		    	  this.viewLanguages = new View.LanguageList({collection:languageCollection});
+		    	  this.viewLanguages = new View.Languages({collection:languageCollection});
+		    	 
 		    	 
 		      },
 		      onRender: function() {},
@@ -153,13 +139,6 @@ define([ "application",
 					
 			  }
 		      
-		});
-		 
-		 View.LanguageList = Marionette.CollectionView.extend({
-			 itemView : View.Languages,
-			 onRender:function(){
-					
-			}
 		});
 	 
 		

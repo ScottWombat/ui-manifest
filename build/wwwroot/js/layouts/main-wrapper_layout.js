@@ -57,10 +57,10 @@ define([ "application",'utils/templateManager',
 			},
 
 			onShow: function() {
-				//this.htopRegion.show(this.viewHtop);	
-				//this.hsecondRegion.show(this.viewHsecond);
-				//this.menuRegion.show(this.viewMenu);
-				//this.
+				this.htopRegion.show(this.viewHtop);	
+				this.hsecondRegion.show(this.viewHsecond);
+				this.menuRegion.show(this.viewMenu);
+			
 			}
 		});
 	 

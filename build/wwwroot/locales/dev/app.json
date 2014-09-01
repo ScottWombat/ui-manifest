@@ -1,7 +1,29 @@
 {
-"header":"English",
+    "header":"English",
     "button":"Next page",
     "input":"Input text",
     "second_input":"Another input text",
-      "Thailand":"Thailandd"
+    "signin":"Sign in",
+    "youremail":"Your email",
+    "yourpassword":"Your password",
+    "email":"Email",
+    "password":"Password",
+    "cancel":"Cancel",
+    "forgotpassword":"Forgot password?",
+    "search":"Search",
+    "items":"Item(s)",
+    "language":"Language",
+    "currency":"Currency",
+    "login_link":"Login",
+    "myaccount_link":"My Account",
+    "wishlist_link":"Wish List",
+    "you_have":"You have ",
+    "items_on_your_wish_list":" items on your wish list",
+    "contact_link":"Contact",
+    "myorder_link" :"My Order",
+    "myorder_orderid":"Order ID",
+    "myorder_orderstatus":"Status"
+ 
+    
+  
 }

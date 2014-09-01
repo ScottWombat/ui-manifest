@@ -9,6 +9,7 @@ define([ "application", "layouts/main-wrapper_controller" ], function(App,Contro
 		};
 
 		App.on("start", function() {
+			
 			API.layout();
 		});
 	});

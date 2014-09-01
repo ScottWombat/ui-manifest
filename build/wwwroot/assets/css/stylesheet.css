@@ -76,22 +76,31 @@ label {cursor: pointer;}
 
 #header .links div{ position: relative; float:left; line-height:30px; }
 
+/* htop wishlist */
 #header .htop .links #toplinks #wishlist div  ul{display:none;}
 #header .htop .links #toplinks #wishlist div  ul li{list-style: none;float: left; }
-
-
 #header .htop .links #toplinks #wishlist div:hover ul{
 	display:block;position:absolute; width:300px;top:30px; left:0; background:#fff; 
 	box-shadow:0 5px 10px 0 rgba(0, 0, 0, 0.25);border-bottom: 2px solid #fff;z-index:1030;
 }
-
 #header .htop .links #toplinks #wishlist div.active ul{
 	display:block;position:absolute; width:300px;top:30px; left:0; background:#fff; 
 	box-shadow:0 5px 10px 0 rgba(0, 0, 0, 0.25);border-bottom: 2px solid #fff;z-index:1030;
 }
-
 #header .links #wishlist a.active{background:#fff;color:#D45C93;box-shadow:0 10px 0 #fff, 0 0 10px #ccc;z-index:1030;}
 
+/* htop myorder */
+#header .htop .links #toplinks #myorder div  ul{display:none;}
+#header .htop .links #toplinks #myorder div  ul li{list-style: none;float: left; }
+#header .htop .links #toplinks #myorder div:hover ul{
+	display:block;position:absolute; width:300px;top:30px; left:0; background:#fff; 
+	box-shadow:0 5px 10px 0 rgba(0, 0, 0, 0.25);border-bottom: 2px solid #fff;z-index:1030;
+}
+#header .htop .links #toplinks #myorder div.active ul{
+	display:block;position:absolute; width:300px;top:30px; left:0; background:#fff; 
+	box-shadow:0 5px 10px 0 rgba(0, 0, 0, 0.25);border-bottom: 2px solid #fff;z-index:1030;
+}
+#header .links #myorder a.active{background:#fff;color:#D45C93;box-shadow:0 10px 0 #fff, 0 0 10px #ccc;z-index:1030;}
 
 /*
 #header .htop .links #toplinks .mini-cart-info ul{display:none;}
