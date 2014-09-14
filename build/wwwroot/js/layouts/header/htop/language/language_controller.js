@@ -8,13 +8,7 @@ define(["application",
 	  Language.Controller = {
 			  addLayout: function(){
 				 var languageCollection = App.request("language:entities");  
-				 
-				 console.info('ddd');
-				 console.info(languageCollection)
-				 // var languageCollection ={"items":[{"id":1,"selected":true,"name":"English","img":"en.png"},{"id":2,"selected":true,"name":"Turkey","img":"tr.png"},{"id":3,"selected":false,"name":"Thailand","img":"th.png"}],"language":"language"};
-    			 //var languageCollection = new Language.Model({"items":[{"id":1,"selected":true,"name":"English","img":"en.png"},{"id":2,"selected":true,"name":"Turkey","img":"tr.png"},{"id":3,"selected":false,"name":"Thailand","img":"th.png"}],"language":"language"});
-				//  var layout = new LanguageLayout.Layout({languages:languageCollection});
-				var layout = new LanguageLayout.LanguageList({collection:languageCollection});
+				 var layout = new LanguageLayout.LanguageList({collection:languageCollection});
     			 App.languageRegion.show(layout);
 			  },
 			  updateLanguage:function(name){

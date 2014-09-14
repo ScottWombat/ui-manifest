@@ -1,7 +1,9 @@
 define([ "application",'handlebars' ,
          'utils/templateManager',
-        // 'text!layouts/header/htop/links/signup/templates/signup_template.html'
-         'text!layouts/header/htop/links/login/templates/login_template.html'
+         'text!layouts/header/htop/links/signup/templates/signup_template.html',
+         'i18n!nls/locales',
+          'i18next'
+         //'text!layouts/header/htop/links/login/templates/login_template.html'
          ], function(App,HandleBars,TemplateManager,tpl) {
 	
 	App.module("Signup.View", function(View,App,Backbone, Marionette, $, _) {
@@ -20,7 +22,7 @@ define([ "application",'handlebars' ,
 			className:'login',
 			tagName:'div',
 			initialize:function(){
-				
+				//alert('ddd')
 			},
 			
 			modelEvents: {

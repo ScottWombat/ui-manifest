@@ -101,7 +101,6 @@ define(["application"], function(Mystore){
     	
     	//var url = REST_URL + "product/list/" + menuId + "/" + pageNumber +"/" + pageSize + "?callback=jsonCallback";
     	var url = REST_URL + "product/productlist/" + menuId + "/" + pageNumber +"/" + pageSize + "/" + channel +"/" + "?callback=jsonCallback";
-    
     	//Entities.Collection = new Entities.Products({menuId:menuId});
     	Entities.Collection = new Entities.Products({url:url});
     	console.info(Entities.Collection);
@@ -124,6 +123,18 @@ define(["application"], function(Mystore){
     	return Entities.Collection;
     }
     
+    var initializeProductsByBrand=function(key,pageNumber,pageSize){
+    	var url = REST_URL + "product/productsByBrand/"+ key + "/" + pageNumber +"/" + pageSize + "?callback=jsonCallback";
+    	Entities.Collection = new Entities.Products({url:url});
+    	return Entities.Collection;
+    }
+    
+    var initializeSearchProducts=function(key,pageNumber,pageSize){
+    	var url = REST_URL + "product/searchProduct/"+ key + "/" + pageNumber +"/" + pageSize + "?callback=jsonCallback";
+    	Entities.Collection = new Entities.Products({url:url});
+    	return Entities.Collection;
+    }
+    
    
     var API = {
       getHeaders: function(menuId,pageNumber,pageSize,channel){
@@ -138,7 +149,8 @@ define(["application"], function(Mystore){
          		      //console.info('error populating data');
          		   }
          });     
-       
+           console.info('productsByMenu');
+           console.info(Entities.Collection);
         return Entities.Collection;
       },
       getProducts: function(menuId,pageNumber,pageSize){
@@ -157,23 +169,47 @@ define(["application"], function(Mystore){
         return Entities.Collection;
        },
        getPagination:function(menuId,pageSize){
-    	  
-    	   
            var pagination = initializePagination(menuId,pageSize);
-           
-    	  
     	   return pagination;
-    	   
-    	   
+       },
+       getProductsByBrand:function(key,pageNumber,pageSize,channel){
+    	   Entities.Collection = initializeProductsByBrand(key,pageNumber,pageSize,channel)
+    	   Entities.Collection.fetch(
+        		   {success:function(){
+        			   console.info('fetching bradn products collection from storag');
+        		      //console.info('collection size:'+Entities.Collection.length)
+        		   },
+        		   error:function(){
+         		      //console.info('error populating data');
+         		   }
+           });     
+    	 //  console.info('productsBybrand');
+         //  console.info(Entities.Collection);
+        return Entities.Collection;
+       },
+       searchProducts:function(key,pageNumber,pageSize,channel){
+    	   Entities.Collection = initializeSearchProducts(key,pageNumber,pageSize,channel)
+    	   Entities.Collection.fetch(
+        		   {success:function(){
+        			   console.info('fetching bradn products collection from storag');
+        		      //console.info('collection size:'+Entities.Collection.length)
+        		   },
+        		   error:function(){
+         		      //console.info('error populating data');
+         		   }
+           });     
+    	   return Entities.Collection;
        }
     
     
     };
 
     Mystore.reqres.setHandler("products:entities", function(menuId,pageNumber,pageSize,channel){
-    	
       return API.getHeaders(menuId,pageNumber,pageSize,channel);
     });
+    Mystore.reqres.setHandler("products:entitiesByBrand", function(key,pageNumber,pageSize,channel){
+        return API.getProductsByBrand(key,pageNumber,pageSize,channel);
+      });
     
     Mystore.reqres.setHandler("products:getProducts", function(menuId,pageNumber,pageSize){
         return API.getProducts(menuId,pageNumber,pageSize);
@@ -183,7 +219,9 @@ define(["application"], function(Mystore){
         return API.getPagination(menuId,pageSize);
     });
     
-    
+    Mystore.reqres.setHandler("products:search", function(key,pageNumber,pageSize,chanel){
+        return API.searchProducts(key,pageNumber,pageSize);
+    });
     
   });
 

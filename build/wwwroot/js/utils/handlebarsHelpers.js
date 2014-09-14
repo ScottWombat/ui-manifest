@@ -130,7 +130,7 @@ define(['handlebars','i18next'], function (Handlebars,i18next) {
    }
     
     function ifequal(lvalue, rvalue, options) {
-    	console.info(lvalue +":"+rvalue);
+    	
     	 if (arguments.length < 3)
              throw new Error("Handlebars Helper ifequal needs 2 parameters");
          if( lvalue!=rvalue ) {

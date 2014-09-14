@@ -1,26 +1,43 @@
-<a id='#{{menu}}' href="#">{{menu}}</a>
+<a id='#{{menu}}' href="#">{{i18n menu}}</a>
 
-<div>
-    <div class="column">
-          <a id='#{{menu}}' href="#{{menu}}">{{menu}}</a>
+<div >
+    <div class="column" style="float:left">
+          <a id='#{{menu}}' href="#{{menu}}">{{i18n menu}}</a>
           <div>
 					<ul>
 					 {{#each item}}
-    						<li><a id='{{this}}' href="#{{menu}}">{{this}}</a></li>
+    						<li><a id='{{this}}' href="#{{menu}}">{{i18n this}}</a></li>
   					  {{/each}}
 						
 					</ul>
 		  </div>
-		
+		  
 	</div>
-	<div class="column">
-          <a href="#brands">Brands</a>
+	<div class="column" style="float:left">
+          <a href="#brands">{{i18n 'brands'}}</a>
           <div>
 					<ul>
-					
-    						<li><image src="assets/image/brands/apple.jpg"></li>
-  					  		<li><image src="assets/image/brands/ibm.jpg"></li>
-						
+							 {{#each brands}}
+							
+							  <li style="display: inline;"><img src="assets/image/products/{{this}}.jpg" style="float:left;margin:6px" id="brandImg" name='{{this}}'></img></li>
+							 {{/each}}
+							 <!-- 
+							  <li style="display: inline;"><image src="assets/image/products/{{this}}.jpg" float:left:margin:2px"></image></li>
+							  
+    						<li style="float:left;margin: 5px;"><image src="assets/image/electronics/logo/apple.jpg"></li>
+  					  		<li style="float:left;margin: 5px;"><image src="assets/image/electronics/logo/ibm.jpg"></li>
+  					  		<li style="float:left;margin: 5px;"><image src="assets/image/electronics/logo/acer.jpg"></li>
+  					  		<li style="float:left;margin: 5px;"><image src="assets/image/electronics/logo/alcatel.jpg"></li>
+  					  		<li style="float:left;margin: 5px;"><image src="assets/image/electronics/logo/asus.jpg"></li>
+  					  		<li style="float:left;margin: 5px;"><image src="assets/image/electronics/logo/fujitsu.jpg"></li>
+  					  		<li style="float:left;margin: 5px;"><image src="assets/image/electronics/logo/nokia.jpg"></li>
+  					  		<li style="float:left;margin: 5px;"><image src="assets/image/electronics/logo/samsung.jpg"></li>
+						    <li style="float:left;margin: 5px;"><image src="assets/image/electronics/logo/lg.jpg"></li>
+						    <li style="float:left;margin: 5px;"><image src="assets/image/electronics/logo/blackberry.jpg"></li>
+						    <li style="float:left;margin: 5px;"><image src="assets/image/electronics/logo/dell.jpg"></li>
+						     <li style="float:left;margin: 5px;"><image src="assets/image/electronics/logo/motorola.jpg"></li>
+						     <li style="float:left;margin: 5px;"><image src="assets/image/electronics/logo/hp.jpg"></li>
+						      -->
 					</ul>
 		  </div>
 		

@@ -2,15 +2,16 @@ define([ "application",'handlebars' ,
          'utils/templateManager',
          'text!layouts/header/htop/currency/templates/currency_template.html',
          'text!layouts/header/htop/currency/templates/currencies_template.html',
-         'text!layouts/header/htop/currency/templates/container_template.html'
-         ], function(App,HandleBars,TemplateManager,lang_tpl,langs_tpl,container_tpl) {
+         'text!layouts/header/htop/currency/templates/container_template.html',
+         'i18n!nls/locales','i18next'
+         ], function(App,HandleBars,TemplateManager,curr_tpl,currs_tpl,container_tpl) {
 	
 	App.module("Currency.View", function(View,App,Backbone, Marionette, $, _) {
 		/************* Language view ************************/
 		
 		View.Currency = Marionette.ItemView.extend({
 			
-			template : TemplateManager.getTemplate(lang_tpl),
+			template : TemplateManager.getTemplate(curr_tpl),
 			tagName : "li",
 			
 			events : {
@@ -35,9 +36,14 @@ define([ "application",'handlebars' ,
 		});
 		
 		View.Currencies = Marionette.CompositeView.extend({
-			template : TemplateManager.getTemplate(langs_tpl),
+			template : TemplateManager.getTemplate(currs_tpl),
 			itemViewContainer : ".ulCurrencies",
 			itemView : View.Currency,
+            initialize: function(options){
+				
+				var items = this.model.get('items');
+				 this.collection = new Backbone.Collection(items);//options.collection;
+			},
 			events : {
 				"click span" : "navigate",
 				'mouseover span': "showCurrencies",
@@ -47,6 +53,7 @@ define([ "application",'handlebars' ,
 			},
 			showCurrencies:function(e){
 				e.preventDefault();
+				//alert('kkk');
 				$('#currency ul').css({"display":"block"});
 				$('#currency ul').addClass("active");
 			},
@@ -113,6 +120,8 @@ define([ "application",'handlebars' ,
 			  }
 		      
 		});
+		 
+		
 		
 	 
 		

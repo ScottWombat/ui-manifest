@@ -27,14 +27,16 @@ define(["application",'utils/templateManager',
     	  productRegion: '#container'
       },
       initialize: function(options){
+    	 // var productCollection = options.products;
+    	//  var menuId = options.menuId;
+    	//  var brand = options.brand;
+    	//  var action = options.action;
     	  
-    	  var productCollection = options.products;
-    	  var menuId = options.menuId;
-    	 // this.leftPanelView = new View.LeftPanel({menuId:menuId});
-    	//  this.productListView = new View.ProductList();
-    	  //this.productPanelView = new View.ProductContentLayout({products:productCollection,menuId:menuId});
-    	  
-    	  this.grid1 = new View.ProductList({menuId:menuId});
+    	 
+    	  this.grid1 = new View.ProductList({request:options.request,key:options.key});
+    	 // console.info("Grid");
+    	 // console.info(this.grid1.collection.products);
+    	  //this.grid1 = new View.ProductList({menuId:menuId});
       	 },
       	 onRender: function() {
       	//	this.leftPanelRegion.show(this.leftPanelView);
@@ -103,7 +105,6 @@ define(["application",'utils/templateManager',
     	 template: TemplateManager.getTemplate(pro_filter_tpl),
     	 model: new View.ProductFilterModel(),
     	 initialize:function(options){
-    		 
     		 this.menuId = options.menuId;
     		 //this.collection=options.collection;
     	 }
@@ -133,6 +134,7 @@ define(["application",'utils/templateManager',
 		},
 		addWishlistItem:function(e){
 			e.preventDefault();
+			
 			App.trigger("wishitems:addItem", this.model.id);
 		}
    });
@@ -166,18 +168,14 @@ define(["application",'utils/templateManager',
 				        var splitthevalue = thevalue.split('-');
 				        params += '&' + 'filter'+splitthevalue[1]+ '=' + thevalue;
 			 });
-			// console.info('doFilter');
-			// console.info(params);
+			
 			 var pagination =this.model.get('pagination');
-			// console.info(pagination);
-			// console.info(pagination.catalogueName);
-			// console.info(pagination.pageSize);
+			
 			 var url = REST_URL + "product/filter?" + "catalogueName=" + pagination.catalogueName + "&pageNumber=" + pagination.currentPage
 			           + "&pageSize=" + pagination.pageSize + params;   
 			 var _that =this;
 			$.getJSON(url,function(result) {
-				    console.info("DD");
-					console.info(result);
+				   
 					 _that.collection = new Backbone.Collection(result.products)
 	 				   _that.model.set('pagination',result.pagination);
 					  _that.model.set('filters',result.filters);
@@ -256,8 +254,8 @@ define(["application",'utils/templateManager',
 				var _that =this;
 				
 				$.getJSON(url,function(result) {
-				    console.info("DD");
-					console.info(result);
+				   // console.info("DD");
+					//console.info(result);
 					 _that.collection = new Backbone.Collection(result.products)
 	 				   _that.model.set('pagination',result.pagination);
 					  _that.model.set('filters',result.filters);
@@ -272,9 +270,12 @@ define(["application",'utils/templateManager',
 			
 		 },
       	 initialize: function(options){
-      		console.info("initialize product grid");
+      		
       		
 			var items = this.model.get('products');
+			//console.info("initialize product grid");
+			//console.info(items)
+			//console.info("END");
 			this.collection = new Backbone.Collection(items);
       	 }
     });
@@ -285,17 +286,32 @@ define(["application",'utils/templateManager',
     	channel:'paging',
 		itemView : View.ProductGrid,
 		initialize:function(options){
-			this.menuId = options.menuId;
-			 var productCollection = App.request("products:entities",this.menuId,this.pageNo,this.pageSize,this.channel);   
+			
+			 //var productCollection = App.request("products:entities",this.menuId,this.pageNo,this.pageSize,this.channel);   
+			 var productCollection = App.request(options.request,options.key,this.pageNo,this.pageSize,this.channel);   	 
 			 this.collection= productCollection;
-			//console.info("initialize product collection view");
-		},
-		
-		onRender:function(){
+			
 			
 		}
+		
 	});
-       
+    /*
+    View.ProductListByBrand= Marionette.CollectionView.extend({
+    	pageNo:1,
+    	pageSize:5,
+    	channel:'paging',
+    	itemView : View.ProductGrid,
+    	initialize:function(options){
+    		// this.catalogueName= options.catalogueName;
+			// this.brand = options.brand;
+    		 this.brand = options.key;
+			 var productCollection = App.request("products:entitiesByBrand",this.brand,this.pageNo,this.pageSize,this.channel);   
+			 this.collection= productCollection;
+			 console.info('con');
+			 console.info(this.collection)
+    	}
+    });
+    */
    
     
    

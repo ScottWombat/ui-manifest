@@ -23,9 +23,11 @@ define([ "application", "layouts/header/htop/links/wishlist/wishlist_controller"
 		
 
 		App.on("wishitems:addItem", function(id){
+			
 		     API.addItem(id);
 		});
 		App.on("wishitems:addItemToCart", function(id){
+			
 		     API.addItemToCart(id);
 		});
 		App.on("wishitems:removeItem", function(id){

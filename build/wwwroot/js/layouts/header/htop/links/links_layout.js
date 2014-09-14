@@ -128,8 +128,8 @@ define([ "application", 'handlebars', 'utils/templateManager',
 				
 				
 				var cCollection = App.request("myorder:entities");
-				console.info('cCollection');
-				console.info(cCollection);
+				//console.info('cCollection');
+				//console.info(cCollection);
 				this.viewMyorder = new MyOrderView.CheckoutLink({collection:cCollection});
 				
 				

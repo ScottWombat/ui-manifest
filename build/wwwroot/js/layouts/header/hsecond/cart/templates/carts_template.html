@@ -43,7 +43,13 @@
  <h4>
 <img alt="" src="assets/image/cart/cart-bg.png" width="32" height="32" style="mar">
 </h4> 
-<span id="cart-total" style="margin: 5px;display: inline-block;">{{items}} item(s) </span>
+<span id="cart-total" style="margin: 5px;display: inline-block;">
+ {{#if author}}
+	{{items}} item(s) 
+ {{else}}
+ You have 0 item
+ {{/if}}
+</span>
         
 </span>
   </div>

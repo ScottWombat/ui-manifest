@@ -18,7 +18,6 @@ define([ "application",'layouts/header/menu/menu_controller',
 		};
 
 		App.on("start", function() {
-		
 			API.layout();
 		});
 		/*

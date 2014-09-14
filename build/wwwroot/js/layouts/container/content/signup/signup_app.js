@@ -11,7 +11,7 @@ define([ "application", "marionette",'commons/custom' ], function(App, Marionett
 			require([ "layouts/container/content/signup/signup_controller"], function(Controller) {
 				App.startSubApp(null);
 				//loginController.showLogin(model);
-				alert("signup app");
+				//alert("signup app");
 				Controller.showSignup(model);
 				
 			});
@@ -22,8 +22,8 @@ define([ "application", "marionette",'commons/custom' ], function(App, Marionett
 	   
 
 	App.on("trigger:signup", function(model) {
-	    alert(model);
-		App.navigate("signup");
+	   // alert(model);
+		//App.navigate("signup");
 		API.showSignup(model);
 		
 	});

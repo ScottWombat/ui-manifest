@@ -10,6 +10,7 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=0" />
 
+
 <link rel="stylesheet" href="js/libs/bootstrap/css/bootstrap.css">
 <link rel="stylesheet" href="js/libs/bootstrap/css/bootstrap-theme.css">
 <!-- 
@@ -30,12 +31,14 @@
 
 <link rel="stylesheet" href="assets/css/stylesheet.css"> 
 
-
 <script src="js/libs/spinner/spin.min.js"></script>
 <script src="js/libs/modernizr/modernizr-2.6.2.min.js"></script>
 <script src="js/libs/require/require.js" data-main="js/main.js"></script>
 <script src="js/commons/requireJsError.js"></script>
 
+ 
+ <!--  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">-->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/redmond/jquery-ui.css">
 </head>
 
 <body>
@@ -70,7 +73,7 @@
      		     <!-- <section class="slider-wrapper"></section>-->
                 <div id="loading"></div>
      			<section class="maincontent"></section>
-     			<div class="welcome">Welcome to Manifest</div>
+     			<div class="welcome" data-i18n='welcome'>{{i18n 'welcome'}}</div>
      			<p>
 					<strong>Manifest</strong>
 					Premium Responsive HTML Template. Manifest is a clean and Fully Responsive to use the template for every kind of eCommerce online shop. Great Looks on Desktops, Tablets and Mobiles. Well Documented. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,

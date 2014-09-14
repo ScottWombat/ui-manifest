@@ -12,7 +12,7 @@ define(["application",'backbone.localStorage'], function(App){
 
     Entities.Currencies = Backbone.Collection.extend({
       model: Entities.Currency,
-      localStorage: new Backbone.LocalStorage("localCurrencies"),
+     // localStorage: new Backbone.LocalStorage("localCurrencies"),
       url: REST_URL + "currency/list?callback=jsonCallback",
      
 	  initialize: function(){

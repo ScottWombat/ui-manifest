@@ -5,7 +5,10 @@ define(["application",
 	  Currency.Controller = {
 			  addLayout: function(){
 				 var currencyCollection = App.request("currency:entities");   
-				 this.layout = new CurrencyLayout.Layout({currencies:currencyCollection});
+				 //console.info('ddd');
+				// console.info(currencyCollection);
+				// this.layout = new CurrencyLayout.Layout({currencies:currencyCollection});
+				 this.layout = new CurrencyLayout.CurrenciesView({collection:currencyCollection});
 	    		 App.currencyRegion.show(this.layout);
 			  },
 			  updateCurrency:function(name1){

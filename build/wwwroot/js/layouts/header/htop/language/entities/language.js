@@ -19,10 +19,10 @@ define(["application",'backbone.localStorage'], function(App){
 	  }
     });
     
-    Entities.LanguageCollection = Backbone.Collection.extend({
-    	localStorage: new Backbone.LocalStorage("LanguagesLocalStorage"),
-    	model: Entities.Language
-    })
+   // Entities.LanguageCollection = Backbone.Collection.extend({
+    //	localStorage: new Backbone.LocalStorage("LanguagesLocalStorage"),
+    //	model: Entities.Language
+   // })
     
     Entities.UpdateLanguageModel = Backbone.Collection.extend({
         model: Entities.Language,
@@ -39,19 +39,19 @@ define(["application",'backbone.localStorage'], function(App){
 
     var initializeLanguages = function(){
     	
-    	var languageCollection = new Entities.LanguageCollection([
-           {"items":[],
+    	//var languageCollection = new Entities.LanguageCollection([
+         //  {"items":[],
                     // {"id":1,"selected":true,"name":"English","img":"en.png"},
                     // {"id":2,"selected":false,"name":"Turkey","img":"tr.png"},
                     // {"id":3,"selected":false,"name":"Thailand","img":"th.png"}
                    // ],
-            "language":"language"
-           }
-    	]);
+          //  "language":"language"
+           //}
+    	//]);
     	
-    	languageCollection.each(function(model) {
-    	    model.save();
-    	});
+    	//languageCollection.each(function(model) {
+    	//    model.save();
+    	//});
     	//return languageCollection;
     	return new Entities.Languages();
     };

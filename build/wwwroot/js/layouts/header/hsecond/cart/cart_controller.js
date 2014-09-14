@@ -8,6 +8,8 @@ define([ "application", 'layouts/header/hsecond/cart/cart_view',
 					addLayout : function() {
 
 						var cartCollection = App.request("cart:entities");
+						console.info("DD");
+						console.info(cartCollection);
 						$.when(cartCollection).done(function(cCollection) {
 							var cartview = new CartView.Carts({
 								collection : cartCollection
@@ -48,12 +50,13 @@ define([ "application", 'layouts/header/hsecond/cart/cart_view',
 						$('#loading').hide();
 						$('#loading').fadeIn( 1800 );
 
-						var newCollection = App.request("cart:entities:update",
-								id);
-
+						var newCollection = App.request("cart:entities:update",id);
+                        console.info("cartCollection");
+                        console.info(newCollection);
 						var that = this;
 						$.when(newCollection).done(function(cartCollection) {
-							
+							console.info('cartCollection');
+							console.info(cartCollection);
 							$('#loading').fadeOut( 1800 );
 
 							var cartView = new CartView.Carts({

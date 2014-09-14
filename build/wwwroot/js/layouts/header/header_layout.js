@@ -69,6 +69,8 @@ define([ "application",'handlebars' ,
 				this.viewHtop = new Htop.Layout();
 				this.viewHsecond = new Hsecond.Layout();
 				var catalogueCollection = App.request("catalogues:entities");
+				console.info("CatalogueCollection");
+				console.info(catalogueCollection);
 				this.viewMenu = new Menu.Catalogues({collection:catalogueCollection});
 	    	  
 			},

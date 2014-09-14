@@ -40,7 +40,7 @@ define([ "application",'handlebars' ,
 	    	}
 	    
 	    });
-		
+		/*
 		View.SupportedRegion = Marionette.Region.extend({
 	    	el: "#supoorted",
 	    	initialize: function(){
@@ -55,7 +55,7 @@ define([ "application",'handlebars' ,
 	    	}
 	    
 	    });
-		
+		*/
 		View.LinksRegion = Marionette.Region.extend({
 	    	el: ".links",
 	    	initialize: function(){
@@ -87,18 +87,20 @@ define([ "application",'handlebars' ,
 			},
 			initialize: function(){
 				//var languageCollection = App.request("language:entities");
-				var languageCollection ={"items":[{"id":1,"selected":true,"name":"English","img":"en.png"},{"id":2,"selected":true,"name":"Turkey","img":"tr.png"},{"id":3,"selected":false,"name":"Thailand","img":"th.png"}],"language":"language"};
-				console.info('dd');
-				console.info(languageCollection);
+				var languageCollection ={"items":[{"id":1,"selected":true,"name":"English1","img":"en.png"},{"id":2,"selected":true,"name":"Turkey","img":"tr.png"},{"id":3,"selected":false,"name":"Thailand","img":"th.png"}],"language":"language"};
+				//console.info('dd');
+				//console.info(languageCollection);
 				//this.viewLanguages= new LanguageView.Languages({collection:languageCollection});
 				this.viewLanguages= new LanguageView.LanguageList({model:languageCollection});
 				
 				var currencyCollection = App.request("currency:entities");
-				this.viewCurrencies= new CurrencyView.Currencies({collection:currencyCollection});
+				//this.viewCurrencies= new CurrencyView.Currencies({collection:currencyCollection});
+				
+				this.viewCurrencies= new CurrencyView.CurrenciesView({collection:currencyCollection});
 				
 				this.viewLinks = new LinksView.LinksLayout();
 				
-				this.viewSupported = new SupportedView.Support();
+				//this.viewSupported = new SupportedView.Support();
 		
 	    	  
 			},

@@ -13,6 +13,7 @@ define([ "application",'handlebars' ,
 				
 				events : {
 					"click a" : "navigate",
+					"click #brandImg": "doImageClick",
 					'mouseover a': 'mouseOver'
 				},
 				
@@ -20,15 +21,25 @@ define([ "application",'handlebars' ,
 					e.preventDefault();
 					e.stopPropagation();
 					var menuId = $(e.currentTarget).attr('id');
-					//alert("Menu_Layout.js:"+menuId);
+					
 					$('.categories_hor  > div > .column ').css({"display":"none"});
 					this.trigger("menu:navigate",menuId,menuId);
 					
 				},
-				mouseOver : function(){
-					//e.preventDefault();
-					//e.stopPropagation();
-				
+				doImageClick:function(e){
+					e.preventDefault();
+					var name = $(e.currentTarget).attr('name');
+					var tarr = name.split('/');      
+					var catName = tarr[0];
+					var brand = tarr[tarr.length-1]; 
+					var key = catName +"/"+brand;
+					
+					$('.categories_hor  > div > .column ').css({"display":"none"});
+					this.trigger("menu:brandClick",key,key);
+				},
+				mouseOver : function(e){
+					e.preventDefault();
+					
 					$('.categories_hor > div > .column').css({"display":"block"});
 				},
 				onRender : function() {

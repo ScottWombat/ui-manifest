@@ -56,10 +56,10 @@ define([ "application",
 				initialize: function(){
 					this.viewSearch= new SearchView.Search();
 					
-				var cartCollection = App.request("cart:entities");
-				this.viewCart = new CartView.Carts({collection:cartCollection});
-				 CartApp.getView(this.viewCart);
-				 // console.info(this.viewCart);
+				    var cartCollection = App.request("cart:entities");
+				    this.viewCart = new CartView.Carts({collection:cartCollection});
+				    CartApp.getView(this.viewCart);
+				    // console.info(this.viewCart);
 		    	  
 				},
 				onRender: function() {},
